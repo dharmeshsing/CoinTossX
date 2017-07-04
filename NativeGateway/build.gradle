@@ -1,0 +1,44 @@
+plugins {
+    id 'me.champeau.gradle.jmh' version '0.2.0'
+}
+
+apply plugin: 'me.champeau.gradle.jmh'
+apply from: rootProject.projectDir.absolutePath + '/install.gradle'
+mainClassName = 'gateway.incoming.NativeGateway'
+
+applicationDefaultJvmArgs = ["-Xmx1G",
+                             "-Xms1G",
+                             "-d64",
+                             "-server",
+                             "-XX:+UseStringDeduplication",
+                             "-Dagrona.disable.bounds.checks=true",
+                             "-XX:+UnlockDiagnosticVMOptions",
+                             "-XX:GuaranteedSafepointInterval=300000",
+                             "-XX:+UseG1GC",
+                             "-XX:+UseLargePages",
+                             "-XX:+OptimizeStringConcat",
+                             "-XX:+UseCondCardMark"]
+
+dependencies {
+    compile 'org.apache.commons:commons-lang3:3.0',
+            'commons-configuration:commons-configuration:1.7',
+            'org.apache.commons:commons-csv:1.1',
+            'org.hdrhistogram:HdrHistogram:2.1.6',
+            project(':Messages'),
+            project(':Socket')
+}
+
+jmh {
+    jmhVersion = '1.9.3'
+    warmupIterations = 10
+    fork = 1
+    iterations = 20
+    humanOutputFile = project.file("${project.buildDir}/reports/jmh/human.txt")
+    verbosity = 'EXTRA'
+    timeUnit = 's'
+    resultFormat = 'TEXT'
+    benchmarkMode = 'thrpt,avgt'
+    failOnError = true
+    includeTests = true
+    profilers = ['STACK']
+}

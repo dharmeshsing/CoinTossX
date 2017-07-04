@@ -1,0 +1,28 @@
+plugins {
+    id 'me.champeau.gradle.jmh' version '0.2.0'
+}
+
+apply plugin: 'me.champeau.gradle.jmh'
+dependencies {
+    compile files(rootProject.projectDir.absolutePath + '/lib/ObjectLayout-1.0.5-SNAPSHOT.jar')
+    compile 'com.carrotsearch:hppc:0.7.1',
+            'org.apache.commons:commons-csv:1.1',
+    project(':Messages')
+
+    testCompile 'org.openjdk.jol:jol-core:0.3.2'
+}
+
+jmh {
+    jmhVersion = '1.9.3'
+    warmupIterations = 10
+    fork = 1
+    iterations = 20
+    humanOutputFile = project.file("${project.buildDir}/reports/jmh/human.txt")
+    verbosity = 'EXTRA'
+    timeUnit = 's'
+    resultFormat = 'TEXT'
+    benchmarkMode = 'thrpt,avgt'
+    failOnError = true
+    includeTests = true
+    //profilers = ['STACK']
+}

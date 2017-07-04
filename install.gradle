@@ -1,0 +1,31 @@
+apply plugin: 'application'
+
+//Exclude properties from the jar
+jar{
+    exclude '*.properties'
+}
+
+task copyResourcesToInstallDir(type: Copy) {
+    from 'src/main/resources'
+    into 'build/install/' + project.name + '/resources'
+
+    def myProps = new Properties()
+    file(rootProject.projectDir.absolutePath + '/' + project.envProp).withInputStream{
+        myProps.load(it);
+    }
+    filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: myProps)
+}
+
+startScripts {
+    classpath += files('build/install/' + project.name + '/resources')
+    doLast {
+        def windowsScriptFile = file getWindowsScript()
+        def unixScriptFile    = file getUnixScript()
+        windowsScriptFile.text = windowsScriptFile.text.replace('%APP_HOME%\\lib\\resources', '%APP_HOME%\\resources')
+        unixScriptFile.text  = unixScriptFile.text.replace('$APP_HOME/lib/resources', '$APP_HOME/resources')
+
+        windowsScriptFile.setExecutable(true,true)
+        unixScriptFile.setExecutable(true,true)
+
+    }
+}

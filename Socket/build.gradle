@@ -1,0 +1,50 @@
+plugins {
+    id 'me.champeau.gradle.jmh' version '0.2.0'
+}
+
+apply plugin: 'me.champeau.gradle.jmh'
+apply from: rootProject.projectDir.absolutePath + '/install.gradle'
+mainClassName = 'aeron.LowLatencyMediaDriver'
+
+applicationDefaultJvmArgs = ["-Xmx512m",
+                             "-Xms512m",
+                             "-d64",
+                             "-server",
+                             "-XX:+UseStringDeduplication",
+                             "-XX:+UseG1GC",
+                             "-XX:+UseLargePages",
+                             "-XX:+OptimizeStringConcat",
+                             "-XX:BiasedLockingStartupDelay=0",
+                             "-Daeron.socket.so_sndbuf=2097152",
+                             "-Daeron.socket.so_rcvbuf=2097152",
+                             "-Daeron.rcv.initial.window.length=2097152",
+                             "-Dagrona.disable.bounds.checks=true",
+                             "-XX:+UnlockDiagnosticVMOptions",
+                             "-XX:GuaranteedSafepointInterval=300000",
+                             "-XX:+UseCondCardMark"]
+
+
+
+dependencies {
+    compile 'com.carrotsearch:hppc:0.7.1'
+    compile 'uk.co.real-logic:aeron-client:0.9.4'
+    compile 'uk.co.real-logic:aeron-driver:0.9.4'
+    compile 'uk.co.real-logic:Agrona:0.4.12'
+    compile 'uk.co.real-logic:aeron-samples:0.9.4'
+
+}
+
+jmh {
+    jmhVersion = '1.9.3'
+    warmupIterations = 10
+    fork = 1
+    iterations = 20
+    humanOutputFile = project.file("${project.buildDir}/reports/jmh/human.txt")
+    verbosity = 'EXTRA'
+    timeUnit = 's'
+    resultFormat = 'TEXT'
+    benchmarkMode = 'thrpt,avgt'
+    failOnError = true
+    includeTests = true
+    profilers = ['STACK']
+}

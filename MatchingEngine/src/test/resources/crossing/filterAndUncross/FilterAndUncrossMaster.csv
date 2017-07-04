@@ -1,0 +1,5 @@
+TestNumber,Description,InitialState,AggressingOrder,ExpectedState,Stock,Trades
+1,Example13. Filtering Algorithm. No Executions. Order 11 MES not satisfied,Test1_Init.csv,Test1_Input.csv,Test1_Output.csv,Test1_Stock.csv,Test1_Trades.csv
+2,Example14. Filtering Algorithm. No Executions possible,Test2_Init.csv,Test2_Input.csv,Test2_Output.csv,Test2_Stock.csv,Test2_Trades.csv
+3,Example15. Filtering and uncrossing. 4 trades created,Test3_Init.csv,Test3_Input.csv,Test3_Output.csv,Test3_Stock.csv,Test3_Trades.csv
+4,Example16. Filtering and uncrossing. 4 trades created,Test4_Init.csv,Test4_Input.csv,Test4_Output.csv,Test4_Stock.csv,Test4_Trades.csv

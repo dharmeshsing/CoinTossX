@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<me:messageSchema xmlns:me="Market Data JSE Messages"
+                   package="sbe.msg.marketData"
+                   id="1"
+                   version="0"
+                   semanticVersion="5.2"
+                   description="Market Data JSE Messages"
+                   byteOrder="littleEndian">
+
+    <types>
+        <composite name="messageHeader" description="Message identifiers and length of message root">
+            <type name="blockLength" primitiveType="uint16"/>
+            <type name="templateId" primitiveType="uint16"/>
+            <type name="schemaId" primitiveType="uint16"/>
+            <type name="version" primitiveType="uint16"/>
+        </composite>
+        <composite name="varDataEncoding">
+            <type name="length" primitiveType="uint8"/>
+            <type name="varData" primitiveType="uint8" length="0" characterEncoding="UTF-8"/>
+        </composite>
+        <enum name="MessageTypeEnum" encodingType="char">
+            <validValue name="AddOrder" description="AddOrder">A</validValue>
+            <validValue name="OrderDeleted" description="Order Deleted">D</validValue>
+            <validValue name="OrderModified" description="Order Modified">U</validValue>
+            <validValue name="OrderBookClear" description="Order Book Clear">y</validValue>
+            <validValue name="OrderExecuted" description="Order Executed">E</validValue>
+            <validValue name="OrderExecutedPriceSize" description="Order Executed With Price/Size">C</validValue>
+            <validValue name="Trade" description="Trade">P</validValue>
+            <validValue name="AuctionTrade" description="Auction Trade">Q</validValue>
+            <validValue name="OffBookTrade" description="Off Book Trade">x</validValue>
+            <validValue name="TradeBreak" description="Trade Break">B</validValue>
+            <validValue name="BestBidAsk" description="Best Bid Ask">Z</validValue>
+            <validValue name="SymbolStatus" description="Symbol Status">H</validValue>
+        </enum>
+        <enum name="SideEnum" encodingType="char">
+            <validValue name="Buy" description="Buy">B</validValue>
+            <validValue name="Sell" description="Sell">S</validValue>
+        </enum>
+        <composite name="Price" description="Decimal with constant exponent">
+            <type name="mantissa" presence="optional" primitiveType="int64"/>
+            <type name="exponent" presence="constant" primitiveType="int8">-4</type>
+        </composite>
+        <enum name="Flags" encodingType="uint8">
+            <validValue name="Priority">0</validValue>
+            <validValue name="B">1</validValue>
+            <validValue name="C">2</validValue>
+            <validValue name="MarketOrder">4</validValue>
+        </enum>
+        <enum name="PrintableEnum" encodingType="char">
+            <validValue name="NonPrintable" description="Non-Printable">N</validValue>
+            <validValue name="Printable" description="Printable">Y</validValue>
+        </enum>
+        <!--<enum name="TradingStatusEnum" encodingType="char">-->
+            <!--<validValue name="Halt" description="Halt">H</validValue>-->
+            <!--<validValue name="RegularTrading" description="Regular Trading">T</validValue>-->
+            <!--<validValue name="OpeningAuctionCall" description="Opening Auction Call">a</validValue>-->
+            <!--<validValue name="PostClose" description="Post Close">b</validValue>-->
+            <!--<validValue name="MarketClose" description="Market Close">c</validValue>-->
+            <!--<validValue name="ClosingAuctionCall" description="Closing Auction Call">d</validValue>-->
+            <!--<validValue name="VolatilityAuctionCall" description="Volatility Auction Call">e</validValue>-->
+            <!--<validValue name="ReOpeningAuctionCall" description="ReOpening Auction Call">f</validValue>-->
+            <!--<validValue name="Pause" description="Pause">l</validValue>-->
+            <!--<validValue name="FuturesCloseOut" description="Futures Close Out">p</validValue>-->
+            <!--<validValue name="ClosingPriceCross" description="Closing Price Cross">s</validValue>-->
+            <!--<validValue name="IntraDayAuctionCall" description="Intra Day Auction Call">u</validValue>-->
+            <!--<validValue name="EndTradeReporting" description="End Trade Reporting">v</validValue>-->
+            <!--<validValue name="NoActiveSession" description="No Active Session">w</validValue>-->
+            <!--<validValue name="EndOfPostClose" description="End Of Post Close">x</validValue>-->
+            <!--<validValue name="StartOfTrading" description="Start Of Trading">y</validValue>-->
+            <!--<validValue name="ClosingPricePublication" description="Closing Price Publication">z</validValue>-->
+        <!--</enum>-->
+        <enum name="HaltReasonEnum" encodingType="int32">
+            <validValue name="MatchingPartitionSuspended" description="Matching partition suspended">9998</validValue>
+            <validValue name="SystemSuspended" description="System suspended">9999</validValue>
+            <validValue name="ReasonNotAvailable" description="Reason not available">0</validValue>
+            <validValue name="SystemIssuesBeingExperienced" description="System Issues Being Experienced">1</validValue>
+            <validValue name="CompanyAnnouncementExpected" description="Company Announcement Expected">2</validValue>
+            <validValue name="CompanyRequestedHalt" description="Company Requested Halt">3</validValue>
+            <validValue name="CompanyRequestedSuspension" description="Company Requested Suspension">4</validValue>
+            <validValue name="JSEInitiatedHalt_Suspension" description="JSE Initiated Halt/Suspension">5</validValue>
+        </enum>
+        <enum name="SessionChangedReasonEnum" encodingType="uint8">
+            <validValue name="ScheduledTransition" description="Scheduled Transition">0</validValue>
+            <validValue name="ExtendedByMarketOps" description="Extended by Market Ops">1</validValue>
+            <validValue name="ShortenedByMarketOps" description="Shortened by Market Ops">2</validValue>
+            <validValue name="MarketOrderImbalance" description="Market Order Imbalance">3</validValue>
+            <validValue name="PriceOutsideRange" description="Price Outside Range">4</validValue>
+            <validValue name="CircuitBreakerTripped" description="Circuit Breaker Tripped">5</validValue>
+            <validValue name="Unavailable" description="Unavailable">9</validValue>
+        </enum>
+        <enum name="TradingSessionEnum" encodingType="uint8">
+            <validValue name="StartOfTrading" description="Start Of Trading">0</validValue>
+            <validValue name="OpeningAuctionCall" description="Opening Auction Call">1</validValue>
+            <validValue name="ContinuousTrading" description="Continuous Trading">2</validValue>
+            <validValue name="FCOAuctionCall" description="FCO Auction Call">3</validValue>
+            <validValue name="VolatilityAuctionCall" description="Volatility Auction Call">4</validValue>
+            <validValue name="IntraDayAuctionCall" description="Intra Day Auction Call">5</validValue>
+            <validValue name="ClosingAuctionCall" description="Closing Auction Call">6</validValue>
+            <validValue name="ClosingPricePublication" description="Closing Price Publication">7</validValue>
+            <validValue name="ClosingPriceCross" description="Closing Price Cross">8</validValue>
+            <validValue name="PostClose" description="Post Close">9</validValue>
+            <validValue name="TradeReporting" description="Trade Reporting">10</validValue>
+        </enum>
+    </types>
+
+    <me:message name="UnitHeader" id="18" description="Unit Header Message">
+        <field name="messageCount" id="1" type="uint16"/>
+        <field name="marketDataGroup" id="2" type="int8"/>
+        <field name="sequenceNumber" id="3" type="uint16"/>
+    </me:message>
+
+    <me:message name="AddOrder" id="19" description="Add Order Message">
+        <field name="messageType" id="1" type="MessageTypeEnum"/>
+        <field name="nanosecond" id="2" type="uint32"/>
+        <field name="orderId" id="3" type="uint64"/>
+        <field name="side" id="4" type="SideEnum"/>
+        <field name="quantity" id="5" type="uint32"/>
+        <field name="instrumentId" id="6" type="uint32"/>
+        <field name="price" id="7" type="Price"/>
+        <field name="flags" id="8" type="Flags"/>
+    </me:message>
+
+    <me:message name="OrderDeleted" id="20" description="Order Deleted Message">
+        <field name="messageType" id="1" type="MessageTypeEnum"/>
+        <field name="nanosecond" id="2" type="uint32"/>
+        <field name="orderId" id="3" type="uint64"/>
+    </me:message>
+
+    <me:message name="OrderModified" id="21" description="Order Modified Message">
+        <field name="messageType" id="1" type="MessageTypeEnum"/>
+        <field name="nanosecond" id="2" type="uint32"/>
+        <field name="orderId" id="3" type="uint64"/>
+        <field name="newQuantity" id="4" type="uint32"/>
+        <field name="newPrice" id="5" type="Price"/>
+        <field name="flags" id="6" type="Flags"/>
+    </me:message>
+
+    <me:message name="OrderExecuted" id="22" description="Order Executed Message">
+        <field name="messageType" id="1" type="MessageTypeEnum"/>
+        <field name="nanosecond" id="2" type="uint32"/>
+        <field name="orderId" id="3" type="uint64"/>
+        <field name="executedQuantity" id="4" type="uint32"/>
+        <field name="tradeId" id="5" type="uint32"/>
+    </me:message>
+
+    <me:message name="OrderExecutedWithPriceSize" id="23" description="Order Executed With Price/Size Message">
+        <field name="messageType" id="1" type="MessageTypeEnum"/>
+        <field name="nanosecond" id="2" type="uint32"/>
+        <field name="orderId" id="3" type="uint64"/>
+        <field name="executedQuantity" id="4" type="uint32"/>
+        <field name="displayQuantity" id="5" type="uint32"/>
+        <field name="tradeId" id="6" type="uint32"/>
+        <field name="printable" id="7" type="PrintableEnum"/>
+        <field name="price" id="8" type="Price"/>
+        <field name="instrumentId" id="6" type="uint32"/>
+    </me:message>
+
+    <me:message name="Trade" id="24" description="Trade Message">
+        <field name="messageType" id="1" type="MessageTypeEnum"/>
+        <field name="nanosecond" id="2" type="uint32"/>
+        <field name="executedQuantity" id="3" type="uint32"/>
+        <field name="instrumentId" id="4" type="uint32"/>
+        <field name="price" id="5" type="Price"/>
+        <field name="tradeId" id="6" type="uint64"/>
+    </me:message>
+
+    <me:message name="AuctionTrade" id="25" description="Auction Trade Message">
+        <field name="messageType" id="1" type="MessageTypeEnum"/>
+        <field name="nanosecond" id="2" type="uint32"/>
+        <field name="executedQuantity" id="3" type="uint32"/>
+        <field name="instrumentId" id="4" type="uint32"/>
+        <field name="price" id="5" type="Price"/>
+        <field name="tradeId" id="6" type="uint64"/>
+    </me:message>
+
+    <me:message name="BestBidOffer" id="26" description="Best Bid Offer">
+        <field name="messageType" id="1" type="MessageTypeEnum"/>
+        <field name="instrumentId" id="2" type="uint32"/>
+        <field name="bid" id="3" type="Price"/>
+        <field name="bidQuantity" id="4" type="uint32"/>
+        <field name="offer" id="5" type="Price"/>
+        <field name="offerQuantity" id="6" type="uint32"/>
+    </me:message>
+
+    <me:message name="SymbolStatus" id="27" description="Symbol Status">
+        <field name="messageType" id="1" type="MessageTypeEnum"/>
+        <field name="nanosecond" id="2" type="uint32"/>
+        <field name="instrumentId" id="3" type="uint32"/>
+        <field name="tradingSession" id="4" type="TradingSessionEnum"/>
+        <field name="haltReason" id="5" type="HaltReasonEnum"/>
+        <field name="sessionChangedReason" id="6" type="SessionChangedReasonEnum"/>
+    </me:message>
+
+    <me:message name="TradingSession" id="90" description="Trading Session Message">
+        <field name="tradingSession" id="1" type="TradingSessionEnum"/>
+        <field name="securityId" id="2" type="int32"/>
+    </me:message>
+
+</me:messageSchema>

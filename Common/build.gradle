@@ -1,0 +1,14 @@
+version '1.0'
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.mapdb', name: 'mapdb', version: '3.0.2'
+    compile 'org.apache.commons:commons-csv:1.1'
+    compile project(':Messages')
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<me:messageSchema xmlns:me="Admin JSE Messages"
+                  package="sbe.msg"
+                  id="1"
+                  version="0"
+                  semanticVersion="5.2"
+                  description="Admin JSE Messages"
+                  byteOrder="littleEndian">
+    <types>
+        <composite name="messageHeader" description="Message identifiers and length of message root">
+            <type name="blockLength" primitiveType="uint16"/>
+            <type name="templateId" primitiveType="uint16"/>
+            <type name="schemaId" primitiveType="uint16"/>
+            <type name="version" primitiveType="uint16"/>
+            <type name="compID" primitiveType="int32"/>
+        </composite>
+        <enum name="AdminTypeEnum" encodingType="uint8">
+            <validValue name="SimulationComplete" description="Simulation Complete">0</validValue>
+            <validValue name="WarmUpComplete" description="WarmUp Complete">1</validValue>
+            <validValue name="LOB" description="Get LOB Orders">2</validValue>
+            <validValue name="ShutDown" description="ShutDown">3</validValue>
+            <validValue name="VWAP" description="Calculate VWAP">4</validValue>
+            <validValue name="StartLOB" description="Start of LOB Snapshot">5</validValue>
+            <validValue name="EndLOB" description="End of LOB Snapshot">6</validValue>
+            <validValue name="BestBidOfferRequest" description="Best Bid Offer Request">7</validValue>
+            <validValue name="StartMessage" description="First message from client">8</validValue>
+            <validValue name="EndMessage" description="Last message from client">9</validValue>
+        </enum>
+        <composite name="Price" description="Decimal with constant exponent">
+            <type name="mantissa" presence="optional" primitiveType="int64"/>
+            <type name="exponent" presence="constant" primitiveType="int8">-4</type>
+        </composite>
+        <enum name="SideEnum" encodingType="uint8">
+            <validValue name="Buy" description="Buy">1</validValue>
+            <validValue name="Sell" description="Sell">2</validValue>
+        </enum>
+        <type name="idString20" length="20" primitiveType="char" semanticType="String"/>
+        <composite name="orderGroup" description="Repeating group of order entries" >
+            <type name="blockLength" primitiveType="int32"/>
+            <type name="numInGroup" primitiveType="int32" semanticType="NumInGroup"/>
+        </composite>
+    </types>
+
+    <!-- Admin Messages -->
+
+    <me:message name="Admin" id="91" description="Admin Messages">
+        <field name="adminMessage" id="1" type="AdminTypeEnum"/>
+        <field name="securityId" id="2" type="int32"/>
+    </me:message>
+
+    <me:message name="ClientHawkesCounter" id="92" description="Counter of max and complete messages processed">
+        <field name="clientId" id="1" type="int32"/>
+        <field name="max" id="2" type="int32"/>
+        <field name="complete" id="3" type="int32"/>
+    </me:message>
+
+    <me:message name="OrderView" id="93" description="A view of a received order message">
+        <field name="securityId" id="1" type="int32"/>
+        <field name="clientOrderId" id="2" type="idString20"/>
+        <field name="orderId" id="3" type="int32"/>
+        <field name="submittedTime" id="4" type="uint64"/>
+        <field name="price" id="5" type="Price"/>
+        <field name="orderQuantity" id="6" type="int32"/>
+        <field name="side" id="7" type="SideEnum"/>
+    </me:message>
+
+    <me:message name="LOB" id="94" description="All order entries for a lob">
+        <field name="securityId" id="1" type="int32"/>
+        <group name="orders" id="2" dimensionType="orderGroup">
+            <field name="orderId" id="3" type="int32"  semanticType="int"/>
+            <field name="price" id="4" type="Price"/>
+            <field name="orderQuantity" id="5" type="int32"/>
+            <field name="side" id="6" type="SideEnum"/>
+        </group>
+    </me:message>
+
+</me:messageSchema>

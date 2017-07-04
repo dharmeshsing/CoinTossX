@@ -1,0 +1,60 @@
+plugins {
+    id 'me.champeau.gradle.jmh' version '0.2.0'
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '1.2.1'
+}
+
+apply from: rootProject.projectDir.absolutePath + '/install.gradle'
+apply plugin: 'application'
+apply plugin: 'me.champeau.gradle.jmh'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+mainClassName = 'engine.MatchingEngine'
+
+applicationDefaultJvmArgs = ["-Xmx1G",
+                             "-Xms1G",
+                             "-d64",
+                             "-server",
+                             "-XX:+UseStringDeduplication",
+                             "-Dagrona.disable.bounds.checks=true",
+                             "-XX:+UnlockDiagnosticVMOptions",
+                             "-XX:GuaranteedSafepointInterval=300000",
+                             "-XX:+UseG1GC",
+                             "-XX:+UseLargePages",
+                             "-XX:+OptimizeStringConcat",
+                             "-XX:+UseCondCardMark"]
+
+dependencies {
+    compile 'com.carrotsearch:hppc:0.7.1',
+            project(':Socket'),
+            project(':LimitOrderBook'),
+            files('lib/ObjectLayout-1.0.5-SNAPSHOT.jar'),
+            'joda-time:joda-time:2.3',
+            'org.hdrhistogram:HdrHistogram:2.1.6'
+
+    testCompile 'pl.pragmatists:JUnitParams:1.0.4',
+                'com.itextpdf:itextpdf:5.0.6',
+                 project(':LimitOrderBook'),
+                'org.apache.commons:commons-lang3:3.0'
+
+
+
+
+    jmh 'commons-io:commons-io:2.4'
+}
+
+jmh {
+    include = 'OrderListLoopTest'
+    jmhVersion = '1.9.3'
+    warmupIterations = 20
+    fork = 1
+    iterations = 50
+    humanOutputFile = project.file("${project.buildDir}/reports/jmh/human.txt")
+    verbosity = 'EXTRA'
+    timeUnit = 's'
+    resultFormat = 'TEXT'
+    benchmarkMode = 'thrpt,avgt'
+    failOnError = true
+    includeTests = true
+    //profilers = ['STACK']
+}

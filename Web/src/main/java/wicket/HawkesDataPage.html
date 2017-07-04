@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CoinTossX</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link href="Navigation.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .navbar-default {
+            background-color: cadetblue;
+        }
+
+        .navbar-default .navbar-brand {
+            color: black;
+        }
+
+        .navbar-default .navbar-brand:hover,
+        .navbar-default .navbar-brand:focus {
+            color: black;
+        }
+
+        .navbar-default .navbar-nav > li > a {
+            color: black;
+        }
+
+        .navbar-default .navbar-nav > li > a:hover,
+        .navbar-default .navbar-nav > li > a:focus {
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" wicket:id="homeLink">CoinTossX</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a wicket:id="stockLink">Stocks</a></li>
+            <li><a wicket:id="clientLink">Clients</a></li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Simulation
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a wicket:id="simulationLink">Run</a></li>
+                    <li><a wicket:id="hawkesDataLink">Hawkes Configuration</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-sm-10">
+        <form class="form-horizontal" role="form" wicket:id="form">
+            <div class="form-group">
+                <label class="control-label col-sm-1" for="horizon">horizon:</label>
+                <div class="col-sm-4">
+                    <input wicket:id="horizon" type="text" class="form-control" id="horizon"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-1" for="lambda">lambda:</label>
+                <div class="col-sm-4">
+                    <input wicket:id="lambda" type="text" class="form-control" id="lambda"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-1" for="alpha">alpha:</label>
+                <div class="col-sm-4">
+                    <textarea wicket:id="alpha" type="text" rows="8" class="form-control" id="alpha"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-1" for="beta">beta:</label>
+                <div class="col-sm-4">
+                    <textarea wicket:id="beta" type="text" rows="8" class="form-control" id="beta"/>
+                </div>
+            </div>
+            <div class="col-sm-offset-1">
+                <button type="submit" class="btn btn-primary" wicket:id="saveLink">Save</button>&nbsp;
+                <button type="submit" class="btn btn-primary" wicket:id="generateLink">Generate</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

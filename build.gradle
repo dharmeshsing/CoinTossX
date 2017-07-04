@@ -1,0 +1,93 @@
+plugins {
+    id 'org.hidetake.ssh' version '1.1.3'
+}
+
+//ext.envProp = 'windows.properties'
+//ext.softwarePath = '/Users/dharmeshsing/Documents/cointoss_shared'
+
+ext.envProp = 'local.properties'
+ext.softwarePath = '/Users/dharmeshsing/Documents/Masters/tmp'
+
+//ext.envProp = 'witsServer.properties'
+//ext.softwarePath = '/hydrahome/1133465/Simulation'
+
+apply from: 'deploy.gradle'
+apply from: 'deploy_local.gradle'
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    sourceCompatibility = 1.8
+    version = '1.0'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'org.mockito', name: 'mockito-core', version: '1.+'
+    }
+}
+
+
+task cleanDeploy() << {
+    File deploy = new File(rootProject.projectDir.absolutePath + '/deploy')
+    if (deploy.exists()) {
+        delete deploy
+    }
+
+    deploy.mkdirs()
+}
+
+task copyScriptsToDeploy() << {
+    File scripts = new File(rootProject.projectDir.absolutePath + '/deploy/scripts')
+    if(scripts.exists()){
+        scripts.delete()
+    }
+
+    scripts.mkdirs()
+
+    copy {
+        from rootProject.projectDir.absolutePath + '/scripts'
+        into rootProject.projectDir.absolutePath + '/deploy/scripts'
+
+        def myProps = new Properties()
+        file(rootProject.projectDir.absolutePath + '/' + project.envProp).withInputStream {
+            myProps.load(it);
+        }
+        filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: myProps)
+    }
+}
+
+task copyWebToDeploy() << {
+    File web = new File(rootProject.projectDir.absolutePath + '/deploy/Web')
+    if(web.exists()){
+        web.delete()
+    }
+
+    web.mkdirs()
+
+    copy {
+        from project(':Web').buildDir.absolutePath + '/libs'
+        into rootProject.projectDir.absolutePath + '/deploy/Web'
+    }
+}
+
+task copyToDeploy() << {
+    project.subprojects.each { proj ->
+        copy{
+            from proj.buildDir.absolutePath + '/install/'
+            into 'deploy'
+        }
+    }
+}
+
+copyToDeploy.dependsOn cleanDeploy
+copyToDeploy.dependsOn copyScriptsToDeploy
+copyToDeploy.dependsOn copyWebToDeploy
+
+
+
+

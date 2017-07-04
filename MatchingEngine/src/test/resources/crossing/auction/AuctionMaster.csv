@@ -1,0 +1,4 @@
+TestNumber,Description,InitialState,AggressingOrder,ExpectedState,Stock,Trades
+1,Auction. One max volume,Test1_Init.csv,,Test1_Output.csv,Test1_Stock.csv,Test1_Trades.csv
+2,Auction. Two max volume. Min surplus selected,Test2_Init.csv,,Test2_Output.csv,Test2_Stock.csv,Test2_Trades.csv
+3,Auction. Two max volume. Same surplus. Max price selected,Test3_Init.csv,,Test3_Output.csv,Test3_Stock.csv,Test3_Trades.csv

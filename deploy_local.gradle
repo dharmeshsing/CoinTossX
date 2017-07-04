@@ -1,0 +1,44 @@
+remotes {
+    local {
+        host = '127.0.0.1'
+        user = 'dharmeshsing'
+        password = 'Angellus1'
+    }
+}
+
+task deployLocal << {
+    cleanDirectory(remotes.local)
+    copyFiles(remotes.local)
+}
+
+
+def cleanDirectory(def server){
+    logger.lifecycle("Clean Software directory ...")
+    ssh.run {
+        session(server) {
+            execute 'rm -r ' + project.softwarePath
+            execute 'mkdir ' + project.softwarePath
+            execute 'rm -Rf /tmp/aeronMediaDriver'
+        }
+    }
+}
+
+
+def copyFiles(def server){
+    logger.lifecycle("Copy files to server...")
+    ssh.run {
+        session(server) {
+            logger.lifecycle("Copy files to server...")
+            put from: rootProject.projectDir.absolutePath + '/deploy', into: project.softwarePath
+
+            logger.lifecycle("Copy data files to server...")
+            execute 'mkdir ' + project.softwarePath + '/data'
+            put from: rootProject.projectDir.absolutePath + '/data', into: project.softwarePath
+
+            execute 'mv ' + project.softwarePath + '/deploy/* ' + project.softwarePath
+            execute 'rm -r ' +  project.softwarePath + '/deploy'
+
+            execute 'find ' +  project.softwarePath + ' -type f -exec chmod 755 {} +'
+        }
+    }
+}

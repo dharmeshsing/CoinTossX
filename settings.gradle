@@ -1,0 +1,24 @@
+rootProject.name = 'JSEMatchingEngine'
+
+include 'NativeGateway'
+
+include 'Messages'
+
+include 'MatchingEngine'
+
+include 'MarketDataGateway'
+
+include 'MatchingEngineClient'
+
+include 'Socket'
+
+include 'ClientSimulator'
+
+include 'LimitOrderBook'
+
+include 'Web'
+
+include 'WebEventListener'
+
+include 'Common'
+

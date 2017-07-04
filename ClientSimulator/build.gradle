@@ -1,0 +1,65 @@
+plugins {
+    id 'me.champeau.gradle.jmh' version '0.2.0'
+}
+apply from: rootProject.projectDir.absolutePath + '/install.gradle'
+mainClassName = "hawkes.HawkesSimulation"
+apply plugin: 'me.champeau.gradle.jmh'
+
+dependencies {
+    compile project(':MatchingEngineClient')
+    compile 'org.apache.commons:commons-math3:3.2'
+    compile 'com.carrotsearch:hppc:0.7.1'
+    compile 'net.sourceforge.parallelcolt:parallelcolt:0.10.1'
+    compile 'org.apache.commons:commons-csv:1.1'
+    compile group: 'net.sf.py4j', name: 'py4j', version: '0.10.4'
+
+}
+
+applicationDefaultJvmArgs = ["-Xmx20G",
+                             "-Xms20G",
+                             "-d64",
+                             "-server",
+                             "-XX:+UseStringDeduplication",
+                             "-Dagrona.disable.bounds.checks=true",
+                             "-XX:+UnlockDiagnosticVMOptions",
+                             "-XX:GuaranteedSafepointInterval=300000",
+                             "-XX:+UseG1GC",
+                             "-XX:+UseLargePages",
+                             "-XX:+OptimizeStringConcat",
+                             "-XX:+UseCondCardMark"]
+
+task hawkesSimulation(type: CreateStartScripts) {
+    mainClassName = "hawkes.HawkesSimulation"
+    applicationName = "HawkesSimulation"
+    outputDir = new File(project.buildDir, 'scripts')
+    classpath = jar.outputs.files + project.configurations.runtime +
+            files('build/install/' + project.name + '/resources')
+    doLast {
+        def windowsScriptFile = file getWindowsScript()
+        def unixScriptFile = file getUnixScript()
+        windowsScriptFile.text = windowsScriptFile.text.replace('%APP_HOME%\\lib\\resources', '%APP_HOME%\\resources')
+        unixScriptFile.text = unixScriptFile.text.replace('$APP_HOME/lib/resources', '$APP_HOME/resources')
+    }
+
+}
+
+applicationDistribution.into("bin") {
+    from(hawkesSimulation)
+    fileMode = 0755
+}
+
+jmh {
+    include = 'ClientPerfTest'
+    jmhVersion = '1.9.3'
+    warmupIterations = 20
+    fork = 1
+    iterations = 50
+    humanOutputFile = project.file("${project.buildDir}/reports/jmh/human.txt")
+    verbosity = 'EXTRA'
+    timeUnit = 's'
+    resultFormat = 'TEXT'
+    benchmarkMode = 'thrpt,avgt'
+    failOnError = true
+    includeTests = true
+    //profilers = ['STACK']
+}

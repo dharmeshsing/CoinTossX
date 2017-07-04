@@ -1,0 +1,22 @@
+apply from: rootProject.projectDir.absolutePath + '/install.gradle'
+mainClassName = 'gateway.marketdata.NativeMarketDataGateway'
+
+applicationDefaultJvmArgs = ["-Xmx1G",
+                             "-Xms1G",
+                             "-d64",
+                             "-server",
+                             "-XX:+UseStringDeduplication",
+                             "-Dagrona.disable.bounds.checks=true",
+                             "-XX:+UnlockDiagnosticVMOptions",
+                             "-XX:GuaranteedSafepointInterval=300000",
+                             "-XX:+UseG1GC",
+                             "-XX:+UseLargePages",
+                             "-XX:+OptimizeStringConcat",
+                             "-XX:+UseCondCardMark"]
+
+dependencies {
+    compile project(':Messages'),
+            project(':Socket'),
+            'org.apache.commons:commons-csv:1.1'
+    testCompile 'commons-io:commons-io:2.4'
+}

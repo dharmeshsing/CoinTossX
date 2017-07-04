@@ -1,0 +1,8 @@
+dependencies {
+    compile project(':Socket'),
+            project(':Common')
+
+    compile 'org.apache.commons:commons-lang3:3.0'
+    compile group: 'com.lmax', name: 'disruptor', version: '3.3.6'
+
+}

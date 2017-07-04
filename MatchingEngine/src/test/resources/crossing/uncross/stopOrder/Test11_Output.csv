@@ -1,0 +1,3 @@
+Side,OrderID,Type,MES,Time,Size,Price
+O,13,2,,11:00,500,9200
+O,14,2,,12:00,1000,9400

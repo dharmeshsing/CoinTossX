@@ -1,0 +1,12 @@
+CompID,Password,NGInputURL,NGInputStreamId,NGOutputURL,NGOutputStreamId,MDGInputURL,MDGInputStreamId,MDGOutputURL,MDGOutputStreamId,SecurityId
+1,test111111,udp://localhost:5000,10,udp://localhost:5001,10,udp://localhost:5002,10,udp://localhost:5003,10,1
+2,test222222,udp://localhost:5004,11,udp://localhost:5005,11,udp://localhost:5006,11,udp://localhost:5007,11,2
+3,test333333,udp://localhost:5008,12,udp://localhost:5009,12,udp://localhost:5010,12,udp://localhost:5011,12,3
+4,test444444,udp://localhost:5012,13,udp://localhost:5013,13,udp://localhost:5014,13,udp://localhost:5015,13,4
+5,test555555,udp://localhost:5016,14,udp://localhost:5017,14,udp://localhost:5018,14,udp://localhost:5019,14,5
+6,test666666,udp://localhost:5020,15,udp://localhost:5021,15,udp://localhost:5022,15,udp://localhost:5023,15,6
+7,test777777,udp://localhost:5024,16,udp://localhost:5025,16,udp://localhost:5026,16,udp://localhost:5027,16,7
+8,test888888,udp://localhost:5028,17,udp://localhost:5029,17,udp://localhost:5030,17,udp://localhost:5031,17,8
+9,test999999,udp://localhost:5032,18,udp://localhost:5033,18,udp://localhost:5034,18,udp://localhost:5035,18,9
+10,test101010,udp://localhost:5036,19,udp://localhost:5037,19,udp://localhost:5038,19,udp://localhost:5039,19,10
+999,test999999,udp://localhost:9000,10,udp://localhost:9001,10,udp://localhost:9002,10,udp://localhost:9003,10,0

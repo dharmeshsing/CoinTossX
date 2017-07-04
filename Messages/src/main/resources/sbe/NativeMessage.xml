@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<me:messageSchema xmlns:me="Native JSE Messages"
+                   package="sbe.msg"
+                   id="1"
+                   version="0"
+                   semanticVersion="5.2"
+                   description="Native JSE Messages"
+                   byteOrder="littleEndian">
+    <types>
+        <composite name="messageHeader" description="Message identifiers and length of message root">
+            <type name="blockLength" primitiveType="uint16"/>
+            <type name="templateId" primitiveType="uint16"/>
+            <type name="schemaId" primitiveType="uint16"/>
+            <type name="version" primitiveType="uint16"/>
+            <type name="compID" primitiveType="int32"/>
+        </composite>
+        <composite name="varDataEncoding">
+            <type name="length" primitiveType="uint8"/>
+            <type name="varData" primitiveType="uint8" length="0" characterEncoding="UTF-8"/>
+        </composite>
+        <enum name="RejectCode" encodingType="int32">
+            <validValue name="LoginSuccessful" description="Login Successful">0</validValue>
+            <validValue name="InvalidCompIDOrPassword" description="Invalid CompID or password">1</validValue>
+            <validValue name="NotLoggedIntoRealTimeChannel" description="Not logged into real-time channel">100</validValue>
+            <validValue name="ConcurrentLoginLimitReached" description="Concurrent login limit reached">9903</validValue>
+        </enum>
+        <enum name="MissedMessageRequestAckStatus" encodingType="uint8">
+            <validValue name="RequestAccepted" description="Request Accepted">0</validValue>
+            <validValue name="RequestLimitReached" description="Request Limit Reached">1</validValue>
+            <validValue name="InvalidPartitionID" description="Invalid Partition ID">2</validValue>
+            <validValue name="ServiceUnavailable" description="Service Unavailable">3</validValue>
+        </enum>
+        <enum name="TransmissionCompleteStatus" encodingType="uint8">
+            <validValue name="AllMessageTransmitted" description="All Messages Transmitted">0</validValue>
+            <validValue name="MessageLimitReached" description="Message Limit Reached">1</validValue>
+            <validValue name="ServiceUnavailable" description="Service Unavailable">3</validValue>
+        </enum>
+        <enum name="SystemStatusEnum" encodingType="uint8">
+            <validValue name="RecoveryServiceResumed" description="Recovery Service Resumed">1</validValue>
+            <validValue name="RecoveryServiceUnavailable" description="Recovery Service Unavailable">2</validValue>
+        </enum>
+        <enum name="OrdTypeEnum" encodingType="uint8">
+            <validValue name="Market" description="Market">1</validValue>
+            <validValue name="Limit" description="Limit">2</validValue>
+            <validValue name="Stop" description="Stop Order">3</validValue>
+            <validValue name="StopLimit" description="Stop Limit Order">4</validValue>
+        </enum>
+        <enum name="TimeInForceEnum" encodingType="uint8">
+            <validValue name="Day" description="Day">0</validValue>
+            <validValue name="GTC" description="Good Till Cancel">1</validValue>
+            <validValue name="IOC" description="Immediate or Cancel">3</validValue>
+            <validValue name="FOK" description="Fill or Kill">4</validValue>
+            <validValue name="OPG" description="At the Open">5</validValue>
+            <validValue name="GTD" description="Good Till Date">6</validValue>
+            <validValue name="GTT" description="Good Till Time">8</validValue>
+            <validValue name="GFA" description="Good For Auction">9</validValue>
+            <validValue name="GFX" description="Good for Intraday Auction">51</validValue>
+            <validValue name="ATC" description="At the Close">10</validValue>
+            <validValue name="CPX" description="Closing Price Cross">12</validValue>
+        </enum>
+        <enum name="SideEnum" encodingType="uint8">
+            <validValue name="Buy" description="Buy">1</validValue>
+            <validValue name="Sell" description="Sell">2</validValue>
+        </enum>
+        <enum name="CapacityEnum" encodingType="uint8">
+            <validValue name="Principal" description="Principal">2</validValue>
+            <validValue name="Agency" description="Agency">3</validValue>
+        </enum>
+        <enum name="CancelOnDisconnectEnum" encodingType="uint8">
+            <validValue name="DoNotCancel" description="Do Not Cancel">0</validValue>
+            <validValue name="Cancel" description="Cancel">1</validValue>
+        </enum>
+        <enum name="OrderBookEnum" encodingType="uint8">
+            <validValue name="Regular" description="Regular">1</validValue>
+        </enum>
+        <enum name="MassCancelRequestTypeEnum" encodingType="uint8">
+            <validValue name="AllFirmOrdersForInstr" description="All Firm orders for Instrument">3</validValue>
+            <validValue name="AllFirmOrdersForSeg" description="All Firm orders for Segment">4</validValue>
+            <validValue name="AllOrdersForClient" description="All orders for client">7</validValue>
+            <validValue name="AllOrdersForFirm" description="All orders for firm">8</validValue>
+            <validValue name="ClientFirmOrdersForInstr" description="Client Firm orders for Instrument">9</validValue>
+            <validValue name="ClientFirmOrdersForSeg" description="Client Firm orders for Segment">15</validValue>
+        </enum>
+        <enum name="OrderSubTypeEnum" encodingType="uint8">
+            <validValue name="Order" description="Order">0</validValue>
+        </enum>
+        <enum name="ExecutionTypeEnum" encodingType="char">
+            <validValue name="New" description="New">0</validValue>
+            <validValue name="Cancelled" description="Cancelled">4</validValue>
+            <validValue name="Amended" description="Amended">5</validValue>
+            <validValue name="Rejected" description="Rejected">8</validValue>
+            <validValue name="Suspended" description="Suspended">9</validValue>
+            <validValue name="Expired" description="Expired">C</validValue>
+            <validValue name="Trade" description="Trade">F</validValue>
+            <validValue name="TradeCorrect" description="Trade Correct">G</validValue>
+            <validValue name="TradeCancel" description="Trade Cancel">H</validValue>
+            <validValue name="Restated" description="Restated">D</validValue>
+            <validValue name="Triggered" description="Triggered">L</validValue>
+        </enum>
+        <enum name="OrderStatusEnum" encodingType="uint8">
+            <validValue name="New" description="New">0</validValue>
+            <validValue name="PartiallyFilled" description="Partially Filled">1</validValue>
+            <validValue name="Filled" description="Filled">2</validValue>
+            <validValue name="Cancelled" description="Cancelled">4</validValue>
+            <validValue name="Expired" description="Expired">6</validValue>
+            <validValue name="Rejected" description="Rejected">8</validValue>
+            <validValue name="Suspended" description="Suspended">9</validValue>
+        </enum>
+        <enum name="ContainerEnum" encodingType="uint8">
+            <validValue name="None" description="None">0</validValue>
+            <validValue name="Main" description="Main">1</validValue>
+            <validValue name="MarketOrder" description="Market Order">3</validValue>
+            <validValue name="ParkedOrder" description="Parked Order">5</validValue>
+            <validValue name="StopOrder" description="StopOrder">6</validValue>
+        </enum>
+        <enum name="IsMarketOpsRequestEnum" encodingType="uint8">
+            <validValue name="No" description="No">0</validValue>
+            <validValue name="Yes" description="Yes">1</validValue>
+        </enum>
+        <enum name="OrderMassCancelReportStatusEnum" encodingType="uint8">
+            <validValue name="Rejected" description="Rejected">0</validValue>
+            <validValue name="Accepted" description="Accepted">7</validValue>
+        </enum>
+        <enum name="UrgencyEnum" encodingType="char">
+            <validValue name="Regular" description="Regular">0</validValue>
+            <validValue name="HighPriorty" description="High Priority">1</validValue>
+            <validValue name="LowPriorty" description="Low Priority">2</validValue>
+        </enum>
+        <enum name="BusinessRejectEnum" encodingType="int32">
+            <validValue name="UnknownInstrument" description="Unknown Instrument">90000</validValue>
+            <validValue name="MatchingPartitionSuspended" description="Matching Partition Suspended">9998</validValue>
+            <validValue name="SystemSuspended" description="System Suspended">9999</validValue>
+        </enum>
+        <composite name="Price" description="Decimal with constant exponent">
+            <type name="mantissa" presence="optional" primitiveType="int64"/>
+            <type name="exponent" presence="constant" primitiveType="int8">-4</type>
+        </composite>
+        <composite name="groupSizeEncoding" description="Repeating group dimensions">
+            <type name="blockLength" primitiveType="uint16"/>
+            <type name="numInGroup" primitiveType="uint8"/>
+        </composite>
+        <type name="idString6" length="6" primitiveType="char" semanticType="String"/>
+        <type name="idString8" length="8" primitiveType="char" semanticType="String"/>
+        <type name="idString10" length="10" primitiveType="char" semanticType="String"/>
+        <type name="idString17" length="17" primitiveType="char" semanticType="String"/>
+        <type name="idString20" length="20" primitiveType="char" semanticType="String"/>
+        <type name="idString21" length="21" primitiveType="char" semanticType="String"/>
+        <type name="idString30" length="30" primitiveType="char" semanticType="String"/>
+        <type name="idString100" length="100" primitiveType="char" semanticType="String"/>
+        <type name="idString750" length="750" primitiveType="char" semanticType="String"/>
+    </types>
+
+    <!-- Admin Messages -->
+
+    <me:message name="Logon" id="1" description="Logon Message">
+        <field name="compID" id="1" type="int32"/>
+        <field name="password" id="2" type="idString10"/>
+        <field name="newPassword" id="3" type="idString10"/>
+    </me:message>
+
+    <me:message name="LogonResponse" id="2" description="Logon Response Message">
+        <field name="rejectCode" id="1" type="RejectCode"/>
+        <field name="passwordExpiry" id="2" type="int32"/>
+    </me:message>
+
+    <me:message name="Logout" id="3" description="Logout Message">
+        <field name="reason" id="1" type="idString20"/>
+    </me:message>
+
+    <me:message name="Reject" id="4" description="Reject Message">
+        <field name="rejectCode" id="1" type="int32"/>
+        <field name="rejectReason" id="2" type="idString30"/>
+        <field name="messageType" id="3" type="char" length="1"/>
+        <field name="clientOrderId" id="4" type="idString20"/>
+    </me:message>
+
+    <me:message name="MissedMessageRequest" id="5" description="Missed Message Request Message">
+        <field name="partitionId" id="1" type="uint8"/>
+        <field name="sequenceNumber" id="2" type="int32"/>
+    </me:message>
+
+    <me:message name="MissedMessageRequestAck" id="6" description="Missed Message Request Ack Message">
+        <field name="status" id="1" type="MissedMessageRequestAckStatus"/>
+    </me:message>
+
+    <me:message name="TransmissionComplete" id="7" description="Transmission Complete Message">
+        <field name="status" id="1" type="TransmissionCompleteStatus"/>
+    </me:message>
+
+    <me:message name="SystemStatus" id="8" description="System Status Message">
+        <field name="status" id="1" type="SystemStatusEnum"/>
+    </me:message>
+
+    <!-- Client Messages -->
+
+    <me:message name="NewOrder" id="9" description="New Order Message">
+        <field name="clientOrderId" id="1" type="idString20"/>
+        <field name="securityId" id="2" type="int32"/>
+        <field name="traderMnemonic" id="3" type="idString17"/>
+        <field name="account" id="4" type="idString10"/>
+        <field name="orderType" id="5" type="OrdTypeEnum"/>
+        <field name="timeInForce" id="6" type="TimeInForceEnum"/>
+        <field name="expireTime" id="7" type="idString17"/>
+        <field name="side" id="8" type="SideEnum"/>
+        <field name="orderQuantity" id="9" type="int32"/>
+        <field name="displayQuantity" id="10" type="int32"/>
+        <field name="minQuantity" id="11" type="int32"/>
+        <field name="limitPrice" id="12" type="Price"/>
+        <field name="stopPrice" id="13" type="Price"/>
+        <field name="capacity" id="14" type="CapacityEnum"/>
+        <field name="cancelOnDisconnect" id="12" type="CancelOnDisconnectEnum"/>
+        <field name="orderBook" id="13" type="OrderBookEnum"/>
+    </me:message>
+
+    <me:message name="OrderCancelRequest" id="10" description="Order Cancel Request Message">
+        <field name="clientOrderId" id="1" type="idString20"/>
+        <field name="origClientOrderId" id="2" type="idString20"/>
+        <field name="orderId" id="3" type="int32"/>
+        <field name="securityId" id="4" type="int32"/>
+        <field name="traderMnemonic" id="5" type="idString17"/>
+        <field name="side" id="6" type="SideEnum"/>
+        <field name="orderBook" id="7" type="OrderBookEnum"/>
+    </me:message>
+
+    <me:message name="OrderMassCancelRequest" id="11" description="Order Mass Cancel Request Message">
+        <field name="clientOrderId" id="1" type="idString20"/>
+        <field name="massCancelRequestType" id="2" type="MassCancelRequestTypeEnum"/>
+        <field name="securityId" id="3" type="int32"/>
+        <field name="segment" id="4" type="idString6"/>
+        <field name="orderSubType" id="5" type="OrderSubTypeEnum"/>
+        <field name="orderBook" id="6" type="OrderBookEnum"/>
+    </me:message>
+
+    <me:message name="OrderCancelReplaceRequest" id="12" description="Order Cancel Replace Request Message">
+        <field name="clientOrderId" id="1" type="idString20"/>
+        <field name="origClientOrderId" id="2" type="idString20"/>
+        <field name="orderId" id="3" type="int32"/>
+        <field name="securityId" id="4" type="int32"/>
+        <field name="traderMnemonic" id="5" type="idString17"/>
+        <field name="account" id="6" type="idString10"/>
+        <field name="orderType" id="7" type="OrdTypeEnum"/>
+        <field name="timeInForce" id="8" type="TimeInForceEnum"/>
+        <field name="expireTime" id="9" type="idString17"/>
+        <field name="side" id="10" type="SideEnum"/>
+        <field name="orderQuantity" id="11" type="int32"/>
+        <field name="displayQuantity" id="12" type="int32"/>
+        <field name="minQuantity" id="13" type="int32"/>
+        <field name="limitPrice" id="14" type="Price"/>
+        <field name="stopPrice" id="15" type="Price"/>
+        <field name="orderBook" id="16" type="OrderBookEnum"/>
+    </me:message>
+
+
+    <!--Application Messages: Server-Initiated -->
+
+    <me:message name="ExecutionReport" id="13" description="Execution Report Message">
+        <field name="partitionId" id="1" type="uint8"/>
+        <field name="sequenceNumber" id="2" type="int32"/>
+        <field name="executionID" id="3" type="idString21"/>
+        <field name="clientOrderId" id="4" type="idString20"/>
+        <field name="orderId" id="5" type="int32"/>
+        <field name="executionType" id="6" type="ExecutionTypeEnum"/>
+        <field name="orderStatus" id="7" type="OrderStatusEnum"/>
+        <field name="rejectCode" id="8" type="RejectCode"/>
+        <field name="leavesQuantity" id="11" type="int32"/>
+        <field name="container" id="12" type="ContainerEnum"/>
+        <field name="securityId" id="13" type="int32"/>
+        <field name="side" id="14" type="SideEnum"/>
+        <field name="traderMnemonic" id="15" type="idString17"/>
+        <field name="account" id="16" type="idString10"/>
+        <field name="isMarketOpsRequest" id="17" type="IsMarketOpsRequestEnum"/>
+        <field name="transactTime" id="18" type="uint64"/>
+        <field name="orderBook" id="19" type="OrderBookEnum"/>
+        <group name="fillsGroup" id="20" description="Partial fills" dimensionType="groupSizeEncoding">
+            <field name="fillPrice" id="21" type="Price" description="Price of partial fill"/>
+            <field name="fillQty" id="22" type="int32" description="Executed quantity"/>
+        </group>
+    </me:message>
+
+    <me:message name="OrderCancelReject" id="14" description="Order Cancel Reject Message">
+        <field name="partitionId" id="1" type="uint8"/>
+        <field name="sequenceNumber" id="2" type="int32"/>
+        <field name="clientOrderId" id="3" type="idString20"/>
+        <field name="orderId" id="4" type="int32"/>
+        <field name="transactTime" id="5" type="uint64"/>
+        <field name="rejectCode" id="6" type="RejectCode"/>
+        <field name="orderBook" id="7" type="OrderBookEnum"/>
+    </me:message>
+
+    <me:message name="OrderMassCancelReport" id="15" description="Order Mass Cancel Report Message">
+        <field name="partitionId" id="1" type="uint8"/>
+        <field name="sequenceNumber" id="2" type="int32"/>
+        <field name="clientOrderId" id="3" type="idString20"/>
+        <field name="status" id="4" type="OrderMassCancelReportStatusEnum"/>
+        <field name="rejectCode" id="5" type="RejectCode"/>
+        <field name="transactTime" id="6" type="uint64"/>
+        <field name="orderBook" id="7" type="OrderBookEnum"/>
+    </me:message>
+
+    <me:message name="News" id="16" description="News Message">
+        <field name="partitionId" id="1" type="uint8"/>
+        <field name="sequenceNumber" id="2" type="int32"/>
+        <field name="origTime" id="3" type="idString8"/>
+        <field name="urgency" id="4" type="UrgencyEnum"/>
+        <field name="headLine" id="5" type="idString100"/>
+        <field name="text" id="6" type="idString750"/>
+        <field name="instruments" id="7" type="idString100"/>
+    </me:message>
+
+    <me:message name="BusinessReject" id="17" description="Business Reject Message">
+        <field name="partitionId" id="1" type="uint8"/>
+        <field name="sequenceNumber" id="2" type="int32"/>
+        <field name="rejectCode" id="3" type="BusinessRejectEnum"/>
+        <field name="clientOrderId" id="4" type="idString20"/>
+        <field name="orderId" id="5" type="int32"/>
+        <field name="transactTime" id="6" type="uint64"/>
+    </me:message>
+
+    <me:message name="VWAP" id="95" description="Bid and Offer VWAP">
+        <field name="securityId" id="1" type="int32"/>
+        <field name="bidVWAP" id="3" type="Price"/>
+        <field name="offerVWAP" id="4" type="Price"/>
+    </me:message>
+
+</me:messageSchema>

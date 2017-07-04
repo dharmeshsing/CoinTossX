@@ -1,0 +1,4 @@
+CompID,Password,InputURL,InputStreamId,OutputURL,OutputStreamId
+1,test123,udp://localhost:5563,10,udp://localhost:5564,10
+2,test456,udp://localhost:5565,10,udp://localhost:5566,10
+3,test789,udp://localhost:5567,10,udp://localhost:5568,10
