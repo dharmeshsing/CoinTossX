@@ -81,3 +81,16 @@ DirectBuffer directBuffer = newOrderBuilder.compID(clientData.getCompID())
 //Send new order to Trading Gateway
 tradingGatewayPub.send(createNewOrder(1200, 25034, SideEnum.Buy, OrdTypeEnum.Limit));
 ```
+
+# Screenshots
+Splash Screen
+![](https://user-images.githubusercontent.com/10845401/28061338-9b8ec63e-666d-11e7-9e3c-3e6fc84b6cc1.png)
+![](https://user-images.githubusercontent.com/10845401/28061427-ddc9687e-666d-11e7-8b2f-83ecfe06514e.png)
+![](https://user-images.githubusercontent.com/10845401/28061443-ec5a5cae-666d-11e7-8bfb-5417d7fb128f.png)
+
+Simulation
+![](https://user-images.githubusercontent.com/10845401/28061471-0abc67c8-666e-11e7-8f74-5f8bc937a817.png)
+
+Limit Order Book
+![](https://user-images.githubusercontent.com/10845401/28061480-0fa64858-666e-11e7-80c6-88cb93d1b975.png)
+
