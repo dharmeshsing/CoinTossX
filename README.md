@@ -1,0 +1,2 @@
+# CoinTossX
+CoinTossX is a low latency high throughput matching engine that follows the rules of the Johannesburg Stock Exchange (JSE). The system allows users to connect using a client library. Users send orders to the exchange and receive updates of the status of their orders and market data updates of all the stocks on the exchange. A website allows users to view the stocks on the exchange in real time. The system was developed using Java and its related technologies. CoinTossX was developed as part of a master's dissertation from Witwatersrand University. 
