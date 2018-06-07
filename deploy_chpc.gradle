@@ -1,0 +1,102 @@
+remotes {
+    chpc {
+        host = 'lengau.chpc.ac.za'
+        user = 'dsing'
+        password = ''
+        knownHosts = allowAnyHosts
+    }
+}
+
+task deployToCHPCServer << {
+    cleanDirectory(remotes.chpc)
+    copyFiles(remotes.chpc)
+}
+
+
+def cleanDirectory(def server){
+    ssh.run {
+        session(server) {
+            logger.lifecycle("Stop engines ...")
+            try {
+                execute project.softwarePath + '/scripts/stopAll.sh'
+            }catch(Exception e){}
+
+            logger.lifecycle("Clean Software directory ...")
+            execute 'rm -r ' + project.softwarePath
+            execute 'mkdir ' + project.softwarePath
+
+            try {
+                execute 'rm -R /dev/shm/aeron'
+                execute 'rm -R /dev/shm/aeron-dsing*'
+            }catch(Exception e){}
+        }
+    }
+}
+
+task deployZip(type: Zip) {
+    from rootProject.projectDir.absolutePath + '/deploy'
+    include '**/*'
+    archiveName 'deploy.zip'
+    destinationDir(file(rootProject.projectDir))
+}
+
+task deleteDeployZip(type: Delete){
+    delete rootProject.projectDir.absolutePath + '/deploy.zip'
+}
+
+
+def copyFiles(def server){
+    ssh.run {
+        session(server) {
+            logger.lifecycle("Copy files to server...")
+            put from: rootProject.projectDir.absolutePath + '/deploy.zip', into: project.softwarePath
+            execute 'unzip ' + project.softwarePath + '/deploy.zip -d ' + project.softwarePath
+
+            logger.lifecycle("Copy data files to server...")
+            execute 'mkdir ' + project.softwarePath + '/data'
+            put from: rootProject.projectDir.absolutePath + '/data', into: project.softwarePath
+
+            execute 'rm -r ' +  project.softwarePath + '/deploy.zip'
+
+            execute 'find ' +  project.softwarePath + ' -type f -exec chmod 755 {} +'
+        }
+    }
+}
+
+def runJavaObjectLayout(def server){
+    logger.lifecycle("Object layout test")
+    ssh.run {
+        session(server) {
+            put from: project(':MatchingEngine').buildDir.absolutePath + '/install', into: '/hydrahome/1133465/Software'
+        }
+    }
+}
+
+task testObjectLayout << {
+    runJavaObjectLayout(remotes.wits)
+}
+
+task copyJMHJar << {
+    logger.lifecycle("Copy JMH Jar to server  ...")
+    ssh.run {
+        session(remotes.wits) {
+            put from: project(':MatchingEngine').buildDir.absolutePath + '/libs/MatchingEngine-1.0-jmh.jar', into: '/hydrahome/1133465/Software/libs'
+        }
+    }
+}
+
+task getFiles << {
+    getTestResults(remotes.wits)
+}
+
+def getTestResults(def server){
+    logger.lifecycle("Get test results from server...")
+    def testDir = 'TestResults_02-01-2017_21_41_03'
+    ssh.run {
+        session(server) {
+            execute 'zip -r ' + project.softwarePath + '/data/' + testDir + ".zip " + project.softwarePath + '/data/' + testDir
+            get from: project.softwarePath + '/data/' + testDir + ".zip", into: rootProject.projectDir.absolutePath + '/testResults'
+            get from: project.softwarePath + '/data/hdrLatency.txt', into: rootProject.projectDir.absolutePath + '/testResults/' + testDir
+        }
+    }
+}
