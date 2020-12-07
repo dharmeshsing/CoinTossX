@@ -5,8 +5,10 @@ import uk.co.real_logic.aeron.Aeron;
 import uk.co.real_logic.aeron.FragmentAssembler;
 import uk.co.real_logic.aeron.Image;
 import uk.co.real_logic.aeron.Subscription;
+import uk.co.real_logic.aeron.driver.Configuration;
 import uk.co.real_logic.aeron.logbuffer.FragmentHandler;
 import uk.co.real_logic.agrona.CloseHelper;
+import uk.co.real_logic.agrona.concurrent.BackoffIdleStrategy;
 import uk.co.real_logic.agrona.concurrent.BusySpinIdleStrategy;
 import uk.co.real_logic.agrona.concurrent.IdleStrategy;
 
@@ -69,7 +71,7 @@ public class AeronSubscriber {
         ctx.unavailableImageHandler(this::printUnavailableImage);
 
         aeron = Aeron.connect(ctx);
-        idleStrategy = new BusySpinIdleStrategy();
+        idleStrategy = Configuration.agentIdleStrategy("uk.co.real_logic.agrona.concurrent.BackoffIdleStrategy");
 
     }
 

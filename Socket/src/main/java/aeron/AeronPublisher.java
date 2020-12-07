@@ -7,9 +7,11 @@ import uk.co.real_logic.aeron.Aeron;
 import uk.co.real_logic.aeron.Image;
 import uk.co.real_logic.aeron.Publication;
 import uk.co.real_logic.aeron.Subscription;
+import uk.co.real_logic.aeron.driver.Configuration;
 import uk.co.real_logic.agrona.CloseHelper;
 import uk.co.real_logic.agrona.DirectBuffer;
 import uk.co.real_logic.agrona.concurrent.BusySpinIdleStrategy;
+import uk.co.real_logic.agrona.concurrent.IdleStrategy;
 import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
 import java.nio.ByteBuffer;
@@ -24,7 +26,7 @@ public class AeronPublisher {
     private Aeron aeron;
     private ObjectObjectMap<String,Publication> publications;
     private UnsafeBuffer tmpBuffer = new UnsafeBuffer(ByteBuffer.allocateDirect(106));
-    private static final BusySpinIdleStrategy OFFER_IDLE_STRATEGY = new BusySpinIdleStrategy();
+    private static final IdleStrategy OFFER_IDLE_STRATEGY = Configuration.agentIdleStrategy("uk.co.real_logic.agrona.concurrent.BackoffIdleStrategy");
 
     public AeronPublisher(String contextDir){
         this.publications = new ObjectObjectScatterMap<>();
