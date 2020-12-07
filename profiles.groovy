@@ -18,4 +18,9 @@ environments {
         ext.envProp = 'chpcServer.properties'
         ext.softwarePath = '/home/dsing/Simulation'
     }
+
+    azure {
+        ext.envProp = 'azure.properties'
+        ext.softwarePath = '/home/IvanJericevich/run/run'
+    }
 }

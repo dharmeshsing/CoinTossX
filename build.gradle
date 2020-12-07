@@ -12,6 +12,8 @@ if(env == 'local'){
     apply from: 'deploy.gradle'
 } else if(env == 'chpc') {
     apply from: 'deploy_chpc.gradle'
+} else if(env == 'azure') {
+    apply from: 'deploy_azure.gradle'
 }
 
 loadConfiguration()
