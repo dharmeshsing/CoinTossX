@@ -30,7 +30,7 @@ public class OrderDataProvider extends SortableDataProvider<OrderVO, String> {
 
     @Override
     public long size() {
-        return orders.size();
+        return orders == null ? 0:orders.size();
     }
 
     @Override
