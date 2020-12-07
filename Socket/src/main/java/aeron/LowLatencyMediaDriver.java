@@ -15,9 +15,9 @@ public class LowLatencyMediaDriver {
 
         MediaDriver.Context ctx = new MediaDriver.Context()
                 .threadingMode(ThreadingMode.DEDICATED)
-                .conductorIdleStrategy(new BackoffIdleStrategy(1, 1, 1, 1))
-                .receiverIdleStrategy(new BusySpinIdleStrategy())
-                .senderIdleStrategy(new BusySpinIdleStrategy())
+//                .conductorIdleStrategy(new BackoffIdleStrategy(1, 1, 1, 1))
+//                .receiverIdleStrategy(new BusySpinIdleStrategy())
+//                .senderIdleStrategy(new BusySpinIdleStrategy())
                 .aeronDirectoryName(args[0]);
 
         ctx.driverTimeoutMs(1000000);
