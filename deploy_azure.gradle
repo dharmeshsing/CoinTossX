@@ -1,6 +1,8 @@
 remotes {
     local {
         host = '127.0.0.1'
+        user = 'IvanJericevich'
+        password = 'Fluffydog1996'
     }
 }
 
