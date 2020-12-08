@@ -175,7 +175,7 @@ public class Client {
        // if(!isAuction()) {
             long startTime = System.currentTimeMillis();
             while(!mktDataUpdateSemaphore.acquire()){
-                if(System.currentTimeMillis() - startTime > 10000){
+                if(System.currentTimeMillis() - startTime > 100_000){
                     System.out.println("Market Data Time Out " + count);
                     break;
                 }
