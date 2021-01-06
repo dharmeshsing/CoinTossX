@@ -30,7 +30,7 @@ public class HawkesEntryPoint {
         try {
 
             Properties hawkesProps = new Properties();
-            File dataFile = new File("/Users/dharmeshsing/Documents/Masters/Software/data/hawkesData.properties");
+            File dataFile = new File("/home/ivanjericevich/run/data/hawkesData.properties");
             CommonUtil.loadProperties(hawkesProps, dataFile);
 
             double[] lambda0 = convertLambda((String) hawkesProps.get("LAMBDA"));

@@ -1,4 +1,4 @@
-package hawkes;
+package client;
 
 import com.carrotsearch.hppc.IntObjectHashMap;
 import com.carrotsearch.hppc.IntObjectMap;

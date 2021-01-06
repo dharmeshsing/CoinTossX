@@ -3,3 +3,4 @@ deploy/
 .gradle/
 .idea/
 *.log
+venv/

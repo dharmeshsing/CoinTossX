@@ -1,4 +1,4 @@
-package hawkes;
+package client;
 
 import gateway.client.AbstractGatewayListener;
 import gateway.client.GatewayClient;

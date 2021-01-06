@@ -2,7 +2,7 @@ package hawkes.integration;
 
 import com.carrotsearch.hppc.IntObjectMap;
 import hawkes.Client;
-import hawkes.ClientData;
+import client.ClientData;
 import org.junit.Before;
 import org.junit.Test;
 import sbe.builder.AdminBuilder;

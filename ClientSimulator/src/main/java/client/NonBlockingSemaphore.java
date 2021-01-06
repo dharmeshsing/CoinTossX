@@ -1,4 +1,4 @@
-package hawkes;
+package client;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

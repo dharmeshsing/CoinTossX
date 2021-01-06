@@ -21,6 +21,6 @@ environments {
 
     azure {
         ext.envProp = 'azure.properties'
-        ext.softwarePath = '/home/IvanJericevich/run/run'
+        ext.softwarePath = '/home/ivanjericevich/run'
     }
 }

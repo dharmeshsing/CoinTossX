@@ -9,6 +9,10 @@ import sbe.builder.LogonBuilder;
 import sbe.builder.NewOrderBuilder;
 import sbe.msg.*;
 import uk.co.real_logic.agrona.DirectBuffer;
+import client.ClientData;
+import client.TradingGatewaySubscriber;
+import client.NonBlockingSemaphore;
+import client.ClientMDGSubscriber;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
