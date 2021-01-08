@@ -13,9 +13,10 @@ FarmerJoshi:
 
 
 ### 1. Preliminaries
-using JavaCall, Dates
+using JavaCall
 cd(@__DIR__) # pwd()
 JavaCall.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/classes/main") # JavaCall.getClassPath()
+JavaCall.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar")
 JavaCall.init() # Initialize JVM
 utilities = @jimport abm.Utilities # JavaCall.listmethods(utilities)
 #---------------------------------------------------------------------------------------------------
@@ -42,7 +43,7 @@ end
 
 ### 3. Login and submit orders
 clientId = 1; securityId = 1
-client = jcall(utilities, "loadClientData", JavaObject{Symbol("Client")}, (jint, jint), clientId, securityId) # Create and initialize client
+client = jcall(utilities, "loadClientData", JavaObject{Symbol("client.Client")}, (jint, jint), clientId, securityId) # Create and initialize client
 jcall(client, "sendStartMessage", Nothing, ()); println("Started at" * Dates.format(now(), "HH:MM")) # Login client to the gateways and connect to ports
 jcall(client, "submitOrder", Nothing, (jlong, jlong, SideEnum, OrderTypeEnum), 1000, 100, Buy, Limit) # Submit order
 jcall(client, "sendEndMessage", Nothing, ()); jcall(client, "close", Nothing, ()) # Logout client and close connections

@@ -4,6 +4,7 @@ import client.*;
 import java.util.Properties;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.FileInputStream;
 import java.util.Properties;
 import java.time.LocalDateTime;
 import com.carrotsearch.hppc.IntObjectMap;
@@ -14,7 +15,7 @@ public class Utilities {
     IntObjectMap<ClientData> clientData;
 
     private static void loadProperties(Properties properties, String propertiesFile) throws IOException {
-        try (InputStream inputStream = FarmerJoshi.class.getClassLoader().getResourceAsStream(propertiesFile)) {
+        try (InputStream inputStream = new FileInputStream("/home/ivanjericevich/CoinTossX/ClientSimulator/build/install/ClientSimulator/resources/simulation.properties")) {
             if (inputStream != null) {
                 properties.load(inputStream);
             } else {
