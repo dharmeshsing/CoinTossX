@@ -2,7 +2,7 @@ package hawkes.integration;
 
 import com.carrotsearch.hppc.IntObjectMap;
 import hawkes.Client;
-import client.ClientData;
+import hawkes.ClientData;
 import org.junit.Before;
 import org.junit.Test;
 import sbe.builder.AdminBuilder;
@@ -25,7 +25,7 @@ public class ClientTest {
     @Before
     public void setup() throws Exception {
         isGatewayUp = true;
-        IntObjectMap<ClientData> clientData = ClientData.loadClientDataData("/Users/dharmeshsing/Documents/Masters/Software/data");
+        IntObjectMap<ClientData> clientData = ClientData.loadClientDataData("/home/ivanjericevich/run/data");
         client = new Client(clientData.get(1),null,1);
 
         //client.initMulticastMarketDataGatewaySub();

@@ -5,7 +5,6 @@ import gateway.client.GatewayClient;
 import gateway.client.GatewayClientImpl;
 import sbe.msg.marketData.SessionChangedReasonEnum;
 import sbe.msg.marketData.TradingSessionEnum;
-import client.NonBlockingSemaphore;
 
 import java.time.LocalDateTime;
 
