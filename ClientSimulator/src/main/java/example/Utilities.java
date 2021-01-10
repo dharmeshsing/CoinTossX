@@ -1,4 +1,4 @@
-package abm;
+package example;
 
 import client.*;
 import java.util.Properties;
