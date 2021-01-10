@@ -145,7 +145,7 @@ public class Client {
 
     }
 
-    public DirectBuffer createNewOrder(long volume, long price,SideEnum side,OrdTypeEnum orderType){
+    public DirectBuffer createNewOrder(long volume, long price, SideEnum side, OrdTypeEnum orderType, TimeInForceEnum timeInForce, String expireTime){
         String clientOrderId = LocalDateTime.now().format(formatter);
         clientOrderId = BuilderUtil.fill(clientOrderId, NewOrderEncoder.clientOrderIdLength());
 
@@ -158,8 +158,8 @@ public class Client {
                 .securityId(securityId)
                 .traderMnemonic("John             ".getBytes())
                 .orderType(orderType)
-                .timeInForce(TimeInForceEnum.Day)
-                .expireTime("20210813-23:00:00".getBytes())
+                .timeInForce(timeInForce)
+                .expireTime("20211230-23:00:00".getBytes())
                 .side(side)
                 .orderQuantity((int) volume)
                 .displayQuantity((int) volume)
@@ -192,8 +192,9 @@ public class Client {
 
     }
 
-    public void submitOrder(long volume, long price, SideEnum side, OrdTypeEnum orderType){
-        tradingGatewayPub.send(createNewOrder(volume, price, side, orderType));
+    public void submitOrder(long volume, long price, String side, String orderType, String tif){
+        tradingGatewayPub.send(createNewOrder(volume, price, SideEnum.valueOf(side), OrderTypeEnum.valueOf(orderType), TimeInForceEnum.valueOf(tif));
+
     }
 
     public void setBid(long bid) {
