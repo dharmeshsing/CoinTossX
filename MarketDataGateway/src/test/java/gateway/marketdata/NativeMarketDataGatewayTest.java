@@ -21,11 +21,11 @@ public class NativeMarketDataGatewayTest {
 
     @Before
     public void setup() throws IOException {
-        File dir = new File("/run/aeronTest/marketDataGateway");
+        File dir = new File("/dev/shm/aeron/marketDataGateway");
         FileUtils.deleteDirectory(dir);
 
         MediaDriver.Context mdctx = new MediaDriver.Context();
-        mdctx = mdctx.aeronDirectoryName("/run/aeronTest/marketDataGateway");
+        mdctx = mdctx.aeronDirectoryName("/dev/shm/aeron/marketDataGateway");
         driver = MediaDriver.launch(mdctx);
 
         marketDataGateway = new NativeMarketDataGateway();

@@ -22,7 +22,7 @@ public class CrossingProcessorReportTest {
 
     @Before
     public void setup() throws IOException {
-        String dataPath = "/Users/dharmeshsing/Documents/Masters/Software/data";
+        String dataPath = "/home/ivanjericevich/CoinTossX/data";
         LongObjectHashMap<OrderBook> orderBooks = OrderBookDAO.loadOrderBooks(dataPath);
         TraderDAO.loadTraders(dataPath);
         crossingProcessor = new CrossingProcessor(orderBooks);

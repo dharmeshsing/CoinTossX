@@ -1,12 +1,12 @@
 environments {
     local {
         ext.envProp = 'local.properties'
-        ext.softwarePath = '/Users/dharmeshsing/Documents/Masters/tmp'
+        ext.softwarePath = '/home/ivanjericevich/run'
     }
 
     windows {
         ext.envProp = 'windows.properties'
-        ext.softwarePath = '/Users/dharmeshsing/Documents/cointoss_shared'
+        ext.softwarePath = '/home/ivanjericevich/run'
     }
 
     wits {

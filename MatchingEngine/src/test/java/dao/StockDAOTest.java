@@ -11,7 +11,7 @@ public class StockDAOTest {
     @Before
     public void setup(){
 
-        StockDAO.loadStocks("/Users/dharmeshsing/Documents/Masters/Software/data");
+        StockDAO.loadStocks("/home/ivanjericevich/CoinTossX/data");
     }
 
     @Test
