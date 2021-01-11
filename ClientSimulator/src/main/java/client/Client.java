@@ -193,7 +193,7 @@ public class Client {
     }
 
     public void submitOrder(long volume, long price, String side, String orderType, String tif){
-        tradingGatewayPub.send(createNewOrder(volume, price, SideEnum.valueOf(side), OrderTypeEnum.valueOf(orderType), TimeInForceEnum.valueOf(tif));
+        tradingGatewayPub.send(createNewOrder(volume, price, SideEnum.valueOf(side), OrderTypeEnum.valueOf(orderType), TimeInForceEnum.valueOf(tif)));
 
     }
 
