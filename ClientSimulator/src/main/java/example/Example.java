@@ -22,13 +22,13 @@ import java.time.LocalDateTime;
 import com.carrotsearch.hppc.IntObjectMap;
 //---------------------------------------------------------------------------------------------------
 
-public class FarmerJoshi {
+public class Example {
     private static final String PROPERTIES_FILE =  "simulation.properties"; // The name of the file specifying the simulation configuration
     private static Properties properties = new Properties();
 
     //----- Supplementary method for extracting the simulation settings -----//
     private static void loadProperties(Properties properties, String propertiesFile) throws IOException {
-        try (InputStream inputStream = FarmerJoshi.class.getClassLoader().getResourceAsStream(propertiesFile)) {
+        try (InputStream inputStream = Example.class.getClassLoader().getResourceAsStream(propertiesFile)) {
             if (inputStream != null) {
                 properties.load(inputStream);
             } else {
@@ -58,8 +58,8 @@ public class FarmerJoshi {
         System.out.println("Start at " + LocalDateTime.now());
 
         // Submit orders
-        client.submitOrder(1000, 150, SideEnum.Sell, OrdTypeEnum.Limit);
-        client.submitOrder(1000, 150, SideEnum.Buy, OrdTypeEnum.Limit);
+        client.submitOrder(1000, 150, "Sell", "Limit", "Day");
+        client.submitOrder(1000, 150, "Buy", "Limit", "Day");
 
         // End trading session by logging out client and closing connections
         client.sendEndMessage();

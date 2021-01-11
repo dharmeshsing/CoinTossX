@@ -145,7 +145,7 @@ public class Client {
 
     }
 
-    public DirectBuffer createNewOrder(long volume, long price, SideEnum side, OrdTypeEnum orderType, TimeInForceEnum timeInForce, String expireTime){
+    public DirectBuffer createNewOrder(long volume, long price, SideEnum side, OrdTypeEnum orderType, TimeInForceEnum timeInForce){
         String clientOrderId = LocalDateTime.now().format(formatter);
         clientOrderId = BuilderUtil.fill(clientOrderId, NewOrderEncoder.clientOrderIdLength());
 
@@ -193,7 +193,7 @@ public class Client {
     }
 
     public void submitOrder(long volume, long price, String side, String orderType, String tif){
-        tradingGatewayPub.send(createNewOrder(volume, price, SideEnum.valueOf(side), OrderTypeEnum.valueOf(orderType), TimeInForceEnum.valueOf(tif)));
+        tradingGatewayPub.send(createNewOrder(volume, price, SideEnum.valueOf(side), OrdTypeEnum.valueOf(orderType), TimeInForceEnum.valueOf(tif)));
 
     }
 
