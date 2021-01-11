@@ -318,7 +318,7 @@ public class ServicesImpl implements Services,Serializable {
             ClientVO clientVO = clients.get(i);
             if(clientVO != null) {
                 Runtime.getRuntime().exec(getScriptPath() + File.separator +
-                        "startHawkesSimulation.sh" + getFileExtension() + " " +
+                        "startHawkesSimulation" + getFileExtension() + " " +
                         clients.get(i).getCompId() + " " +
                         clients.get(i).getSecurityId() + " " +
                         "warmUp");

@@ -137,7 +137,7 @@ public class Client {
         try {
             System.out.println("Message login");
             tradingGatewayPub.send(buffer);
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
