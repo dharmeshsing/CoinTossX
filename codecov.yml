@@ -3,6 +3,7 @@ codecov:
 language: java
 jdk:
   - oraclejdk8
+  - openjdk8
 before_script:
   - chmod +x gradlew
 script:
