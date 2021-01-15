@@ -8,4 +8,6 @@ addons:
     packages:
       - oracle-java8-installer
 
+before_script:
+  - chmod +x gradlew
 script: ./gradlew -Penv=azure build -x test
