@@ -1,0 +1,11 @@
+language: java
+jdk:
+  - oraclejdk8
+  - openjdk8
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
+script: ./gradlew -Penv=azure build -x test
