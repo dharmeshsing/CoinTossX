@@ -197,6 +197,23 @@ public class Client {
 
     }
 
+    public long calcVWAP(String side){
+        snapShotSemaphore.acquire();
+        DirectBuffer buffer = adminBuilder.compID(clientData.getCompID())
+                    .securityId(securityId)
+                    .adminMessage(AdminTypeEnum.VWAP)
+                    .build();
+
+        clientMDGSubscriber.setSideEnum(SideEnum.valueOf(side));
+        marketDataGatewayPub.send(buffer);
+
+        //Wait for VWAP to be calculated
+        snapShotSemaphore.acquire();
+        snapShotSemaphore.release();
+
+        return clientMDGSubscriber.getVwap();
+    }
+
     public void setBid(long bid) {
         this.bid = bid;
     }

@@ -13,7 +13,7 @@ Example:
 #----- Preliminaries -----#
 # Import the Java-Julia interface package
 using JavaCall
-cd(@__DIR__) # pwd()
+cd(@__DIR__); clearconsole() # pwd()
 # Add the path to java classes as well as the path to the ".jar" files containing the required java dependencies
 JavaCall.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/classes/main") # JavaCall.getClassPath()
 JavaCall.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar")
@@ -32,7 +32,9 @@ client = jcall(utilities, "loadClientData", JavaObject{Symbol("client.Client")},
 # Start trading session by Logging in client to the gateways and connecting to ports
 jcall(client, "sendStartMessage", Nothing, ())
 # Submit orders
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString), 1000, 100, "Buy", "Limit", "Day")
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString), 1000, 99, "Buy", "Limit", "Day")
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString), 1000, 101, "Sell", "Limit", "Day")
+jcall(client, "calcVWAP", jlong, (JString,), "Buy")
 # End trading session by logging out client and closing connections
 jcall(client, "sendEndMessage", Nothing, ()); jcall(client, "close", Nothing, ())
 #---------------------------------------------------------------------------------------------------
@@ -79,7 +81,12 @@ function Logout(client::Client)
     jcall(client.javaObject, "sendEndMessage", Nothing, ());
     jcall(client.javaObject, "close", Nothing, ())
 end
-
+function RequestMarketData(client::Client, type::String; side::String = "Buy")::Integer
+    if type == "VWAP"
+        return jcall(client, "calcVWAP", jlong, (JString,), side)
+    else
+    end
+end
 client = Login(1, 1)
 order = Order(1000, 100, "Buy", "Limit", "Day")
 SubmitOrder(client, order)
