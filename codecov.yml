@@ -1,2 +1,12 @@
 codecov:
   token: aca853ce-ff24-45a3-be60-32475b5f22a4
+language: java
+jdk:
+  - oraclejdk8
+before_script:
+  - chmod +x gradlew
+script:
+  - ./gradlew check
+  - ./gradlew codeCoverageReport
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
