@@ -5,7 +5,7 @@ plugins {
 if(env == 'local'){
     ext.envProp = 'local.properties'
     ext.softwarePath = rootProject.projectDir.absolutePath + '/deploy'
-} else if (){
+} else if (env == 'windows'){
     ext.envProp = 'windows.properties'
     ext.softwarePath = rootProject.projectDir.absolutePath + '/deploy'
 } else if(env == 'wits'){
