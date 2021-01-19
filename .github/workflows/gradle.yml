@@ -38,3 +38,5 @@ jobs:
         java-version: 1.8
     - name: Build with Gradle
       run: ./gradlew.bat -Penv=windows build -x test
+    - name: Deploy
+      run: ./gradlew.bat -Penv=windows clean installDist bootRepackage copyResourcesToInstallDir copyToDeploy
