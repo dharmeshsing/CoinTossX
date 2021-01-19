@@ -5,6 +5,9 @@ plugins {
 if(env == 'local'){
     ext.envProp = 'local.properties'
     ext.softwarePath = rootProject.projectDir.absolutePath + '/deploy'
+} else if (){
+    ext.envProp = 'windows.properties'
+    ext.softwarePath = rootProject.projectDir.absolutePath + '/deploy'
 } else if(env == 'wits'){
     apply from: 'deploy.gradle'
     ext.envProp = 'witsServer.properties'

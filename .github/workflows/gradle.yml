@@ -23,3 +23,18 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew -Penv=local build -x test
+    - name: Deploy
+      run: ./gradlew -Penv=local clean installDist bootRepackage copyResourcesToInstallDir copyToDeploy
+
+  local-windows-build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Gradle
+      run: ./gradlew.bat -Penv=windows build -x test
