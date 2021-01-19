@@ -1,12 +1,12 @@
-name: Continuous Integration Build
+name: Build
 
 on:
   push:
-    branches: [ azure_slow ]
+    branches: [ local ]
     paths-ignore:
     - 'README.md'
   pull_request:
-    branches: [ azure_slow ]
+    branches: [ local ]
 
 jobs:
   local-linux-build:
