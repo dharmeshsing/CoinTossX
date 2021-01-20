@@ -1,15 +1,37 @@
+# CoinTossX <img align="right" width="200" src=".github/Images/Logo.PNG">
 
-
-# CoinTossX
-
-![GitHub contributors](https://img.shields.io/github/contributors/IvanJericevich/CoinTossX)
 
 ![Build](https://github.com/IvanJericevich/CoinTossX/workflows/Build/badge.svg)
 
-[![codecov](https://codecov.io/gh/IvanJericevich/CoinTossX/branch/azure_slow/graph/badge.svg?token=QYYEPBALE6)](https://codecov.io/gh/IvanJericevich/CoinTossX)
+## Quick start
+![](.github/Images/Terminal-Instructions.GIF)
 
-Insert gif
+## Prerequisites
 
-insert badges: version, downloads, contributors, build, tests
+## Additional resources
 
-insert logo at right
+## Installation
+
+## Usage
+### Local deployment
+### Remote deployment
+
+## Example code
+The code required to submit orders to the trading gateway in (and not limited to) three different languages are shown below. This code relies on ... The scripts for these examples can also be found in the [ClientSimulator/src/main/java/example](ClientSimulator/src/main/java/example) directory.
+
+### Java
+```java
+public class {
+
+}
+```
+
+### Julia
+```julia
+using JavaCall
+```
+
+### Python
+```python
+import numpy
+```
