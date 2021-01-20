@@ -4,7 +4,7 @@
 ![Build](https://github.com/IvanJericevich/CoinTossX/workflows/Build/badge.svg)
 
 ## Quick start
-![](.github/Images/Terminal-Instructions.GIF)
+![](.github/Images/Terminal-Instructions.gif)
 
 ## Prerequisites
 
