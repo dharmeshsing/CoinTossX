@@ -1,7 +1,7 @@
 plugins {
     id 'me.champeau.gradle.jmh' version '0.2.0'
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '1.2.1'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 
 apply from: rootProject.projectDir.absolutePath + '/install.gradle'

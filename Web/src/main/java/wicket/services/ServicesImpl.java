@@ -68,7 +68,7 @@ public class ServicesImpl implements Services,Serializable {
             clientDataProvider = new ClientDataProvider(getDataPath());
             stockDataProvider = new StockDataProvider(getDataPath());
             offHeapStorage = new OffHeapStorage();
-            offHeapStorage.init(getDataPath(),true);
+            offHeapStorage.init(getDataPath(),false);
 
             adminClientVO = clientDataProvider.getClient(999);
             clientDataProvider.removeClient(adminClientVO);
