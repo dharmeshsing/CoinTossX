@@ -4,7 +4,7 @@ plugins {
 
 if(env == 'local'){
     ext.envProp = 'local.properties'
-    ext.softwarePath = rootProject.projectDir.absolutePath + '/deploy'
+    ext.softwarePath = '/home/ivanjericevich/run'
 } else if (env == 'windows'){
     ext.envProp = 'windows.properties'
     ext.softwarePath = rootProject.projectDir.absolutePath + '/deploy'
