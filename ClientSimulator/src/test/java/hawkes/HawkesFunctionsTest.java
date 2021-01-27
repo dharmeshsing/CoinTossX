@@ -59,7 +59,7 @@ public class HawkesFunctionsTest {
     @Test
     public void test_8_hour_day_times() throws IOException {
         Properties hawkesProps = new Properties();
-        File dataFile = new File("/home/ivanjericevich/run/data/hawkesData.properties");
+        File dataFile = new File("/Users/dharmeshsing/Documents/Masters/Software/data/hawkesData.properties");
         try {
             loadProperties(hawkesProps,dataFile);
         } catch (IOException e) {
@@ -68,7 +68,7 @@ public class HawkesFunctionsTest {
 
         StringBuilder sb = new StringBuilder();
         try {
-            Files.delete(Paths.get("/home/ivanjericevich/run/test.txt"));
+            Files.delete(Paths.get("/Users/dharmeshsing/Documents/Masters/Software/test.txt"));
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -102,7 +102,7 @@ public class HawkesFunctionsTest {
         }
         System.out.println(localDateTime);
 
-        Files.write(Paths.get("/home/ivanjericevich/run/test.txt"),sb.toString().getBytes());
+        Files.write(Paths.get("/Users/dharmeshsing/Documents/Masters/Software/test.txt"),sb.toString().getBytes());
 
 
     }

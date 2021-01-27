@@ -68,7 +68,7 @@ public class ServicesImpl implements Services,Serializable {
             clientDataProvider = new ClientDataProvider(getDataPath());
             stockDataProvider = new StockDataProvider(getDataPath());
             offHeapStorage = new OffHeapStorage();
-            offHeapStorage.init(getDataPath(),true);
+            offHeapStorage.init(getDataPath(),false);
 
             adminClientVO = clientDataProvider.getClient(999);
             clientDataProvider.removeClient(adminClientVO);
@@ -377,7 +377,7 @@ public class ServicesImpl implements Services,Serializable {
         writeCsvFile(file, TradeVO.getFileHeader(), tradeVOs);
     }
 
-    private void saveLOBOrders(Collection<OrderVO> lobOrders, int securityId,File testResultsDir) throws Exception {
+    private void saveLOBOrders(Collection<OrderVO> lobOrders,int securityId,File testResultsDir) throws Exception {
         String fileName = "LOBOrders_" + securityId + ".csv";
         File file = new File(testResultsDir,fileName);
 

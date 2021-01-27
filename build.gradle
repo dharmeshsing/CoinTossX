@@ -2,17 +2,19 @@ plugins {
     id 'org.hidetake.ssh' version '1.1.3'
 }
 
-ext.env
-ext.envProp = ''
-ext.softwarePath = ''
+ext{
+    env = 'local'
+    envProp = ''
+    softwarePath = ''
+}
 
-if(env == 'local'){
+if(ext.env == 'local'){
     apply from: 'deploy_local.gradle'
-} else if(env == 'wits'){
+} else if(ext.env == 'wits'){
     apply from: 'deploy.gradle'
-} else if(env == 'chpc') {
+} else if(ext.env == 'chpc') {
     apply from: 'deploy_chpc.gradle'
-} else if(env == 'azure') {
+} else if(ext.env == 'azure') {
     apply from: 'deploy_azure.gradle'
 }
 
@@ -49,54 +51,62 @@ def loadConfiguration() {
 }
 
 
-task cleanDeploy() << {
-    File deploy = new File(rootProject.projectDir.absolutePath + '/deploy')
-    if (deploy.exists()) {
-        delete deploy
-    }
-
-    deploy.mkdirs()
-}
-
-task copyScriptsToDeploy() << {
-    File scripts = new File(rootProject.projectDir.absolutePath + '/deploy/scripts')
-    if(scripts.exists()){
-        scripts.delete()
-    }
-
-    scripts.mkdirs()
-
-    copy {
-        from rootProject.projectDir.absolutePath + '/scripts'
-        into rootProject.projectDir.absolutePath + '/deploy/scripts'
-
-        def myProps = new Properties()
-        file(rootProject.projectDir.absolutePath + '/' + project.envProp).withInputStream {
-            myProps.load(it);
+task cleanDeploy() {
+    doLast{
+        File deploy = new File(rootProject.projectDir.absolutePath + '/deploy')
+        if (deploy.exists()) {
+            delete deploy
         }
-        filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: myProps)
+
+        deploy.mkdirs()
     }
 }
 
-task copyWebToDeploy() << {
-    File web = new File(rootProject.projectDir.absolutePath + '/deploy/Web')
-    if(web.exists()){
-        web.delete()
-    }
+task copyScriptsToDeploy() {
+    doLast{
+        File scripts = new File(rootProject.projectDir.absolutePath + '/deploy/scripts')
+        if(scripts.exists()){
+            scripts.delete()
+        }
 
-    web.mkdirs()
+        scripts.mkdirs()
 
-    copy {
-        from project(':Web').buildDir.absolutePath + '/libs'
-        into rootProject.projectDir.absolutePath + '/deploy/Web'
+        copy {
+            from rootProject.projectDir.absolutePath + '/scripts'
+            into rootProject.projectDir.absolutePath + '/deploy/scripts'
+
+            def myProps = new Properties()
+            file(rootProject.projectDir.absolutePath + '/' + project.envProp).withInputStream {
+                myProps.load(it);
+            }
+            filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: myProps)
+        }
     }
 }
 
-task copyToDeploy() << {
-    project.subprojects.each { proj ->
-        copy{
-            from proj.buildDir.absolutePath + '/install/'
-            into 'deploy'
+task copyWebToDeploy() {
+    doLast{
+        File web = new File(rootProject.projectDir.absolutePath + '/deploy/Web')
+        if(web.exists()){
+            web.delete()
+        }
+
+        web.mkdirs()
+
+        copy {
+            from project(':Web').buildDir.absolutePath + '/libs'
+            into rootProject.projectDir.absolutePath + '/deploy/Web'
+        }
+    }
+}
+
+task copyToDeploy() {
+    doLast{
+        project.subprojects.each { proj ->
+            copy{
+                from proj.buildDir.absolutePath + '/install/'
+                into 'deploy'
+            }
         }
     }
 }
@@ -104,3 +114,7 @@ task copyToDeploy() << {
 copyToDeploy.dependsOn cleanDeploy
 copyToDeploy.dependsOn copyScriptsToDeploy
 copyToDeploy.dependsOn copyWebToDeploy
+
+
+
+

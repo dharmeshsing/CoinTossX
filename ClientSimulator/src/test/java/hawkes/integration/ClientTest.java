@@ -25,7 +25,7 @@ public class ClientTest {
     @Before
     public void setup() throws Exception {
         isGatewayUp = true;
-        IntObjectMap<ClientData> clientData = ClientData.loadClientDataData("/home/ivanjericevich/run/data");
+        IntObjectMap<ClientData> clientData = ClientData.loadClientDataData("/Users/dharmeshsing/Documents/Masters/Software/data");
         client = new Client(clientData.get(1),null,1);
 
         //client.initMulticastMarketDataGatewaySub();

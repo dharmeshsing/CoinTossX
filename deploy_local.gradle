@@ -6,9 +6,11 @@ remotes {
     }
 }
 
-task deployLocal << {
-    cleanDirectory(remotes.local)
-    copyFiles(remotes.local)
+task deployLocal {
+    doLast {
+        cleanDirectory(remotes.local)
+        copyFiles(remotes.local)
+    }
 }
 
 
