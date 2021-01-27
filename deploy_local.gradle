@@ -3,6 +3,7 @@ remotes {
         host = '127.0.0.1'
         user = 'ivanjericevich'
         password = 'Fluffydog1996'
+        knownHosts = allowAnyHosts
     }
 }
 

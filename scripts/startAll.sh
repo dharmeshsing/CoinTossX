@@ -6,6 +6,7 @@ MAIN_DIR=@SOFTWARE_PATH@
 echo Starting All Engines...
 cd $MAIN_DIR/scripts
 
+./startWeb.sh
 ./startLowLatencyDriver.sh
 ./startTGDriver.sh
 ./startMDGDriver.sh
@@ -14,5 +15,3 @@ cd $MAIN_DIR/scripts
 ./startMatchingEngine.sh
 ./startMarketDataGateway.sh
 ./startWebEventListener.sh
-./startWeb.sh
-
