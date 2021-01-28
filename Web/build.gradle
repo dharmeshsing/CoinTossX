@@ -43,7 +43,7 @@ springBoot {
 
 def myProps = new Properties()
 file(rootProject.projectDir.absolutePath + '/' + project.envProp).withInputStream{
-    myProps.load(it);
+    myProps.load(it)
 }
 
 processResources {
