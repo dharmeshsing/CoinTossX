@@ -14,5 +14,8 @@ cd $MAIN_DIR/scripts
 ./startMatchingEngine.sh
 ./startMarketDataGateway.sh
 ./startWebEventListener.sh
+
+sleep 10
+
 ./startWeb.sh
 

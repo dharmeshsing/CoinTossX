@@ -21,6 +21,8 @@ public class OffHeapStorageTest {
 
     @Before
     public void setUp() throws Exception {
+        Path path = FileSystems.getDefault().getPath(dataPath + "/webStorage.db");
+        Files.deleteIfExists(path);
         offHeapStorage = new OffHeapStorage();
         offHeapStorage.init(dataPath,false);
     }
@@ -54,125 +56,125 @@ public class OffHeapStorageTest {
         assertEquals(true,offHeapStorage.getHawkesSimulationSttaus());
     }
 
-    @Test
-    public void testUpdateWarmupSimulation() throws Exception {
-
-    }
-
-    @Test
-    public void testUpdateWarmupSimulationStatus() throws Exception {
-
-    }
-
-    @Test
-    public void testGetWarmupSimulationSttaus() throws Exception {
-
-    }
-
-    @Test
-    public void testGetLOBStatus() throws Exception {
-
-    }
-
-    @Test
-    public void testSetLOBStatus() throws Exception {
-
-    }
-
-    @Test
-    public void testAddPrice() throws Exception {
-
-    }
-
-    @Test
-    public void testGetPrices() throws Exception {
-
-    }
-
-    @Test
-    public void testClearPrices() throws Exception {
-
-    }
-
-    @Test
-    public void testClearPrices1() throws Exception {
-
-    }
-
-    @Test
-    public void testAddBidOrder() throws Exception {
-
-    }
-
-    @Test
-    public void testAddOfferOrder() throws Exception {
-
-    }
-
-    @Test
-    public void testAddSubmittedOrder() throws Exception {
-
-    }
-
-    @Test
-    public void testAddTrades() throws Exception {
-
-    }
-
-    @Test
-    public void testGetBidOrders() throws Exception {
-
-    }
-
-    @Test
-    public void testGetOfferOrders() throws Exception {
-
-    }
-
-    @Test
-    public void testGetSubmittedOrders() throws Exception {
-
-    }
-
-    @Test
-    public void testGetTrades() throws Exception {
-
-    }
-
-    @Test
-    public void testClearBidOrders() throws Exception {
-
-    }
-
-    @Test
-    public void testClearOfferOrders() throws Exception {
-
-    }
-
-    @Test
-    public void testClearSubmittedOrders() throws Exception {
-
-    }
-
-    @Test
-    public void testClearTrades() throws Exception {
-
-    }
-
-    @Test
-    public void testClearTrades1() throws Exception {
-
-    }
-
-    @Test
-    public void testClearOrders() throws Exception {
-
-    }
-
-    @Test
-    public void testIsSimultationComplete() throws Exception {
-
-    }
+//    @Test
+//    public void testUpdateWarmupSimulation() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testUpdateWarmupSimulationStatus() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetWarmupSimulationSttaus() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetLOBStatus() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testSetLOBStatus() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testAddPrice() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetPrices() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testClearPrices() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testClearPrices1() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testAddBidOrder() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testAddOfferOrder() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testAddSubmittedOrder() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testAddTrades() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetBidOrders() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetOfferOrders() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetSubmittedOrders() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetTrades() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testClearBidOrders() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testClearOfferOrders() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testClearSubmittedOrders() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testClearTrades() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testClearTrades1() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testClearOrders() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testIsSimultationComplete() throws Exception {
+//
+//    }
 
     @Test
     public void testTwoWriters() throws Exception {
