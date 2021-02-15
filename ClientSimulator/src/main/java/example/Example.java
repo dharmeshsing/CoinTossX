@@ -58,8 +58,6 @@ public class Example {
         System.out.println("Start at " + LocalDateTime.now());
 
         // Submit orders
-        client.submitOrder(1000, 150, "Sell", "Limit", "Day");
-        client.submitOrder(1000, 150, "Buy", "Limit", "Day");
 
         // End trading session by logging out client and closing connections
         client.sendEndMessage();

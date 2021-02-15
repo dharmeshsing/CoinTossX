@@ -5,7 +5,10 @@ Example:
 - Authors: Ivan Jericevich, Dharmesh Sing, Tim Gebbie
 - Structure:
     1. Preliminaries
-    2. Login and submit orders
+    2. Login and start session
+    3. Submit orders
+    4. Market data updates
+    5. End session and logout
 =#
 #---------------------------------------------------------------------------------------------------
 
@@ -24,71 +27,40 @@ utilities = @jimport example.Utilities # JavaCall.listmethods(utilities)
 #---------------------------------------------------------------------------------------------------
 
 
-#----- Login and submit orders -----#
+#----- Login and start session -----#
 # Define the client ID corresponding the client to be logged in as well as the security ID corresponding to the security in which they will trade
 clientId = 1; securityId = 1
 # Load the simulation settings as well as all client data (ports, passwords and IDs) and create/initialize client
 client = jcall(utilities, "loadClientData", JavaObject{Symbol("client.Client")}, (jint, jint), clientId, securityId)
 # Start trading session by Logging in client to the gateways and connecting to ports
 jcall(client, "sendStartMessage", Nothing, ())
-# Submit orders
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString), 1000, 99, "Buy", "Limit", "Day")
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString), 1000, 101, "Sell", "Limit", "Day")
-jcall(client, "calcVWAP", jlong, (JString,), "Buy")
-# End trading session by logging out client and closing connections
-jcall(client, "sendEndMessage", Nothing, ()); jcall(client, "close", Nothing, ())
 #---------------------------------------------------------------------------------------------------
 
 
+#----- Submit orders -----#
+# Arguments for "submitOrder": volume, price, side, order type, time in force, display quantity, min execution size, stop price
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 99, "Buy", "Limit", "Day", 1000, 0, 0) # Buy limit order
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 101, "Sell", "Limit", "Day", 1000, 0, 0) # Sell limit order
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 0, "Buy", "Market", "Day", 1000, 0, 0) # Buy market order
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0) # Stop buy limit order
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 0, "Buy", "Stop", "Day", 1000, 0, 0) # Stop buy market order
+# Arguments for "cancelOrder": order id, side
+jcall(client, "cancelOrder", Nothing, (jlong, jlong), 1, "", "Buy") # Cancel limit order
+#---------------------------------------------------------------------------------------------------
 
 
+#----- Market data updates -----#
+jcall(client, "calcVWAP", jlong, (JString,), "Buy") # VWAP of buy side of LOB
+jcall(client, "getBid", jlong, ()) # Best bid price
+jcall(client, "getBidQuantity", jlong, ()) # Best bid volume
+jcall(client, "getOffer", jlong, ()) # Best ask price
+jcall(client, "getOfferQuantity", jlong, ()) # Best ask volume
+jcall(client, "waitForMarketDataUpdate", Nothing, ()) # Pauses the client until a new event occurs
+jcall(client, "isAuction", jboolean, ()) # Current trading session
+#---------------------------------------------------------------------------------------------------
 
 
-
-
-#----- Supplementary definitions -----#
-mutable struct Order
-    volume::Integer
-    price::Integer
-    side::String
-    type::String
-    tif::String
-    function Order(volume::Integer, price::Integer, side::String, type::String, tif::String)
-        if (side ∈ ["Buy", "Sell"]) && (type ∈ ["Market", "Limit", "Stop", "StopLimit"]) && (tif ∈ ["Day", "GTC", "IOC", "FOK", "OPG", "GTD", "GTT", "GFA", "GFX", "ATC", "CPX"])
-            new(volume, price, side, type, tif)
-        else
-            error("Incorrect order specification")
-        end
-    end
-end
-abstract type Agent end # Define abstract type so that functions can take in both fundamentalist and chartist
-struct Client <: Agent
-    id::Integer
-    securityId::Integer
-    javaObject::JavaObject{Symbol("client.Client")}
-end
-function Login(clientId::Integer, securityId::Integer)::Client
-    utilities = @jimport example.Utilities
-    javaObject = jcall(utilities, "loadClientData", JavaObject{Symbol("client.Client")}, (jint, jint), clientId, securityId)
-    jcall(javaObject, "sendStartMessage", Nothing, ())
-    client = Client(clientId, securityId, javaObject)
-    return client
-end
-function SubmitOrder(client::Client, order::Order)
-    jcall(client.javaObject, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString), order.volume, order.price, order.side, order.type, order.tif)
-end
-function Logout(client::Client)
-    jcall(client.javaObject, "sendEndMessage", Nothing, ());
-    jcall(client.javaObject, "close", Nothing, ())
-end
-function RequestMarketData(client::Client, type::String; side::String = "Buy")::Integer
-    if type == "VWAP"
-        return jcall(client, "calcVWAP", jlong, (JString,), side)
-    else
-    end
-end
-client = Login(1, 1)
-order = Order(1000, 100, "Buy", "Limit", "Day")
-SubmitOrder(client, order)
-Logout(client)
+#----- End session and logout -----#
+# End trading session by logging out client and closing connections
+jcall(client, "sendEndMessage", Nothing, ()); jcall(client, "close", Nothing, ())
 #---------------------------------------------------------------------------------------------------

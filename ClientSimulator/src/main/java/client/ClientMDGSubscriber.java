@@ -7,9 +7,6 @@ import sbe.msg.AdminTypeEnum;
 import sbe.msg.SideEnum;
 import sbe.reader.VWAPReader;
 
-/**
- * Created by dharmeshsing on 5/03/16.
- */
 public class ClientMDGSubscriber extends AbstractGatewayListener implements Runnable {
 
     private GatewayClient marketDataGatewaySub;
@@ -21,7 +18,7 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
     private int securityId;
     private boolean stop;
 
-    public ClientMDGSubscriber(String url, int streamId, NonBlockingSemaphore semaphore, int securityId){
+    public ClientMDGSubscriber(String url, int streamId, NonBlockingSemaphore semaphore, int securityId) {
         this.url = url;
         this.streamId = streamId;
         this.semaphore = semaphore;
@@ -29,7 +26,7 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
         init();
     }
 
-    private void init(){
+    private void init() {
         marketDataGatewaySub = new GatewayClientImpl();
         marketDataGatewaySub.addListener(this);
     }
@@ -45,21 +42,20 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
 
     @Override
     public void readVWAP(VWAPReader vwapReader) {
-        if(vwapReader.getSecurityId() == securityId){
+        if(vwapReader.getSecurityId() == securityId) {
             if(sideEnum == SideEnum.Buy){
                 vwap = vwapReader.getBidVWAP();
-            }else{
+            } else {
                 vwap = vwapReader.getOfferVWAP();
             }
         }
-
         semaphore.release();
     }
 
     @Override
     public void processAdminMessage(int clientId,long securityid,AdminTypeEnum adminTypeEnum) {
         System.out.println(adminTypeEnum + " - " + clientId);
-        if(adminTypeEnum.equals(AdminTypeEnum.EndMessage)){
+        if(adminTypeEnum.equals(AdminTypeEnum.EndMessage)) {
             System.out.println("Received end message from client " + clientId);
             setStop(true);
         }

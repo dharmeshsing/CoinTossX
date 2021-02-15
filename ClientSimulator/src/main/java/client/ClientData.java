@@ -9,10 +9,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 
-/**
- * Created by dharmeshsing on 2/08/15.
- */
 public class ClientData {
+
     private int compID;
     private String password;
     private String ngInputURL;
@@ -49,11 +47,8 @@ public class ClientData {
                 client.setMdgOutputStreamId(Integer.parseInt(record.get(CLIENT_HEADER_MAPPING[9])));
 
                 clients.put(compId,client);
-
             }
         }
-
-
         return clients;
     }
 
@@ -106,10 +101,7 @@ public class ClientData {
         this.ngInputStreamId = ngInputStreamId;
     }
 
-    public int getNgOutputStreamId() {
-        return ngOutputStreamId;
-
-    }
+    public int getNgOutputStreamId() { return ngOutputStreamId; }
 
     public void setNgOutputStreamId(int ngOutputStreamId) {
         this.ngOutputStreamId = ngOutputStreamId;
@@ -119,11 +111,8 @@ public class ClientData {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ClientData client = (ClientData) o;
-
         return compID == client.compID;
-
     }
 
     @Override

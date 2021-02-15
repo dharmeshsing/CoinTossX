@@ -9,8 +9,6 @@ import sbe.reader.VWAPReader;
  * Created by dharmeshsing on 18/04/16.
  */
 public class AbstractGatewayListener implements GatewayListener {
-
-
     @Override
     public void updateBidAskPrice(long securityId, long bid, long bidQuantity, long offer, long offerQuantity) {
 
@@ -30,5 +28,4 @@ public class AbstractGatewayListener implements GatewayListener {
     public void readVWAP(VWAPReader vwapReader) {
 
     }
-
 }

@@ -97,6 +97,7 @@ public class ServicesImpl implements Services,Serializable {
 
         for(int i=0; i<3; i++){
             try {
+                Thread.sleep(1000);
                 System.out.println("Message login");
                 tradingGatewayPub.send(buffer);
                 Thread.sleep(2000);

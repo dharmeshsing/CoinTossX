@@ -2,9 +2,6 @@ package client;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-/** Code from Peter Lawrey.
- *  http://stackoverflow.com/questions/12597407/non-reentrant-non-blocking-semaphore-in-java
- */
 public class NonBlockingSemaphore {
 
     private final AtomicInteger counter;
