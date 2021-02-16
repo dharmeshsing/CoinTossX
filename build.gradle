@@ -10,15 +10,17 @@ ext{
 
 if(ext.env == 'local'){
     apply from: 'deploy_local.gradle'
-} else if(ext.env == 'wits'){
+    ext.envProp = 'local.properties'
+    ext.softwarePath = '/home/ivanjericevich/run'
+} else if(ext.env == 'windows'){
     apply from: 'deploy.gradle'
-} else if(ext.env == 'chpc') {
-    apply from: 'deploy_chpc.gradle'
-} else if(ext.env == 'azure') {
-    apply from: 'deploy_azure.gradle'
+    ext.envProp = 'windows.properties'
+    ext.softwarePath = '/home/ivanjericevich/run'
+} else if(ext.env == 'remote') {
+    apply from: 'deploy_remote.gradle'
+    ext.envProp = 'remote.properties'
+    ext.softwarePath = '/home/ivanjericevich/run'
 }
-
-loadConfiguration()
 
 allprojects {
     apply plugin: 'java'
@@ -36,20 +38,6 @@ allprojects {
         testCompile group: 'org.mockito', name: 'mockito-core', version: '1.+'
     }
 }
-
-def loadConfiguration() {
-    def environment = hasProperty('env') ? env : 'local'
-    println "Environment is set to $environment"
-
-    def configFile = file('profiles.groovy')
-    def config = new ConfigSlurper(environment).parse(configFile.toURL())
-    project.envProp = config.ext.envProp
-    project.softwarePath = config.ext.softwarePath
-
-    println project.envProp
-    println project.softwarePath
-}
-
 
 task cleanDeploy() {
     doLast{

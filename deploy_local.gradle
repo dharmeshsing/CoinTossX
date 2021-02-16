@@ -1,47 +1,28 @@
-remotes {
-    local {
-        host = '127.0.0.1'
-        user = 'ivanjericevich'
-        password = 'Fluffydog1996'
-        knownHosts = allowAnyHosts
-    }
-}
-
 task deployLocal {
     doLast {
-        cleanDirectory(remotes.local)
-        copyFiles(remotes.local)
+        cleanDirectory()
+        copyFiles()
     }
 }
 
-
-def cleanDirectory(def server){
+def cleanDirectory() {
     logger.lifecycle("Clean Software directory ...")
-    ssh.run {
-        session(server) {
-            execute 'rm -r ' + project.softwarePath
-            execute 'mkdir ' + project.softwarePath
-            execute 'rm -Rf /dev/shm/aeron'
-        }
-    }
+    delete project.softwarePath
+    File software = new File(project.softwarePath)
+    software.mkdirs()
+    delete '/dev/shm/aeron'
 }
 
-
-def copyFiles(def server){
+def copyFiles() {
     logger.lifecycle("Copy files to server...")
-    ssh.run {
-        session(server) {
-            logger.lifecycle("Copy files to server...")
-            put from: rootProject.projectDir.absolutePath + '/deploy', into: project.softwarePath
-
-            logger.lifecycle("Copy data files to server...")
-            execute 'mkdir ' + project.softwarePath + '/data'
-            put from: rootProject.projectDir.absolutePath + '/data', into: project.softwarePath
-
-            execute 'mv ' + project.softwarePath + '/deploy/* ' + project.softwarePath
-            execute 'rm -r ' +  project.softwarePath + '/deploy'
-
-            execute 'find ' +  project.softwarePath + ' -type f -exec chmod 755 {} +'
-        }
+    copy {
+        from rootProject.projectDir.absolutePath + '/deploy'
+        into project.softwarePath
+    }
+    File data = new File(project.softwarePath + '/data')
+    data.mkdirs()
+    copy {
+        from rootProject.projectDir.absolutePath + '/data'
+        into project.softwarePath + '/data'
     }
 }

@@ -2,11 +2,11 @@ name: Build
 
 on:
   push:
-    branches: [ local ]
+    branches: [ main ]
     paths-ignore:
     - 'README.md'
   pull_request:
-    branches: [ local ]
+    branches: [ main ]
 
 jobs:
   local-linux-build:
@@ -24,7 +24,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew -Penv=local build -x test
     - name: Deploy
-      run: ./gradlew -Penv=local clean installDist bootRepackage copyResourcesToInstallDir copyToDeploy
+      run: ./gradlew -Penv=local clean installDist bootWar copyResourcesToInstallDir copyToDeploy deployLocal
 
   local-windows-build:
 
@@ -39,4 +39,4 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew.bat -Penv=windows build -x test
     - name: Deploy
-      run: ./gradlew.bat -Penv=windows clean installDist bootRepackage copyResourcesToInstallDir copyToDeploy
+      run: ./gradlew.bat -Penv=windows clean installDist bootWar copyResourcesToInstallDir copyToDeploy deployLocal
