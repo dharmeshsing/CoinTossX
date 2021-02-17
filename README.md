@@ -159,7 +159,7 @@ Example:
         - Submit orders
         - Market data updates
         - End session and logout
-          */
+ */
 //---------------------------------------------------------------------------------------------------
 
 //----- Import the necessary dependencies -----//
