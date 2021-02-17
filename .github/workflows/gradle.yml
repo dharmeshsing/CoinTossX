@@ -2,11 +2,11 @@ name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ version2 ]
     paths-ignore:
     - 'README.md'
   pull_request:
-    branches: [ main ]
+    branches: [ version2 ]
 
 jobs:
   local-linux-build:

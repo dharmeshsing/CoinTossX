@@ -17,9 +17,9 @@ Example:
 # Import the Java-Python interface module
 import jpype as jp
 # Initialize/start the JVM
-jp.startJVM(jp.getDefaultJVMPath(), "-ea", classpath = "/home/ivanjericevich/CoinTossX/ClientSimulator/build/classes/main") # Start JVM
+jp.startJVM(jp.getDefaultJVMPath(), "-ea", classpath = "[path to]/CoinTossX/ClientSimulator/build/classes/main") # Start JVM
 # Add the path to the ".jar" files containing the required java dependencies
-jpype.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar")
+jpype.addClassPath("[path to]/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar")
 # Import the class containing the reqired methods
 utilities = jp.JClass("example.Utilities")
 #---------------------------------------------------------------------------------------------------

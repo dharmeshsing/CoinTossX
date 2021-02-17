@@ -18,8 +18,8 @@ Example:
 using JavaCall
 cd(@__DIR__); clearconsole() # pwd()
 # Add the path to java classes as well as the path to the ".jar" files containing the required java dependencies
-JavaCall.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/classes/main") # JavaCall.getClassPath()
-JavaCall.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar")
+JavaCall.addClassPath("[path to]/CoinTossX/ClientSimulator/build/classes/main") # JavaCall.getClassPath()
+JavaCall.addClassPath("[path to]/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar")
 # Initialize JVM
 JavaCall.init()
 # Import the class containing the reqired methods

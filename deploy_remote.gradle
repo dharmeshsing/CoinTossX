@@ -1,8 +1,8 @@
 remotes {
     local {
-        host = '127.0.0.1'
-        user = 'ivanjericevich'
-        password = 'Fluffydog1996'
+        host = '[ip address]'
+        user = '[username]'
+        password = '[password]'
         knownHosts = allowAnyHosts
     }
 }
