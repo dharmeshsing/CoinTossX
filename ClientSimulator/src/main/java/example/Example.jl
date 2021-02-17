@@ -45,7 +45,7 @@ jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, 
 jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0) # Stop buy limit order
 jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 0, "Buy", "Stop", "Day", 1000, 0, 0) # Stop buy market order
 # Arguments for "cancelOrder": order id, side
-jcall(client, "cancelOrder", Nothing, (jlong, jlong), 1, "", "Buy") # Cancel limit order
+jcall(client, "cancelOrder", Nothing, (jlong, jlong), "1", "Buy") # Cancel limit order
 #---------------------------------------------------------------------------------------------------
 
 

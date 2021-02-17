@@ -24,7 +24,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew -Penv=local build -x test
     - name: Deploy
-      run: ./gradlew -Penv=local clean installDist bootWar copyResourcesToInstallDir copyToDeploy deployLocal
+      run: ./gradlew -Penv=local clean installDist bootWar copyResourcesToInstallDir copyToDeploy
 
   local-windows-build:
 

@@ -146,7 +146,7 @@ public class Client {
         System.out.println("Logged out.");
     }
 
-    private void waitForMarketDataUpdate() throws Exception { while(!mktDataUpdateSemaphore.acquire()){} }
+    public void waitForMarketDataUpdate() throws Exception { while(!mktDataUpdateSemaphore.acquire()){} }
 
     public void submitOrder(long volume, long price, String side, String orderType, String timeInForce, long displayQuantity, long minQuantity, long stopPrice) {
         String clientOrderId = LocalDateTime.now().toString();
