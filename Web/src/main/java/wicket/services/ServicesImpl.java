@@ -97,6 +97,7 @@ public class ServicesImpl implements Services,Serializable {
 
         for(int i=0; i<3; i++){
             try {
+                Thread.sleep(1000);
                 System.out.println("Message login");
                 tradingGatewayPub.send(buffer);
                 Thread.sleep(2000);
@@ -261,7 +262,9 @@ public class ServicesImpl implements Services,Serializable {
                 while (!offHeapStorage.getLOBStatus()) {
                     Thread.sleep(2000);
                 }
-                Collection<OrderVO> lobOrders = offHeapStorage.getSubmittedOrders(securityId);
+                Collection<OrderVO> lobOrders = offHeapStorage.getOfferOrders(securityId);
+                Collection<OrderVO> bidOrders = offHeapStorage.getBidOrders(securityId);
+                lobOrders.addAll(bidOrders);
                 saveLOBOrders(lobOrders, securityId, testResultsDir);
 
             }
@@ -318,7 +321,7 @@ public class ServicesImpl implements Services,Serializable {
             ClientVO clientVO = clients.get(i);
             if(clientVO != null) {
                 Runtime.getRuntime().exec(getScriptPath() + File.separator +
-                        "startHawkesSimulation.sh" + getFileExtension() + " " +
+                        "startHawkesSimulation" + getFileExtension() + " " +
                         clients.get(i).getCompId() + " " +
                         clients.get(i).getSecurityId() + " " +
                         "warmUp");

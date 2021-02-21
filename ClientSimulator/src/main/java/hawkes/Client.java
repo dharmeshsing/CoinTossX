@@ -175,7 +175,7 @@ public class Client {
        // if(!isAuction()) {
             long startTime = System.currentTimeMillis();
             while(!mktDataUpdateSemaphore.acquire()){
-                if(System.currentTimeMillis() - startTime > 10000){
+                if(System.currentTimeMillis() - startTime > 100_000){
                     System.out.println("Market Data Time Out " + count);
                     break;
                 }
@@ -200,6 +200,7 @@ public class Client {
 
         for(int i=0; i<3; i++){
             try {
+                Thread.sleep(1000);
                 System.out.println("Message login");
                 tradingGatewayPub.send(buffer);
                 Thread.sleep(2000);

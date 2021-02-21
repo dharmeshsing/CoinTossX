@@ -27,7 +27,7 @@ public class TradeDataProvider extends SortableDataProvider<TradeVO, String> {
 
     @Override
     public long size() {
-        return trades.size();
+        return trades ==null ? 0 : trades.size();
     }
 
     @Override

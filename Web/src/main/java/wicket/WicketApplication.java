@@ -1,25 +1,26 @@
 package wicket;
 
-import com.giffing.wicket.spring.boot.starter.app.WicketBootWebApplication;
-import com.giffing.wicket.spring.boot.starter.context.WicketSpringBootApplication;
+import com.giffing.wicket.spring.boot.starter.app.WicketBootStandardWebApplication;
 import org.apache.wicket.Page;
 import org.apache.wicket.bean.validation.BeanValidationConfiguration;
 import org.apache.wicket.protocol.http.CsrfPreventionRequestCycleListener;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * Created by dharmeshsing on 19/03/16.
  */
-@WicketSpringBootApplication
+@SpringBootApplication
 @EnableAsync
 @EnableScheduling
-public class WicketApplication extends WicketBootWebApplication {
+public class WicketApplication extends WicketBootStandardWebApplication {
 
-    public static void main(String[] args) throws Exception {
-        SpringApplicationBuilder springApplicationBuilder = new SpringApplicationBuilder();
-        springApplicationBuilder.sources(WicketApplication.class).run(args);
+    public static void main(String[] args) {
+			new SpringApplicationBuilder()
+				.sources(WicketApplication.class)
+				.run(args);
     }
 
     @Override

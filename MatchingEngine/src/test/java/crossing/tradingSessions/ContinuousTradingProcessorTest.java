@@ -35,7 +35,7 @@ public class ContinuousTradingProcessorTest {
 
     @Before
     public void setup() throws IOException {
-        String dataPath = "/Users/dharmeshsing/Documents/Masters/Software/data";
+        String dataPath = "/home/ivanjericevich/CoinTossX/data";
         orderBooks = OrderBookDAO.loadOrderBooks(dataPath);
         expectedOrderBooks = OrderBookDAO.loadOrderBooks(dataPath);
         TraderDAO.loadTraders(dataPath);

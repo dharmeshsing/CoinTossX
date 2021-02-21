@@ -27,7 +27,7 @@ public class OrderLoader {
     public static final String [] ORDER_HEADER_MAPPING = {"Side","OrderID","Type","MES","Time","Size","Price","StopPrice","TimeInForce","ExpireTime"};
     public static final String [] STOCK_HEADER_MAPPING = {"StockCode","MRS","TickSize"};
     public static final String [] TRADE_HEADER_MAPPING = {"TradeId","Price","Quantity"};
-    private String DATA_PATH = "/Users/dharmeshsing/Documents/Masters/Software/MatchingEngine/src/test/resources/crossing/";
+    private String DATA_PATH = "/home/ivanjericevich/CoinTossX/MatchingEngine/src/test/resources/crossing/";
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public enum OrderDataType{

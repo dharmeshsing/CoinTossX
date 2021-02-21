@@ -17,10 +17,12 @@ import static org.junit.Assert.assertEquals;
 public class OffHeapStorageTest {
 
     private OffHeapStorage offHeapStorage;
-    private String dataPath = "/Users/dharmeshsing/Documents/Masters/tmp/data";
+    private String dataPath = "/home/ivanjericevich/run/data";
 
     @Before
     public void setUp() throws Exception {
+        Path path = FileSystems.getDefault().getPath(dataPath + "/webStorage.db");
+        Files.deleteIfExists(path);
         offHeapStorage = new OffHeapStorage();
         offHeapStorage.init(dataPath,false);
     }

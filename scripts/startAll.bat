@@ -7,5 +7,6 @@ cd %MAIN_DIR%\scripts
 .\startNativeGateway.bat
 .\startMatchingEngine.bat
 .\startMarketDataGateway.bat
+sleep 10
 .\startWeb.bat
 

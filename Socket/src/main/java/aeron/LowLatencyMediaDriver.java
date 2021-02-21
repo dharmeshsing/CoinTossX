@@ -14,10 +14,10 @@ public class LowLatencyMediaDriver {
         MediaDriver.loadPropertiesFile("mediaDriver.properties");
 
         MediaDriver.Context ctx = new MediaDriver.Context()
-                .threadingMode(ThreadingMode.DEDICATED)
-                .conductorIdleStrategy(new BackoffIdleStrategy(1, 1, 1, 1))
-                .receiverIdleStrategy(new BusySpinIdleStrategy())
-                .senderIdleStrategy(new BusySpinIdleStrategy())
+                .threadingMode(ThreadingMode.SHARED)
+//                .conductorIdleStrategy(new BackoffIdleStrategy(1, 1, 1, 1))
+//                .receiverIdleStrategy(new BusySpinIdleStrategy())
+//                .senderIdleStrategy(new BusySpinIdleStrategy())
                 .aeronDirectoryName(args[0]);
 
         ctx.driverTimeoutMs(1000000);
@@ -58,7 +58,7 @@ public class LowLatencyMediaDriver {
     public static MediaDriver startMediaDriver(){
         MediaDriver.loadPropertiesFile("mediaDriver.properties");
         MediaDriver.Context ctx = new MediaDriver.Context()
-                .threadingMode(ThreadingMode.DEDICATED);
+                .threadingMode(ThreadingMode.SHARED);
 //                .conductorIdleStrategy(new BackoffIdleStrategy(1, 1, 1, 1))
 //                .receiverIdleStrategy(new BusySpinIdleStrategy())
 //                .senderIdleStrategy(new BusySpinIdleStrategy());
