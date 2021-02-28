@@ -81,7 +81,7 @@ public class TradeVO implements Serializable {
     }
 
     public static String[] getFileHeader(){
-        return new String[]{"TradeId","Price","Quantity","CreationTime"};
+        return new String[]{"OrderId","Price","Volume","DateTime"};
     }
 
     public LocalDateTime getCreationTime() {

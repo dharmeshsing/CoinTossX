@@ -3,7 +3,6 @@ plugins {
 }
 
 ext{
-    env = 'local'
     envProp = ''
     softwarePath = ''
 }

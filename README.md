@@ -5,7 +5,7 @@
 Below are the instructions for deploying CoinTossX to a user's local machine or virtual machine in a cloud environment. These instructions apply to Windows, Linux and OSX operating systems. CoinTossX is a Java web application and is built using the [Gradle](https://gradle.org/) build tool. The user need __not__ install Gradle or change the version of Gradle installed on their system as the project uses the Gradle wrapper to download and run the required Gradle version. Currently CoinTossX is compatible with Java version 8 and Gradle version 6.7.1. The application can be started from the command line, however, it is recommended that the user make use of a Java IDE such as Eclipse or IntelliJ IDEA to automate the start-up process and simplify deployment.
 
 ## Quick start
-![](.github/Images/Terminal-Instructions.gif)
+![](.github/images/Terminal-Instructions.gif)
 
 ## Prerequisites
 * JDK version 8 (see Installation section for more details)

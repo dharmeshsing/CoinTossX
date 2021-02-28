@@ -92,7 +92,6 @@ public class OrderVO implements Serializable {
         return securityId + "," +
                 orderId + "," +
                 getFormattedTime() + "," +
-
                 price + "," +
                 volume + "," +
                 side;
@@ -103,7 +102,7 @@ public class OrderVO implements Serializable {
     }
 
     public static String[] getFileHeader(){
-        return new String[]{"SecurityId","OrderId","SubmittedTime","Price",
+        return new String[]{"SecurityId","OrderId","DateTime","Price",
                 "Volume","Side"};
     }
 }

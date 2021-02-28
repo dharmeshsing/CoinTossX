@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export JAVA_HOME=/hydrahome/1133465/jdk1.8.0_45
+export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_271
 MAIN_DIR=@SOFTWARE_PATH@
 
 #Start Socket
