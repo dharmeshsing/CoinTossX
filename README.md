@@ -1,4 +1,4 @@
-# CoinTossX <img align="right" width="200" src=".github/Images/Logo.PNG">
+# CoinTossX <img align="right" width="200" src=".github/images/Logo.PNG">
 
 ![Build](https://github.com/IvanJericevich/CoinTossX/workflows/Build/badge.svg)
 
