@@ -12,7 +12,7 @@ if(ext.env == 'local'){
     ext.envProp = 'local.properties'
     ext.softwarePath = '/home/ivanjericevich/run'
 } else if(ext.env == 'windows'){
-    apply from: 'deploy.gradle'
+    apply from: 'deploy_local.gradle'
     ext.envProp = 'windows.properties'
     ext.softwarePath = '/home/ivanjericevich/run'
 } else if(ext.env == 'remote') {

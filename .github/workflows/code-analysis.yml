@@ -60,9 +60,9 @@ jobs:
       #    uses a compiled language
 
       - run: |
-        make bootstrap
-        make release
-        ./gradlew build -x test
+         make bootstrap
+         make release
+         ./gradlew build -x test
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
