@@ -24,7 +24,7 @@ public class Client {
     private ClientMDGSubscriber clientMDGSubscriber;
     private GatewayClient marketDataGatewayPub;
 
-    private NewOrderBuilder newOrderBuilder = new NewOrderBuilder();
+    private NewOrderBuilder newOrderBuilder = new NewOrderBuilder().account("account123".getBytes()).capacity(CapacityEnum.Agency).cancelOnDisconnect(CancelOnDisconnectEnum.DoNotCancel).orderBook(OrderBookEnum.Regular);
     private OrderCancelRequestBuilder orderCancelRequestBuilder = new OrderCancelRequestBuilder();
     private OrderModifiedBuilder orderModifiedBuilder = new OrderModifiedBuilder();
     private AdminBuilder adminBuilder = new AdminBuilder();
@@ -37,7 +37,7 @@ public class Client {
     private int securityId;
     private boolean auction = false;
 
-    private NonBlockingSemaphore mktDataUpdateSemaphore = new NonBlockingSemaphore(1);
+    private NonBlockingSemaphore mktDataUpdateSemaphore = new NonBlockingSemaphore(1000000);
     private NonBlockingSemaphore snapShotSemaphore = new NonBlockingSemaphore(1);
 
     public Client(ClientData clientData, int securityId){
@@ -148,29 +148,46 @@ public class Client {
 
     public void waitForMarketDataUpdate() throws Exception { while(!mktDataUpdateSemaphore.acquire()){} }
 
-    public void submitOrder(long volume, long price, String side, String orderType, String timeInForce, long displayQuantity, long minQuantity, long stopPrice) {
+    public DirectBuffer createOrder(int volume, int price, SideEnum side, OrdTypeEnum orderType, TimeInForceEnum timeInForce, int displayQuantity, int minQuantity, long stopPrice, String clientOrderId) {
+        String traderMnemonic = BuilderUtil.fill("John", NewOrderEncoder.traderMnemonicLength());
+        if (orderType == OrdTypeEnum.Limit) {
+            DirectBuffer directBuffer = newOrderBuilder.compID(clientData.getCompID())
+                    .clientOrderId(clientOrderId.getBytes())
+                    .securityId(securityId)
+                    .traderMnemonic(traderMnemonic.getBytes())
+                    .orderType(orderType)
+                    .timeInForce(timeInForce)
+                    .expireTime("20211230-23:00:00".getBytes())
+                    .side(side)
+                    .orderQuantity(volume)
+                    .displayQuantity(displayQuantity)
+                    .minQuantity(minQuantity)
+                    .limitPrice(price)
+                    .stopPrice(stopPrice)
+                    .build();
+            return directBuffer;
+        } else {
+            DirectBuffer directBuffer = newOrderBuilder.compID(clientData.getCompID())
+                    .clientOrderId(clientOrderId.getBytes())
+                    .securityId(securityId)
+                    .traderMnemonic(traderMnemonic.getBytes())
+                    .orderType(orderType)
+                    .timeInForce(timeInForce)
+                    .expireTime("20211230-23:00:00".getBytes())
+                    .side(side)
+                    .orderQuantity(volume)
+                    .displayQuantity(displayQuantity)
+                    .minQuantity(minQuantity)
+                    .stopPrice(stopPrice)
+                    .build();
+            return directBuffer;
+        }
+    }
+
+    public void submitOrder(int volume, int price, String side, String orderType, String timeInForce, int displayQuantity, int minQuantity, long stopPrice) {
         String clientOrderId = LocalDateTime.now().toString();
         clientOrderId = BuilderUtil.fill(clientOrderId, NewOrderEncoder.clientOrderIdLength());
-        String traderMnemonic = BuilderUtil.fill("John", NewOrderEncoder.traderMnemonicLength());
-
-        DirectBuffer directBuffer = newOrderBuilder.compID(clientData.getCompID())
-                .clientOrderId(clientOrderId.getBytes())
-                .account("account123".getBytes())
-                .capacity(CapacityEnum.Agency)
-                .cancelOnDisconnect(CancelOnDisconnectEnum.DoNotCancel)
-                .orderBook(OrderBookEnum.Regular)
-                .securityId(securityId)
-                .traderMnemonic(traderMnemonic.getBytes())
-                .orderType(OrdTypeEnum.valueOf(orderType))
-                .timeInForce(TimeInForceEnum.valueOf(timeInForce))
-                .expireTime("20211230-23:00:00".getBytes())
-                .side(SideEnum.valueOf(side))
-                .orderQuantity((int) volume)
-                .displayQuantity((int) displayQuantity)
-                .minQuantity((int) minQuantity)
-                .limitPrice(price)
-                .stopPrice(stopPrice)
-                .build();
+        DirectBuffer directBuffer = createOrder(volume, price, SideEnum.valueOf(side), OrdTypeEnum.valueOf(orderType), TimeInForceEnum.valueOf(timeInForce), displayQuantity, minQuantity, stopPrice, clientOrderId);
         tradingGatewayPub.send(directBuffer);
         System.out.println("Message=OrderAdd|Time=" + clientOrderId + "|Type=" + orderType + "|Side=" + side + "|Volume=" + volume + "(" + displayQuantity + ")" + "|Price=" + price + "|StopPrice=" + stopPrice + "|TIF=" + timeInForce + "|MES=" + minQuantity);
     }
