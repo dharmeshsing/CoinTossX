@@ -24,7 +24,7 @@ public class Client {
     private ClientMDGSubscriber clientMDGSubscriber;
     private GatewayClient marketDataGatewayPub;
 
-    private NewOrderBuilder newOrderBuilder = new NewOrderBuilder();
+    private NewOrderBuilder newOrderBuilder = new NewOrderBuilder().account("account123".getBytes()).capacity(CapacityEnum.Agency).cancelOnDisconnect(CancelOnDisconnectEnum.DoNotCancel).orderBook(OrderBookEnum.Regular);
     private OrderCancelRequestBuilder orderCancelRequestBuilder = new OrderCancelRequestBuilder();
     private OrderModifiedBuilder orderModifiedBuilder = new OrderModifiedBuilder();
     private AdminBuilder adminBuilder = new AdminBuilder();
@@ -155,10 +155,6 @@ public class Client {
 
         DirectBuffer directBuffer = newOrderBuilder.compID(clientData.getCompID())
                 .clientOrderId(clientOrderId.getBytes())
-                .account("account123".getBytes())
-                .capacity(CapacityEnum.Agency)
-                .cancelOnDisconnect(CancelOnDisconnectEnum.DoNotCancel)
-                .orderBook(OrderBookEnum.Regular)
                 .securityId(securityId)
                 .traderMnemonic(traderMnemonic.getBytes())
                 .orderType(OrdTypeEnum.valueOf(orderType))
