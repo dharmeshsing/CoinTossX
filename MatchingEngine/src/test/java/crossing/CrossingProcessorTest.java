@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import unsafe.UnsafeUtil;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,7 +29,7 @@ public class CrossingProcessorTest {
 
     @Before
     public void setup() throws IOException {
-        String dataPath = "/home/ivanjericevich/CoinTossX/data";
+        String dataPath = Paths.get("").toAbsolutePath().getParent() + "/data";
         LongObjectHashMap<OrderBook> orderBooks = OrderBookDAO.loadOrderBooks(dataPath);
         TraderDAO.loadTraders(dataPath);
         crossingProcessor = new CrossingProcessor(orderBooks);

@@ -2,11 +2,7 @@ package client;
 
 import gateway.client.GatewayClient;
 import gateway.client.GatewayClientImpl;
-import sbe.builder.OrderCancelRequestBuilder;
-import sbe.builder.NewOrderBuilder;
-import sbe.builder.AdminBuilder;
-import sbe.builder.LogonBuilder;
-import sbe.builder.BuilderUtil;
+import sbe.builder.*;
 import sbe.builder.marketData.OrderModifiedBuilder;
 import sbe.msg.*;
 
@@ -26,7 +22,7 @@ public class Client {
 
     private NewOrderBuilder newOrderBuilder = new NewOrderBuilder().account("account123".getBytes()).capacity(CapacityEnum.Agency).cancelOnDisconnect(CancelOnDisconnectEnum.DoNotCancel).orderBook(OrderBookEnum.Regular);
     private OrderCancelRequestBuilder orderCancelRequestBuilder = new OrderCancelRequestBuilder();
-    private OrderModifiedBuilder orderModifiedBuilder = new OrderModifiedBuilder();
+    private OrderCancelReplaceRequestBuilder orderCancelReplaceRequestBuilder = new OrderCancelReplaceRequestBuilder().account("account123".getBytes()).orderBook(OrderBookEnum.Regular);
     private AdminBuilder adminBuilder = new AdminBuilder();
 
     private ClientData clientData;
@@ -148,8 +144,8 @@ public class Client {
 
     public void waitForMarketDataUpdate() throws Exception { while(!mktDataUpdateSemaphore.acquire()){} }
 
-    public void submitOrder(long volume, long price, String side, String orderType, String timeInForce, long displayQuantity, long minQuantity, long stopPrice) {
-        String clientOrderId = LocalDateTime.now().toString();
+    public void submitOrder(String clientOrderId, long volume, long price, String side, String orderType, String timeInForce, long displayQuantity, long minQuantity, long stopPrice) {
+        //String clientOrderId = BuilderUtil.fill(LocalDateTime.now().toString(), NewOrderEncoder.clientOrderIdLength());
         clientOrderId = BuilderUtil.fill(clientOrderId, NewOrderEncoder.clientOrderIdLength());
         String traderMnemonic = BuilderUtil.fill("John", NewOrderEncoder.traderMnemonicLength());
 
@@ -173,8 +169,7 @@ public class Client {
 
     public void cancelOrder(String originalClientOrderId, String side) {
         String origClientOrderId = BuilderUtil.fill(originalClientOrderId, OrderCancelRequestEncoder.origClientOrderIdLength());
-        String clientOrderId = LocalDateTime.now().toString();
-        clientOrderId = BuilderUtil.fill(clientOrderId, OrderCancelRequestEncoder.clientOrderIdLength());
+        String clientOrderId = BuilderUtil.fill(LocalDateTime.now().toString(), OrderCancelRequestEncoder.clientOrderIdLength());
         String traderMnemonic = BuilderUtil.fill("John", OrderCancelRequestEncoder.traderMnemonicLength());
 
         DirectBuffer directBuffer = orderCancelRequestBuilder.compID(clientData.getCompID())
@@ -186,7 +181,32 @@ public class Client {
                 .orderBook(OrderBookEnum.Regular)
                 .build();
         tradingGatewayPub.send(directBuffer);
-        System.out.println("Message=OrderCancel|Time=" + clientOrderId + "|Side=" + side);
+        System.out.println("Message=OrderCancel|Time=" + clientOrderId + "|OrderId=" + origClientOrderId + "|Side=" + side);
+    }
+
+    public void replaceOrder(String originalClientOrderId, long volume, long price, String side, String orderType, String timeInForce, long displayQuantity, long minQuantity, long stopPrice) {
+        //String clientOrderId = BuilderUtil.fill(LocalDateTime.now().toString(), OrderCancelReplaceRequestEncoder.clientOrderIdLength());
+        String clientOrderId = BuilderUtil.fill(originalClientOrderId, OrderCancelReplaceRequestEncoder.clientOrderIdLength());
+        String origClientOrderId = BuilderUtil.fill(originalClientOrderId, OrderCancelReplaceRequestEncoder.origClientOrderIdLength());
+        String traderMnemonic = BuilderUtil.fill("John", OrderCancelReplaceRequestEncoder.traderMnemonicLength());
+
+        DirectBuffer directBuffer = orderCancelReplaceRequestBuilder.compID(clientData.getCompID())
+                .clientOrderId(clientOrderId.getBytes())
+                .origClientOrderId(origClientOrderId.getBytes())
+                .securityId(securityId)
+                .traderMnemonic(traderMnemonic.getBytes())
+                .orderType(OrdTypeEnum.valueOf(orderType))
+                .timeInForce(TimeInForceEnum.valueOf(timeInForce))
+                .expireTime("20211230-23:00:00".getBytes())
+                .side(SideEnum.valueOf(side))
+                .orderQuantity((int) volume)
+                .displayQuantity((int) displayQuantity)
+                .minQuantity((int) minQuantity)
+                .limitPrice(price)
+                .stopPrice(stopPrice)
+                .build();
+        tradingGatewayPub.send(directBuffer);
+        System.out.println("Message=OrderModify|Time=" + clientOrderId + "|OrderId=" + origClientOrderId + "|Type=" + orderType + "|Side=" + side + "|Volume=" + volume + "(" + displayQuantity + ")" + "|Price=" + price + "|StopPrice=" + stopPrice + "|TIF=" + timeInForce + "|MES=" + minQuantity);
     }
 
     public long calcVWAP(String side) {

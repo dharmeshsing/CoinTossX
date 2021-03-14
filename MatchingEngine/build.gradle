@@ -35,7 +35,8 @@ dependencies {
     testCompile 'pl.pragmatists:JUnitParams:1.0.4',
                 'com.itextpdf:itextpdf:5.0.6',
                  project(':LimitOrderBook'),
-                'org.apache.commons:commons-lang3:3.0'
+                'org.apache.commons:commons-lang3:3.0',
+                'commons-io:commons-io:2.4'
 
 
 

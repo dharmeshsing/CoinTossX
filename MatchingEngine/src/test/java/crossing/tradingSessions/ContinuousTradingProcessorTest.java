@@ -20,6 +20,7 @@ import sbe.msg.marketData.TradingSessionEnum;
 import unsafe.UnsafeUtil;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,7 +36,7 @@ public class ContinuousTradingProcessorTest {
 
     @Before
     public void setup() throws IOException {
-        String dataPath = "/home/ivanjericevich/CoinTossX/data";
+        String dataPath = Paths.get("").toAbsolutePath().getParent() + "/data";
         orderBooks = OrderBookDAO.loadOrderBooks(dataPath);
         expectedOrderBooks = OrderBookDAO.loadOrderBooks(dataPath);
         TraderDAO.loadTraders(dataPath);

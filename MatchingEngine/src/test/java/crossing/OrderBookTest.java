@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.nio.file.Paths;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnitParamsRunner.class)
@@ -17,7 +19,7 @@ public class OrderBookTest {
     private OrderBook expectedOrderBook;
 
     static {
-        StockDAO.loadStocks("/home/ivanjericevich/CoinTossX/data");
+        StockDAO.loadStocks(Paths.get("").toAbsolutePath().getParent() + "/data");
     }
 
 

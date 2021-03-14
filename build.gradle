@@ -7,15 +7,17 @@ ext{
     softwarePath = ''
 }
 
-if(ext.env == 'local'){
+def environment = hasProperty('env') ? env : 'local'
+
+if(environment == 'local'){
     apply from: 'deploy_local.gradle'
     ext.envProp = 'local.properties'
     ext.softwarePath = '/home/ivanjericevich/run'
-} else if(ext.env == 'windows'){
+} else if(environment == 'windows'){
     apply from: 'deploy_local.gradle'
     ext.envProp = 'windows.properties'
     ext.softwarePath = '/home/ivanjericevich/run'
-} else if(ext.env == 'remote') {
+} else if(environment == 'remote') {
     apply from: 'deploy_remote.gradle'
     ext.envProp = 'remote.properties'
     ext.softwarePath = '/home/ivanjericevich/run'
@@ -101,7 +103,3 @@ task copyToDeploy() {
 copyToDeploy.dependsOn cleanDeploy
 copyToDeploy.dependsOn copyScriptsToDeploy
 copyToDeploy.dependsOn copyWebToDeploy
-
-
-
-

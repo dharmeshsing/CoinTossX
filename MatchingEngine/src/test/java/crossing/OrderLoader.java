@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -27,7 +28,7 @@ public class OrderLoader {
     public static final String [] ORDER_HEADER_MAPPING = {"Side","OrderID","Type","MES","Time","Size","Price","StopPrice","TimeInForce","ExpireTime"};
     public static final String [] STOCK_HEADER_MAPPING = {"StockCode","MRS","TickSize"};
     public static final String [] TRADE_HEADER_MAPPING = {"TradeId","Price","Quantity"};
-    private String DATA_PATH = "/home/ivanjericevich/CoinTossX/MatchingEngine/src/test/resources/crossing/";
+    private String DATA_PATH = Paths.get("").toAbsolutePath() + "/src/test/resources/crossing/";
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public enum OrderDataType{

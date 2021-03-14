@@ -25,7 +25,7 @@ public class MatchingUtil {
 
     private static AtomicInteger orderIds = new AtomicInteger();
     private static OrderEntry orderEntry = new OrderEntry();
-    private static boolean enableCircuitBreaker = true;
+    private static boolean enableCircuitBreaker = false;
 
     public static void convertStopOrderToMarketOrLimitOrder(OrderEntry orderEntry){
         if (orderEntry.getType() == OrderType.STOP.getOrderType()) {
