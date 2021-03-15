@@ -3,7 +3,6 @@ package client;
 import gateway.client.GatewayClient;
 import gateway.client.GatewayClientImpl;
 import sbe.builder.*;
-import sbe.builder.marketData.OrderModifiedBuilder;
 import sbe.msg.*;
 
 import uk.co.real_logic.agrona.DirectBuffer;

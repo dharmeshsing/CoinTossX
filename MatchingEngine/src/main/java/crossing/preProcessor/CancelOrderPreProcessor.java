@@ -23,7 +23,6 @@ public class CancelOrderPreProcessor implements MatchingPreProcessor {
     public void preProcess(MatchingContext context) {
         if(context.getTemplateId() == OrderCancelRequestEncoder.TEMPLATE_ID) {
             process(context.getOrderBook(), context.getOrderEntry());
-            //context.setAction(MATCHING_ACTION.NO_ACTION);
         }
     }
 
