@@ -65,7 +65,7 @@ public class Example {
         client.submitOrder("3", 1000, 0, "Buy", "Market", "Day", 1000, 0, 0); // Buy market order
         client.submitOrder("4", 1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0); // Stop buy limit order
         client.submitOrder("5", 1000, 0, "Buy", "Stop", "Day", 1000, 0, 0); // Stop buy market order
-        client.cancelOrder("1", "Buy"); // Cancel limit order
+        client.cancelOrder("1", "Buy", 100); // Cancel limit order
 
         //----- Market data updates -----//
         client.calcVWAP("Buy"); // VWAP of buy side of LOB

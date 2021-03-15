@@ -1,8 +1,8 @@
 /* Generated SBE (Simple Binary Encoding) message codec */
 package sbe.msg.marketData;
 
+import uk.co.real_logic.sbe.codec.java.*;
 import uk.co.real_logic.agrona.DirectBuffer;
-import uk.co.real_logic.sbe.codec.java.CodecUtil;
 
 @SuppressWarnings("all")
 public class SymbolStatusDecoder

@@ -21,12 +21,16 @@ public class CancelOrderPreProcessor implements MatchingPreProcessor {
 
     @Override
     public void preProcess(MatchingContext context) {
-        if(context.getTemplateId() == OrderCancelRequestEncoder.TEMPLATE_ID) {
-            process(context.getOrderBook(), context.getOrderEntry());
+        //context.getTemplateId() == OrderCancelRequestEncoder.TEMPLATE_ID
+        System.out.println(context.getOrderType());
+        if(context.getOrderType() == null) {
+            System.out.println("HELLOOOOO");
+            MATCHING_ACTION action = process(context.getOrderBook(), context.getOrderEntry());
+            context.setAction(action);
         }
     }
 
-    private void process(OrderBook orderBook,OrderEntry orderEntry) {
+    private MATCHING_ACTION process(OrderBook orderBook,OrderEntry orderEntry) {
         populateExecutionData(orderEntry);
 
         boolean isParkedOrder = MatchingUtil.isParkedOrder(orderEntry);
@@ -36,6 +40,7 @@ public class CancelOrderPreProcessor implements MatchingPreProcessor {
         long price = orderEntry.getPrice();
         OrderList orderList = tree.get(price);
         if(orderList != null) {
+            System.out.println("SUCCESS");
             Iterator<OrderListCursor> orderListIterator = orderList.iterator();
             while (orderListIterator.hasNext()) {
                 if (orderListIterator.next().value.getOrderId() == orderEntry.getOrderId()) {
@@ -47,6 +52,7 @@ public class CancelOrderPreProcessor implements MatchingPreProcessor {
                 orderBook.removePrice(price, side);
             }
         }
+        return MATCHING_ACTION.NO_ACTION;
     }
 
     private BPlusTree<Long, OrderList> getTree(OrderBook.SIDE side,OrderBook orderBook,OrderEntry orderEntry,boolean isParkedOrder){

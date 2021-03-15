@@ -25,6 +25,7 @@ public class OrderCancelRequestParser {
         String traderName = new  String(traderMnemonic, 0, orderCancelRequest.getTraderMnemonic(traderMnemonic, 0), NewOrderDecoder.traderMnemonicCharacterEncoding()).trim();
         orderEntry.setTrader(TraderDAO.getTrader(traderName));
         orderEntry.setSide((byte) orderCancelRequest.side().value());
+        orderEntry.setPrice(orderCancelRequest.limitPrice().mantissa());
 
         populateExecutionData();
     }

@@ -46,6 +46,7 @@ public class OrderCancelRequestReader {
         sb.append("TraderMnemonic=" + new String(traderMnemonic, 0, orderCancelRequest.getTraderMnemonic(traderMnemonic, 0), OrderCancelRequestDecoder.traderMnemonicCharacterEncoding()));
         sb.append("Side=" + orderCancelRequest.side());
         sb.append("OrderBook=" + orderCancelRequest.orderBook());
+        sb.append("LimitPrice=" + orderCancelRequest.limitPrice());
 
         return sb;
     }
