@@ -19,6 +19,7 @@ public class NewOrderParser {
     private int securityId;
     private byte[] traderMnemonic = new byte[NewOrderDecoder.traderMnemonicLength()];
     private byte[] expireTime = new byte[NewOrderDecoder.expireTimeLength()];
+    private byte[] clientOrderId = new byte[NewOrderDecoder.clientOrderIdLength()];
 
     public void decode(DirectBuffer buffer, OrderEntry orderEntry,int bufferOffset,int actingBlockLength,int actingVersion) throws UnsupportedEncodingException {
         newOrder.wrap(buffer, bufferOffset, actingBlockLength, actingVersion);
@@ -34,13 +35,15 @@ public class NewOrderParser {
         long eTime = dateTimeFormatter.parseMillis(expireTimeText);
         orderEntry.setExpireTime(eTime);
 
+        String clientOrderIdText = new String(clientOrderId, 0, newOrder.getClientOrderId(clientOrderId, 0), newOrder.clientOrderIdCharacterEncoding());
+        orderEntry.setClientOrderId(Long.parseLong(clientOrderIdText));
+
         orderEntry.setSide((byte) newOrder.side().value());
         orderEntry.setQuantity(newOrder.orderQuantity());
         orderEntry.setDisplayQuantity(newOrder.displayQuantity());
         orderEntry.setMinExecutionSize(newOrder.minQuantity());
         orderEntry.setPrice(newOrder.limitPrice().mantissa());
         orderEntry.setStopPrice(newOrder.stopPrice().mantissa());
-        orderEntry.setClientOrderId(newOrder.getClientOrderId(ExecutionReportData.INSTANCE.getClientOrderId(),0));
 
         populateExecutionData();
 
