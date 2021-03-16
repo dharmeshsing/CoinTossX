@@ -11,9 +11,6 @@ import orderBook.OrderBook;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * Created by dharmeshsing on 8/07/15.
- */
 public class ExpireOrderPostProcessor implements MatchingPostProcessor{
 
     private MarketOrderExpireRule marketOrderExpireRule = new MarketOrderExpireRule();

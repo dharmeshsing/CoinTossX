@@ -13,9 +13,6 @@ import wicket.dataProvider.StockDataProvider;
 import java.io.IOException;
 import java.util.Properties;
 
-/**
- * Created by dharmeshsing on 19/04/16.
- */
 public interface Services {
     ClientDataProvider getClientDataProvider();
     String getScriptPath();

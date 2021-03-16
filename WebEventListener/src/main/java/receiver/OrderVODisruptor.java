@@ -7,9 +7,6 @@ import com.lmax.disruptor.dsl.ProducerType;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import sbe.msg.SideEnum;
 
-/**
- * Created by dharmeshsing on 19/12/16.
- */
 public class OrderVODisruptor {
     private Disruptor<OrderVOMessageEvent> disruptor;
     private RingBuffer<OrderVOMessageEvent> ringBuffer;

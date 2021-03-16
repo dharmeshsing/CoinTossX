@@ -14,9 +14,6 @@ import uk.co.real_logic.agrona.concurrent.IdleStrategy;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * Created by dharmeshsing on 7/08/15.
- */
 public class AeronSubscriber {
     private int fragmentLimitCount;
     private AtomicBoolean running = new AtomicBoolean(true);

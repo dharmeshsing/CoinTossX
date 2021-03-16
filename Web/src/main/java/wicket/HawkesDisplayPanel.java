@@ -8,9 +8,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import vo.ClientVO;
 
-/**
- * Created by dharmeshsing on 6/05/16.
- */
 public class HawkesDisplayPanel extends Panel {
 
 

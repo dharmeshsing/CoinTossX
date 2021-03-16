@@ -12,9 +12,6 @@ import orderBook.OrderBook;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * Created by dharmeshsing on 7/07/15.
- */
 public class HiddenOrderPreProcessor {
 
     public static MATCHING_ACTION preProcess(OrderBook orderBook,long aggOrderMES,long aggOrderPrice,OrderBook.SIDE side) {

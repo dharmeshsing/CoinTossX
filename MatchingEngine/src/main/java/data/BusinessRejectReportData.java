@@ -7,9 +7,6 @@ import sbe.msg.ExecutionReportDecoder;
 import sbe.msg.RejectCode;
 import uk.co.real_logic.agrona.DirectBuffer;
 
-/**
- * Created by dharmeshsing on 15/08/15.
- */
 public enum BusinessRejectReportData {
     INSTANCE;
 

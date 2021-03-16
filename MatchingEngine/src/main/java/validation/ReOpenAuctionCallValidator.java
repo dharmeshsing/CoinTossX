@@ -5,9 +5,6 @@ import common.TimeInForce;
 import leafNode.OrderEntry;
 import sbe.msg.NewOrderEncoder;
 
-/**
- * Created by dharmeshsing on 4/11/15.
- */
 public class ReOpenAuctionCallValidator implements SessionValidator {
 
     @Override

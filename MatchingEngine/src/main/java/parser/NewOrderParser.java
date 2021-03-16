@@ -10,9 +10,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by dharmeshsing on 13/08/15.
- */
 public class NewOrderParser {
     private NewOrderDecoder newOrder = new NewOrderDecoder();
     private DateTimeFormatter dateTimeFormatter =  DateTimeFormat.forPattern("yyyyMMdd-HH:mm:ss");
@@ -35,7 +32,7 @@ public class NewOrderParser {
         long eTime = dateTimeFormatter.parseMillis(expireTimeText);
         orderEntry.setExpireTime(eTime);
 
-        String clientOrderIdText = new String(clientOrderId, 0, newOrder.getClientOrderId(clientOrderId, 0), newOrder.clientOrderIdCharacterEncoding());
+        String clientOrderIdText = new String(clientOrderId, 0, newOrder.getClientOrderId(clientOrderId, 0), newOrder.clientOrderIdCharacterEncoding()).trim();
         orderEntry.setClientOrderId(Long.parseLong(clientOrderIdText));
 
         orderEntry.setSide((byte) newOrder.side().value());

@@ -4,9 +4,6 @@ import leafNode.OrderEntry;
 import sbe.msg.NewOrderEncoder;
 import sbe.msg.OrderCancelReplaceRequestEncoder;
 
-/**
- * Created by dharmeshsing on 4/11/15.
- */
 public class PostCloseValidator implements SessionValidator {
 
     @Override

@@ -10,9 +10,6 @@ import leafNode.OrderListImpl;
 import java.util.Comparator;
 import java.util.Map;
 
-/**
- * Created by dharmeshsing on 15/03/08.
- */
 public class OrderBook {
     private long securityId;
     private long bestVisibleBid;

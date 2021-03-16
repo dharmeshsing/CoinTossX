@@ -9,9 +9,6 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 12/08/15.
- */
 public class VWAPReader implements Serializable {
     private int bufferIndex;
     private VWAPDecoder vwap;

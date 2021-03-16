@@ -4,9 +4,6 @@ import com.carrotsearch.hppc.ObjectArrayList;
 import com.lmax.disruptor.EventHandler;
 import gateway.client.GatewayListener;
 
-/**
- * Created by dharmeshsing on 19/12/16.
- */
 public class BidAskHandler implements EventHandler<BidAskMessageEvent> {
     private ObjectArrayList<GatewayListener> listeners;
     private int listenerSize;

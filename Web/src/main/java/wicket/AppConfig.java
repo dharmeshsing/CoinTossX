@@ -15,9 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * Created by dharmeshsing on 9/09/16.
- */
 @Configuration
 @EnableScheduling
 public class AppConfig implements SchedulingConfigurer {

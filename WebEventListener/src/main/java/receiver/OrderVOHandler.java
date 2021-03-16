@@ -4,9 +4,6 @@ import com.lmax.disruptor.EventHandler;
 import dao.OffHeapStorage;
 import vo.OrderVO;
 
-/**
- * Created by dharmeshsing on 19/12/16.
- */
 public class OrderVOHandler implements EventHandler<OrderVOMessageEvent> {
     private OffHeapStorage offHeapStorage;
     private OrderVO orderVO = new OrderVO();

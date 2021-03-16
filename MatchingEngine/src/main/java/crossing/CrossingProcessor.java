@@ -22,9 +22,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Created by dharmeshsing on 2014/12/30.
- */
 public class   CrossingProcessor implements LOBManager {
 
     public static AtomicInteger sequenceNumber = new AtomicInteger();

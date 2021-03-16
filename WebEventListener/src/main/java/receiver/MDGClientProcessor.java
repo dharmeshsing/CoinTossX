@@ -18,9 +18,6 @@ import vo.OrderVO;
 import java.nio.ByteBuffer;
 import java.util.Properties;
 
-/**
- * Created by dharmeshsing on 29/12/16.
- */
 public class MDGClientProcessor implements FragmentHandler,Runnable {
 
     private MessageHeaderDecoder messageHeaderDecoder = new MessageHeaderDecoder();

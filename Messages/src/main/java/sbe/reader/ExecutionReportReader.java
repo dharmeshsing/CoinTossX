@@ -7,9 +7,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by dharmeshsing on 12/08/15.
- */
 public class ExecutionReportReader {
     private StringBuilder sb;
     private int bufferIndex;

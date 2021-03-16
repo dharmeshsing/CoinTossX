@@ -6,9 +6,6 @@ import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
-/**
- * Created by dharmeshsing on 19/12/16.
- */
 public class BidAskDisruptor {
     private Disruptor<BidAskMessageEvent> disruptor;
     private RingBuffer<BidAskMessageEvent> ringBuffer;

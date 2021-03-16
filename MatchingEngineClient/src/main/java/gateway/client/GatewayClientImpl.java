@@ -19,9 +19,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 2015/01/18.
- */
 public class GatewayClientImpl implements GatewayClient,FragmentHandler {
 
     private MessageHeaderDecoder messageHeaderDecoder = new MessageHeaderDecoder();

@@ -3,9 +3,6 @@ package receiver;
 import com.lmax.disruptor.EventFactory;
 import sbe.msg.SideEnum;
 
-/**
- * Created by dharmeshsing on 19/12/16.
- */
 public class OrderVOMessageEvent {
     private int securityId;
     private long orderId;

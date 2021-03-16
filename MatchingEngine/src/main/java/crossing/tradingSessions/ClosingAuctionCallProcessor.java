@@ -16,9 +16,6 @@ import validation.ClosingAuctionCallValidator;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dharmeshsing on 14/11/15.
- */
 public class ClosingAuctionCallProcessor implements TradingSessionProcessor {
     private ClosingAuctionCallValidator validator;
     private PriceTimePriorityStrategy priceTimePriorityStrategy;

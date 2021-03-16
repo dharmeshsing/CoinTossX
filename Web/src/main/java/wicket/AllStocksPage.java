@@ -18,9 +18,6 @@ import wicket.services.Services;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dharmeshsing on 6/05/16.
- */
 public class AllStocksPage extends WebPage {
 
     private StockDataProvider stockDataProvider;

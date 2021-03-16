@@ -2,9 +2,6 @@ package receiver;
 
 import com.lmax.disruptor.EventFactory;
 
-/**
- * Created by dharmeshsing on 19/12/16.
- */
 public class TradeVOMessageEvent {
     private int securityId;
     private int tradeId;

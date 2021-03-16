@@ -5,9 +5,6 @@ import sbe.msg.marketData.SessionChangedReasonEnum;
 import sbe.msg.marketData.TradingSessionEnum;
 import sbe.reader.VWAPReader;
 
-/**
- * Created by dharmeshsing on 18/04/16.
- */
 public class AbstractGatewayListener implements GatewayListener {
     @Override
     public void updateBidAskPrice(long securityId, long bid, long bidQuantity, long offer, long offerQuantity) {

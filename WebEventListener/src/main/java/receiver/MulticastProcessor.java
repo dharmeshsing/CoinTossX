@@ -14,9 +14,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 import java.nio.ByteBuffer;
 import java.util.Properties;
 
-/**
- * Created by dharmeshsing on 29/12/16.
- */
 public class MulticastProcessor implements FragmentHandler,Runnable {
 
     private MessageHeaderDecoder messageHeaderDecoder = new MessageHeaderDecoder();

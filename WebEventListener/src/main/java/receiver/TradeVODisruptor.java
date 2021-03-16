@@ -6,9 +6,6 @@ import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
-/**
- * Created by dharmeshsing on 26/12/16.
- */
 public class TradeVODisruptor {
     private Disruptor<TradeVOMessageEvent> disruptor;
     private RingBuffer<TradeVOMessageEvent> ringBuffer;

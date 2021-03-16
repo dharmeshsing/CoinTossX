@@ -1,8 +1,5 @@
 package sbe.builder;
 
-/**
- * Created by dharmeshsing on 14/08/15.
- */
 public class BuilderUtil {
 
     public static String fill(String value,int capacity){

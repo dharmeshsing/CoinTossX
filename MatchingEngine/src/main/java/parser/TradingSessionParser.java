@@ -6,9 +6,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by dharmeshsing on 14/11/15.
- */
 public class TradingSessionParser {
     private TradingSessionDecoder tradingSession = new TradingSessionDecoder();
     private int securityId;

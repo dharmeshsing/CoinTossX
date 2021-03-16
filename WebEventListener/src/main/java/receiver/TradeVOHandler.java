@@ -6,9 +6,6 @@ import vo.TradeVO;
 
 import java.time.LocalDateTime;
 
-/**
- * Created by dharmeshsing on 19/12/16.
- */
 public class TradeVOHandler implements EventHandler<TradeVOMessageEvent> {
     private OffHeapStorage offHeapStorage;
     private TradeVO tradeVO = new TradeVO();

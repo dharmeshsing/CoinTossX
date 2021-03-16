@@ -20,9 +20,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * Created by dharmeshsing on 16/08/15.
- */
 public enum MarketData {
     INSTANCE;
 

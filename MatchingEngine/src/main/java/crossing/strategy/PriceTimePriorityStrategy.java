@@ -20,9 +20,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * Created by dharmeshsing on 7/07/15.
- */
 public class PriceTimePriorityStrategy implements MatchingLogic {
     private long targetPrice;
 

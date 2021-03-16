@@ -1,7 +1,7 @@
 /* Generated SBE (Simple Binary Encoding) message codec */
 package sbe.msg.marketData;
 
-import uk.co.real_logic.sbe.codec.java.*;
+import uk.co.real_logic.sbe.codec.java.CodecUtil;
 import uk.co.real_logic.agrona.MutableDirectBuffer;
 
 @SuppressWarnings("all")

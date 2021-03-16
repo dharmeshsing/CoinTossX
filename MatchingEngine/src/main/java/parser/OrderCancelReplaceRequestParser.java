@@ -11,9 +11,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by dharmeshsing on 13/08/15.
- */
 public class OrderCancelReplaceRequestParser {
     private OrderCancelReplaceRequestDecoder orderCancelReplaceRequest = new OrderCancelReplaceRequestDecoder();
     private DateTimeFormatter dateTimeFormatter =  DateTimeFormat.forPattern("yyyyMMdd-HH:mm:ss");

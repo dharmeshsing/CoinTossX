@@ -9,9 +9,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
 
-/**
- * Created by dharmeshsing on 16/04/16.
- */
 public class TradeDataProvider extends SortableDataProvider<TradeVO, String> {
 
     private Collection<TradeVO> trades;

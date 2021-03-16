@@ -5,9 +5,6 @@ import sbe.msg.OrderStatusEnum;
 import sun.misc.Unsafe;
 import unsafe.UnsafeUtil;
 
-/**
- * Created by dharmeshsing on 15/03/09.
- */
 public class OrderEntry {
     private static final Unsafe unsafe = UnsafeUtil.getUnsafe();
     private static int offset = 0;

@@ -1,8 +1,5 @@
 package common;
 
-/**
- * Created by dharmeshsing on 16/06/15.
- */
 public enum TimeInForce {
     DAY((byte)0),
     GTC((byte)1),

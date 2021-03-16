@@ -12,9 +12,6 @@ import vo.StockVO;
 
 import javax.inject.Singleton;
 
-/**
- * Created by dharmeshsing on 19/08/16.
- */
 @Component
 @Singleton
 public class TradingSession {

@@ -23,9 +23,6 @@ import validation.IntraDayAuctionCallValidator;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dharmeshsing on 14/11/15.
- */
 public class IntraDayAuctionCallProcessor implements TradingSessionProcessor {
     private IntraDayAuctionCallValidator validator;
     private PriceTimePriorityStrategy priceTimePriorityStrategy;

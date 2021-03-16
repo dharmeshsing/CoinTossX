@@ -1,8 +1,5 @@
 package crossing.strategy;
 
-/**
- * Created by dharmeshsing on 15/05/18.
- */
 public class AuctionData implements Comparable<AuctionData> {
     private long price;
     private long aggregateBuy;

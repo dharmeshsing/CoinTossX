@@ -19,9 +19,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by dharmeshsing on 8/04/16.
- */
 public class Charts extends WebPage {
 
     public Charts(PageParameters pageParameters){

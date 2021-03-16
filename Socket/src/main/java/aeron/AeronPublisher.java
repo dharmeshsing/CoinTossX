@@ -17,9 +17,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 import java.nio.ByteBuffer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * Created by dharmeshsing on 7/08/15.
- */
 public class AeronPublisher {
     private AtomicBoolean running = new AtomicBoolean(true);
     private Aeron.Context ctx;

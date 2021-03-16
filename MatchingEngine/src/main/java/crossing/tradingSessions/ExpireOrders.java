@@ -9,9 +9,6 @@ import orderBook.OrderBook;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * Created by dharmeshsing on 27/08/15.
- */
 public class ExpireOrders {
 
     public static void expire(OrderBook orderBook, TimeInForce timeInForce) {

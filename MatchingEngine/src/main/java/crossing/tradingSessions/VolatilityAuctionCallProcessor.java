@@ -23,9 +23,6 @@ import validation.VolatilityAuctionCallValidator;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dharmeshsing on 14/11/15.
- */
 public class VolatilityAuctionCallProcessor implements TradingSessionProcessor {
     private VolatilityAuctionCallValidator validator;
     private PriceTimePriorityStrategy priceTimePriorityStrategy;

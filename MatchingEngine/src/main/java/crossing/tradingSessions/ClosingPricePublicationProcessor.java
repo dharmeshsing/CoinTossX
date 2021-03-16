@@ -9,9 +9,6 @@ import leafNode.OrderEntry;
 import orderBook.OrderBook;
 import validation.ClosingPricePublicationValidator;
 
-/**
- * Created by dharmeshsing on 14/11/15.
- */
 public class ClosingPricePublicationProcessor implements TradingSessionProcessor {
     private ClosingPricePublicationValidator validator;
     private PriceTimePriorityStrategy priceTimePriorityStrategy;

@@ -6,9 +6,6 @@ import uk.co.real_logic.agrona.concurrent.BackoffIdleStrategy;
 import uk.co.real_logic.agrona.concurrent.BusySpinIdleStrategy;
 import uk.co.real_logic.agrona.concurrent.SigIntBarrier;
 
-/**
- * Created by dharmeshsing on 7/08/15.
- */
 public class LowLatencyMediaDriver {
     public static void main(final String[] args) throws Exception {
         MediaDriver.loadPropertiesFile("mediaDriver.properties");

@@ -7,9 +7,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-/**
- * Created by dharmeshsing on 16/04/16.
- */
 public class OrderVO implements Serializable {
     private int securityId;
     private long orderId;

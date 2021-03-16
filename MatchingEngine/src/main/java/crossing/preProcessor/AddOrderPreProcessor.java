@@ -4,9 +4,6 @@ import common.OrderType;
 import crossing.MatchingContext;
 import orderBook.OrderBook;
 
-/**
- * Created by dharmeshsing on 7/07/15.
- */
 public class AddOrderPreProcessor implements MatchingPreProcessor  {
 
     @Override
@@ -14,8 +11,6 @@ public class AddOrderPreProcessor implements MatchingPreProcessor  {
         MATCHING_ACTION action = preProcess(context.getOrderType(),context.getSide(),context.getOfferTreeSize(),context.getBideTreeSize(),
                 context.getBestBid(),context.getBestOffer(),context.getOrderBook().getBestVisibleBid(),
                 context.getOrderBook().getBestVisibleOffer(), context.getPrice());
-
-        System.out.println(context.getOrderEntry().getClientOrderId() + "Addorder");
 
         context.setAction(action);
     }

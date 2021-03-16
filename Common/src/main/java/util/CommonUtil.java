@@ -7,9 +7,6 @@ import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
-/**
- * Created by dharmeshsing on 13/12/16.
- */
 public class CommonUtil implements Serializable {
 
     public static DateTimeFormatter creationTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");

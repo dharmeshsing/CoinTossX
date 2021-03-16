@@ -10,9 +10,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 12/08/15.
- */
 public class LOBBuilder {
     private int bufferIndex;
     private LOBEncoder lob;

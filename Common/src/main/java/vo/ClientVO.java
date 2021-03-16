@@ -2,9 +2,6 @@ package vo;
 
 import java.io.Serializable;
 
-/**
- * Created by dharmeshsing on 29/04/16.
- */
 public class ClientVO implements Serializable {
     private int compId;
     private String password;

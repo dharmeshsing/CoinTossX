@@ -11,15 +11,11 @@ import sbe.builder.OrderViewBuilder;
 import sbe.msg.*;
 import uk.co.real_logic.agrona.DirectBuffer;
 
-/**
- * Created by dharmeshsing on 15/08/15.
- */
 public enum ExecutionReportData {
     INSTANCE;
 
     private int compID;
     private byte[] clientOrderId = new byte[ExecutionReportDecoder.clientOrderIdLength()];
-    private byte[] origClientOrderId = new byte[ExecutionReportDecoder.clientOrderIdLength()];
     private int orderId;
     private ExecutionTypeEnum executionType;
     private OrderStatusEnum orderStatus;
@@ -60,14 +56,6 @@ public enum ExecutionReportData {
 
     public void setClientOrderId(byte[] clientOrderId) {
         this.clientOrderId = clientOrderId;
-    }
-
-    public byte[] getOrigClientOrderId() {
-        return origClientOrderId;
-    }
-
-    public void setOrigClientOrderId(byte[] origClientOrderId) {
-        this.origClientOrderId = origClientOrderId;
     }
 
     public int getOrderId() {

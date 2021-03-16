@@ -9,9 +9,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-/**
- * Created by dharmeshsing on 13/08/15.
- */
 public class TraderDAO {
     private static final String [] TRADER_HEADER_MAPPING = {"TraderId","TraderName"};
     private static ObjectIntHashMap<String> traders;

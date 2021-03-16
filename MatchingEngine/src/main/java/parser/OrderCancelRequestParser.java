@@ -8,9 +8,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by dharmeshsing on 13/08/15.
- */
 public class OrderCancelRequestParser {
     private OrderCancelRequestDecoder orderCancelRequest = new OrderCancelRequestDecoder();
     private int securityId;
@@ -24,11 +21,10 @@ public class OrderCancelRequestParser {
         securityId = orderCancelRequest.securityId();
         String traderName = new  String(traderMnemonic, 0, orderCancelRequest.getTraderMnemonic(traderMnemonic, 0), OrderCancelRequestDecoder.traderMnemonicCharacterEncoding()).trim();
         orderEntry.setTrader(TraderDAO.getTrader(traderName));
-        String origClientOrderIdText = new String(origClientOrderId, 0, orderCancelRequest.getClientOrderId(origClientOrderId, 0), orderCancelRequest.clientOrderIdCharacterEncoding());
+        String origClientOrderIdText = new String(origClientOrderId, 0, orderCancelRequest.getOrigClientOrderId(origClientOrderId, 0), orderCancelRequest.origClientOrderIdCharacterEncoding()).trim();
         orderEntry.setOrigClientOrderId(Long.parseLong(origClientOrderIdText));
         orderEntry.setSide((byte) orderCancelRequest.side().value());
         orderEntry.setPrice(orderCancelRequest.limitPrice().mantissa());
-        orderEntry.setOrigClientOrderId(orderCancelRequest.getOrigClientOrderId(ExecutionReportData.INSTANCE.getOrigClientOrderId(),0));
 
         populateExecutionData();
     }

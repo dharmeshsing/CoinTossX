@@ -1,8 +1,5 @@
 package leafNode;
 
-/**
- * Created by dharmeshsing on 7/08/15.
- */
 public interface OrderList extends Iterable<OrderListCursor>  {
     int size();
     int capacity();

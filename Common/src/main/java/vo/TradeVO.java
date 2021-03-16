@@ -5,9 +5,6 @@ import util.CommonUtil;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * Created by dharmeshsing on 18/04/16.
- */
 public class TradeVO implements Serializable {
     private int tradeId;
     private int price;

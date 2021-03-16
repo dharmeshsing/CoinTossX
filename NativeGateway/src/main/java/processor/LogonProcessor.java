@@ -8,9 +8,6 @@ import sbe.msg.*;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 8/08/15.
- */
 public class LogonProcessor {
     private byte[] passWrdBytes = new byte[LogonDecoder.passwordLength()];
     private LogonResponseEncoder logonResopnse = new LogonResponseEncoder();

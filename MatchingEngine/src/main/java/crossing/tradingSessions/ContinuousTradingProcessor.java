@@ -19,9 +19,6 @@ import sbe.msg.ExecutionTypeEnum;
 import sbe.msg.OrderStatusEnum;
 import validation.ContinuousTradingValidator;
 
-/**
- * Created by dharmeshsing on 21/11/15.
- */
 public class ContinuousTradingProcessor implements TradingSessionProcessor {
     private ContinuousTradingValidator validator;
     private PriceTimePriorityStrategy priceTimePriorityStrategy;

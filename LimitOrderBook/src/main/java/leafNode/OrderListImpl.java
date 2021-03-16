@@ -6,9 +6,6 @@ import unsafe.UnsafeUtil;
 
 import java.util.Iterator;
 
-/**
- * Created by dharmeshsing on 15/03/09.
- */
 public class OrderListImpl implements OrderList{
     private static final Unsafe unsafe = UnsafeUtil.getUnsafe();
     private static int DEFAULT_CAPACITY = 1000;

@@ -4,9 +4,6 @@ import com.carrotsearch.hppc.LongObjectHashMap;
 import leafNode.OrderEntry;
 import orderBook.OrderBook;
 
-/**
- * Created by dharmeshsing on 27/08/15.
- */
 public class OrderValidation {
 
 

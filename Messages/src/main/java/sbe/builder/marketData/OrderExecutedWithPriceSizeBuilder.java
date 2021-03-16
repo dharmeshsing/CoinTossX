@@ -9,9 +9,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 12/08/15.
- */
 public class OrderExecutedWithPriceSizeBuilder {
     private int bufferIndex;
     private OrderExecutedWithPriceSizeEncoder orderExecutedWithPriceSize;

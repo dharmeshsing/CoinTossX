@@ -4,9 +4,7 @@ import sbe.msg.AdminDecoder;
 import sbe.msg.AdminTypeEnum;
 import sbe.msg.MessageHeaderDecoder;
 import uk.co.real_logic.agrona.DirectBuffer;
-/**
- * Created by dharmeshsing on 12/08/15.
- */
+
 public class AdminReader {
     private int bufferIndex;
     private AdminDecoder admin;

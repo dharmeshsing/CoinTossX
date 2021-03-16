@@ -9,9 +9,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 
-/**
- * Created by dharmeshsing on 2/08/15.
- */
 public class Client {
     private int compID;
     private String password;

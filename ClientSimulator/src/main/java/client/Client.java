@@ -2,7 +2,13 @@ package client;
 
 import gateway.client.GatewayClient;
 import gateway.client.GatewayClientImpl;
-import sbe.builder.*;
+
+import sbe.builder.LogonBuilder;
+import sbe.builder.BuilderUtil;
+import sbe.builder.NewOrderBuilder;
+import sbe.builder.OrderCancelRequestBuilder;
+import sbe.builder.AdminBuilder;
+import sbe.builder.OrderCancelReplaceRequestBuilder;
 import sbe.msg.*;
 
 import uk.co.real_logic.agrona.DirectBuffer;
@@ -20,7 +26,7 @@ public class Client {
     private GatewayClient marketDataGatewayPub;
 
     private NewOrderBuilder newOrderBuilder = new NewOrderBuilder().account("account123".getBytes()).capacity(CapacityEnum.Agency).cancelOnDisconnect(CancelOnDisconnectEnum.DoNotCancel).orderBook(OrderBookEnum.Regular);
-    private OrderCancelRequestBuilder orderCancelRequestBuilder = new OrderCancelRequestBuilder();
+    private OrderCancelRequestBuilder orderCancelRequestBuilder = new OrderCancelRequestBuilder().orderBook(OrderBookEnum.Regular);
     private OrderCancelReplaceRequestBuilder orderCancelReplaceRequestBuilder = new OrderCancelReplaceRequestBuilder().account("account123".getBytes()).orderBook(OrderBookEnum.Regular);
     private AdminBuilder adminBuilder = new AdminBuilder();
 
@@ -163,12 +169,12 @@ public class Client {
                 .stopPrice(stopPrice)
                 .build();
         tradingGatewayPub.send(directBuffer);
-        System.out.println("Message=OrderAdd|Time=" + clientOrderId + "|Type=" + orderType + "|Side=" + side + "|Volume=" + volume + "(" + displayQuantity + ")" + "|Price=" + price + "|StopPrice=" + stopPrice + "|TIF=" + timeInForce + "|MES=" + minQuantity);
+        System.out.println("Message=OrderAdd|OrderId=" + clientOrderId + "|Type=" + orderType + "|Side=" + side + "|Volume=" + volume + "(" + displayQuantity + ")" + "|Price=" + price + "|StopPrice=" + stopPrice + "|TIF=" + timeInForce + "|MES=" + minQuantity);
     }
 
     public void cancelOrder(String originalClientOrderId, String side, long price) {
         String origClientOrderId = BuilderUtil.fill(originalClientOrderId, OrderCancelRequestEncoder.origClientOrderIdLength());
-        String clientOrderId = BuilderUtil.fill(LocalDateTime.now().toString(), OrderCancelRequestEncoder.clientOrderIdLength());
+        String clientOrderId = BuilderUtil.fill("0", OrderCancelRequestEncoder.clientOrderIdLength());
         String traderMnemonic = BuilderUtil.fill("John", OrderCancelRequestEncoder.traderMnemonicLength());
 
         DirectBuffer directBuffer = orderCancelRequestBuilder.compID(clientData.getCompID())
@@ -177,11 +183,10 @@ public class Client {
                 .securityId(securityId)
                 .traderMnemonic(traderMnemonic.getBytes())
                 .side(SideEnum.valueOf(side))
-                .orderBook(OrderBookEnum.Regular)
                 .limitPrice(price)
                 .build();
         tradingGatewayPub.send(directBuffer);
-        System.out.println("Message=OrderCancel|Time=" + clientOrderId + "|OrderId=" + origClientOrderId);
+        System.out.println("Message=OrderCancel|OrderId=" + origClientOrderId);
     }
 
     public void replaceOrder(String originalClientOrderId, long volume, long price, String side, String orderType, String timeInForce, long displayQuantity, long minQuantity, long stopPrice) {

@@ -1,8 +1,5 @@
 package orderBook;
 
-/**
- * Created by dharmeshsing on 15/04/11.
- */
 public class Stock {
     private int stockCode;
     private int mrs;
