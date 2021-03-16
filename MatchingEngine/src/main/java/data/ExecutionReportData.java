@@ -19,6 +19,7 @@ public enum ExecutionReportData {
 
     private int compID;
     private byte[] clientOrderId = new byte[ExecutionReportDecoder.clientOrderIdLength()];
+    private byte[] origClientOrderId = new byte[ExecutionReportDecoder.clientOrderIdLength()];
     private int orderId;
     private ExecutionTypeEnum executionType;
     private OrderStatusEnum orderStatus;
@@ -61,6 +62,13 @@ public enum ExecutionReportData {
         this.clientOrderId = clientOrderId;
     }
 
+    public byte[] getOrigClientOrderId() {
+        return origClientOrderId;
+    }
+
+    public void setOrigClientOrderId(byte[] origClientOrderId) {
+        this.origClientOrderId = origClientOrderId;
+    }
 
     public int getOrderId() {
         return orderId;

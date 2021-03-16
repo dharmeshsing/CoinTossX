@@ -15,6 +15,8 @@ public class AddOrderPreProcessor implements MatchingPreProcessor  {
                 context.getBestBid(),context.getBestOffer(),context.getOrderBook().getBestVisibleBid(),
                 context.getOrderBook().getBestVisibleOffer(), context.getPrice());
 
+        System.out.println(context.getOrderEntry().getClientOrderId() + "Addorder");
+
         context.setAction(action);
     }
 

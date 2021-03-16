@@ -40,6 +40,7 @@ public class NewOrderParser {
         orderEntry.setMinExecutionSize(newOrder.minQuantity());
         orderEntry.setPrice(newOrder.limitPrice().mantissa());
         orderEntry.setStopPrice(newOrder.stopPrice().mantissa());
+        orderEntry.setClientOrderId(newOrder.getClientOrderId(ExecutionReportData.INSTANCE.getClientOrderId(),0));
 
         populateExecutionData();
 

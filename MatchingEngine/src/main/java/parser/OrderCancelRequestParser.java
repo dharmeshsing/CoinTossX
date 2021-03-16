@@ -26,6 +26,7 @@ public class OrderCancelRequestParser {
         orderEntry.setTrader(TraderDAO.getTrader(traderName));
         orderEntry.setSide((byte) orderCancelRequest.side().value());
         orderEntry.setPrice(orderCancelRequest.limitPrice().mantissa());
+        orderEntry.setOrigClientOrderId(orderCancelRequest.getOrigClientOrderId(ExecutionReportData.INSTANCE.getOrigClientOrderId(),0));
 
         populateExecutionData();
     }
