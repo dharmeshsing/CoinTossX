@@ -10,6 +10,7 @@ import uk.co.real_logic.agrona.DirectBuffer;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class Client {
@@ -210,28 +211,23 @@ public class Client {
     }
 
     public long calcVWAP(String side) {
-        snapShotSemaphore.acquire();
         DirectBuffer buffer = adminBuilder.compID(clientData.getCompID())
                     .securityId(securityId)
                     .adminMessage(AdminTypeEnum.VWAP)
                     .build();
         clientMDGSubscriber.setSideEnum(SideEnum.valueOf(side));
         marketDataGatewayPub.send(buffer);
-        snapShotSemaphore.acquire();
-        snapShotSemaphore.release();
+        while(snapShotSemaphore.acquire()){}
         return clientMDGSubscriber.getVwap();
     }
 
-    public String[] lobSnapshot() {
-        snapShotSemaphore.acquire();
+    public ArrayList<String> lobSnapshot() {
         DirectBuffer buffer = adminBuilder.compID(clientData.getCompID())
                 .securityId(securityId)
                 .adminMessage(AdminTypeEnum.LOB)
                 .build();
-        //clientMDGSubscriber.setSideEnum(SideEnum.valueOf(side));
         marketDataGatewayPub.send(buffer);
-        snapShotSemaphore.acquire();
-        snapShotSemaphore.release();
+        while(snapShotSemaphore.acquire()){}
         return clientMDGSubscriber.getLob();
     }
 

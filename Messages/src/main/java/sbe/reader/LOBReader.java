@@ -36,7 +36,6 @@ public class LOBReader implements Serializable {
 
         lob.wrap(temp, bufferIndex, actingBlockLength, actingVersion);
         securityId = lob.securityId();
-       // ordersDecoder = lob.orders();
         ordersDecoder = new LOBDecoder.OrdersDecoder();
         ordersDecoder.wrap(lob,buffer);
     }
