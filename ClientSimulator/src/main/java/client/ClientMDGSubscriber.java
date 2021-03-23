@@ -9,6 +9,8 @@ import sbe.msg.SideEnum;
 import sbe.reader.LOBReader;
 import sbe.reader.VWAPReader;
 
+import java.util.ArrayList;
+
 public class ClientMDGSubscriber extends AbstractGatewayListener implements Runnable {
 
     private GatewayClient marketDataGatewaySub;
@@ -19,7 +21,8 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
     private long vwap;
     private int securityId;
     private boolean stop;
-    String lob;
+    ArrayList<String> lob = new ArrayList<String>();
+    LOBBuilder.Order lobFlyweight = new LOBBuilder.Order();
 
     public ClientMDGSubscriber(String url, int streamId, NonBlockingSemaphore semaphore, int securityId) {
         this.url = url;
@@ -57,13 +60,12 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
 
     @Override
     public void readLOB(LOBReader lobReader) {
-        System.out.println("Hello from ClientMDGSubscriber");
+        lob.clear();
         if(lobReader.getSecurityId() == securityId) {
-            LOBBuilder.Order order = new LOBBuilder.Order();
             while(lobReader.hasNext()) {
-                lobReader.next(order);
+                lobReader.next(lobFlyweight);
+                lob.add(lobFlyweight.getOrderId() + "," + lobFlyweight.getSide() + "," + lobFlyweight.getOrderQuantity() + "," + lobFlyweight.getPrice());
             }
-            lob = order.toString();
         }
         semaphore.release();
     }
@@ -83,7 +85,7 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
 
     public long getVwap() { return vwap; }
 
-    public String getLob() { return lob; }
+    public String[] getLob() { return lob.toArray(new String[0]); }
 
     public boolean isStop() {
         return stop;

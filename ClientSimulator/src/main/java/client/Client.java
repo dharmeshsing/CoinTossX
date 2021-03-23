@@ -222,13 +222,13 @@ public class Client {
         return clientMDGSubscriber.getVwap();
     }
 
-    public String lobSnapshot(String side) {
+    public String[] lobSnapshot() {
         snapShotSemaphore.acquire();
         DirectBuffer buffer = adminBuilder.compID(clientData.getCompID())
                 .securityId(securityId)
                 .adminMessage(AdminTypeEnum.LOB)
                 .build();
-        clientMDGSubscriber.setSideEnum(SideEnum.valueOf(side));
+        //clientMDGSubscriber.setSideEnum(SideEnum.valueOf(side));
         marketDataGatewayPub.send(buffer);
         snapShotSemaphore.acquire();
         snapShotSemaphore.release();

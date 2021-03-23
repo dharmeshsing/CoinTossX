@@ -88,7 +88,6 @@ public class GatewayClientImpl implements GatewayClient,FragmentHandler {
                 mktDataMessageHeader.wrap(temp,0);
                 templateId = mktDataMessageHeader.templateId();
             }
-            System.out.println(templateId);
 
             switch (templateId) {
                 case 26: readBidAsk();break;
