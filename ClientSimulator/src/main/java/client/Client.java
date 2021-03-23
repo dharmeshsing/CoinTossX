@@ -3,12 +3,7 @@ package client;
 import gateway.client.GatewayClient;
 import gateway.client.GatewayClientImpl;
 
-import sbe.builder.LogonBuilder;
-import sbe.builder.BuilderUtil;
-import sbe.builder.NewOrderBuilder;
-import sbe.builder.OrderCancelRequestBuilder;
-import sbe.builder.AdminBuilder;
-import sbe.builder.OrderCancelReplaceRequestBuilder;
+import sbe.builder.*;
 import sbe.msg.*;
 
 import uk.co.real_logic.agrona.DirectBuffer;
@@ -225,6 +220,19 @@ public class Client {
         snapShotSemaphore.acquire();
         snapShotSemaphore.release();
         return clientMDGSubscriber.getVwap();
+    }
+
+    public String lobSnapshot(String side) {
+        snapShotSemaphore.acquire();
+        DirectBuffer buffer = adminBuilder.compID(clientData.getCompID())
+                .securityId(securityId)
+                .adminMessage(AdminTypeEnum.LOB)
+                .build();
+        clientMDGSubscriber.setSideEnum(SideEnum.valueOf(side));
+        marketDataGatewayPub.send(buffer);
+        snapShotSemaphore.acquire();
+        snapShotSemaphore.release();
+        return clientMDGSubscriber.getLob();
     }
 
     public void setBid(long bid) {

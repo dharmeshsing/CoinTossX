@@ -3,8 +3,10 @@ package client;
 import gateway.client.AbstractGatewayListener;
 import gateway.client.GatewayClient;
 import gateway.client.GatewayClientImpl;
+import sbe.builder.LOBBuilder;
 import sbe.msg.AdminTypeEnum;
 import sbe.msg.SideEnum;
+import sbe.reader.LOBReader;
 import sbe.reader.VWAPReader;
 
 public class ClientMDGSubscriber extends AbstractGatewayListener implements Runnable {
@@ -17,6 +19,7 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
     private long vwap;
     private int securityId;
     private boolean stop;
+    String lob;
 
     public ClientMDGSubscriber(String url, int streamId, NonBlockingSemaphore semaphore, int securityId) {
         this.url = url;
@@ -53,6 +56,19 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
     }
 
     @Override
+    public void readLOB(LOBReader lobReader) {
+        System.out.println("Hello from ClientMDGSubscriber");
+        if(lobReader.getSecurityId() == securityId) {
+            LOBBuilder.Order order = new LOBBuilder.Order();
+            while(lobReader.hasNext()) {
+                lobReader.next(order);
+            }
+            lob = order.toString();
+        }
+        semaphore.release();
+    }
+
+    @Override
     public void processAdminMessage(int clientId,long securityid,AdminTypeEnum adminTypeEnum) {
         System.out.println(adminTypeEnum + " - " + clientId);
         if(adminTypeEnum.equals(AdminTypeEnum.EndMessage)) {
@@ -65,9 +81,9 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
         this.sideEnum = sideEnum;
     }
 
-    public long getVwap() {
-        return vwap;
-    }
+    public long getVwap() { return vwap; }
+
+    public String getLob() { return lob; }
 
     public boolean isStop() {
         return stop;

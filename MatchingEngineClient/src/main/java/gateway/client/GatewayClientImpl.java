@@ -8,6 +8,7 @@ import gateway.client.disruptor.BidAskDisruptor;
 import gateway.client.disruptor.BidAskHandler;
 import sbe.msg.MessageHeaderDecoder;
 import sbe.reader.AdminReader;
+import sbe.reader.LOBReader;
 import sbe.reader.VWAPReader;
 import sbe.reader.marketData.BestBidAskReader;
 import sbe.reader.marketData.SymbolStatusReader;
@@ -34,6 +35,7 @@ public class GatewayClientImpl implements GatewayClient,FragmentHandler {
     private AdminReader adminReader = new AdminReader();
     private SymbolStatusReader symbolStatusReader = new SymbolStatusReader();
     private VWAPReader vwapReader = new VWAPReader();
+    private LOBReader lobReader = new LOBReader();
 
     private BidAskDisruptor bidAskDisruptor;
     private BidAskHandler bidAskHandler;
@@ -86,12 +88,14 @@ public class GatewayClientImpl implements GatewayClient,FragmentHandler {
                 mktDataMessageHeader.wrap(temp,0);
                 templateId = mktDataMessageHeader.templateId();
             }
+            System.out.println(templateId);
 
             switch (templateId) {
                 case 26: readBidAsk();break;
                 case 27: readSymbolStatus();break;
                 case 95: readVWAP();break;
                 case 91: readAdminMessage(); break;
+                case 94: readLOB(); break;
             }
 
         }catch(Exception e){
@@ -124,6 +128,13 @@ public class GatewayClientImpl implements GatewayClient,FragmentHandler {
         vwapReader.read(temp);
         for (int i = 0; i < listenerSize; i++) {
             listeners.get(i).readVWAP(vwapReader);
+        }
+    }
+
+    private void readLOB() throws Exception {
+        lobReader.read(temp);
+        for (int i = 0; i < listenerSize; i++) {
+            listeners.get(i).readLOB(lobReader);
         }
     }
 }

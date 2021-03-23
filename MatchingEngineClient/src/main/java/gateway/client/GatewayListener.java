@@ -3,6 +3,7 @@ package gateway.client;
 import sbe.msg.AdminTypeEnum;
 import sbe.msg.marketData.SessionChangedReasonEnum;
 import sbe.msg.marketData.TradingSessionEnum;
+import sbe.reader.LOBReader;
 import sbe.reader.VWAPReader;
 
 public interface GatewayListener {
@@ -10,4 +11,5 @@ public interface GatewayListener {
     void processAdminMessage(int clientId,long securityId,AdminTypeEnum adminTypeEnum);
     void symbolStatus(long securityId, SessionChangedReasonEnum sessionChangedReason, TradingSessionEnum newTradingSession);
     void readVWAP(VWAPReader vwapReader);
+    void readLOB(LOBReader lobReader);
 }

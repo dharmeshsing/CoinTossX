@@ -3,6 +3,7 @@ package gateway.client;
 import sbe.msg.AdminTypeEnum;
 import sbe.msg.marketData.SessionChangedReasonEnum;
 import sbe.msg.marketData.TradingSessionEnum;
+import sbe.reader.LOBReader;
 import sbe.reader.VWAPReader;
 
 public class AbstractGatewayListener implements GatewayListener {
@@ -23,6 +24,11 @@ public class AbstractGatewayListener implements GatewayListener {
 
     @Override
     public void readVWAP(VWAPReader vwapReader) {
+
+    }
+
+    @Override
+    public void readLOB(LOBReader lobReader) {
 
     }
 }
