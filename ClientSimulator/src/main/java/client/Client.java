@@ -143,7 +143,7 @@ public class Client {
         System.out.println("Logged out.");
     }
 
-    public void waitForMarketDataUpdate() throws Exception { while(!mktDataUpdateSemaphore.acquire()){} }
+    public void waitForMarketDataUpdate() { while(!mktDataUpdateSemaphore.acquire()){} }
 
     public void submitOrder(String clientOrderId, long volume, long price, String side, String orderType, String timeInForce, long displayQuantity, long minQuantity, long stopPrice) {
         //String clientOrderId = BuilderUtil.fill(LocalDateTime.now().toString(), NewOrderEncoder.clientOrderIdLength());
@@ -165,6 +165,7 @@ public class Client {
                 .stopPrice(stopPrice)
                 .build();
         tradingGatewayPub.send(directBuffer);
+        waitForMarketDataUpdate();
         System.out.println("Message=OrderAdd|OrderId=" + clientOrderId + "|Type=" + orderType + "|Side=" + side + "|Volume=" + volume + "(" + displayQuantity + ")" + "|Price=" + price + "|StopPrice=" + stopPrice + "|TIF=" + timeInForce + "|MES=" + minQuantity);
     }
 
@@ -182,6 +183,7 @@ public class Client {
                 .limitPrice(price)
                 .build();
         tradingGatewayPub.send(directBuffer);
+        waitForMarketDataUpdate();
         System.out.println("Message=OrderCancel|OrderId=" + origClientOrderId);
     }
 
@@ -217,7 +219,7 @@ public class Client {
                     .build();
         clientMDGSubscriber.setSideEnum(SideEnum.valueOf(side));
         marketDataGatewayPub.send(buffer);
-        while(snapShotSemaphore.acquire()){}
+        while(!snapShotSemaphore.acquire()){}
         return clientMDGSubscriber.getVwap();
     }
 
@@ -227,7 +229,7 @@ public class Client {
                 .adminMessage(AdminTypeEnum.LOB)
                 .build();
         marketDataGatewayPub.send(buffer);
-        while(snapShotSemaphore.acquire()){}
+        while(!snapShotSemaphore.acquire()){}
         return clientMDGSubscriber.getLob();
     }
 
