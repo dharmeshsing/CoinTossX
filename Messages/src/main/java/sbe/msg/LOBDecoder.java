@@ -1,8 +1,7 @@
 /* Generated SBE (Simple Binary Encoding) message codec */
 package sbe.msg;
 
-import uk.co.real_logic.sbe.codec.java.CodecUtil;
-import uk.co.real_logic.sbe.codec.java.GroupOrder;
+import uk.co.real_logic.sbe.codec.java.*;
 import uk.co.real_logic.agrona.DirectBuffer;
 
 @GroupOrder({LOBDecoder.OrdersDecoder.class})
@@ -162,7 +161,7 @@ public class LOBDecoder
 
         public static int sbeBlockLength()
         {
-            return 17;
+            return 37;
         }
 
         public int actingBlockLength()
@@ -329,6 +328,72 @@ public class LOBDecoder
         public SideEnum side()
         {
             return SideEnum.get(CodecUtil.uint8Get(buffer, offset + 16));
+        }
+
+
+        public static int clientOrderIdId()
+        {
+            return 7;
+        }
+
+        public static String clientOrderIdMetaAttribute(final MetaAttribute metaAttribute)
+        {
+            switch (metaAttribute)
+            {
+                case EPOCH: return "unix";
+                case TIME_UNIT: return "nanosecond";
+                case SEMANTIC_TYPE: return "";
+            }
+
+            return "";
+        }
+
+        public static byte clientOrderIdNullValue()
+        {
+            return (byte)0;
+        }
+
+        public static byte clientOrderIdMinValue()
+        {
+            return (byte)32;
+        }
+
+        public static byte clientOrderIdMaxValue()
+        {
+            return (byte)126;
+        }
+
+        public static int clientOrderIdLength()
+        {
+            return 20;
+        }
+
+        public byte clientOrderId(final int index)
+        {
+            if (index < 0 || index >= 20)
+            {
+                throw new IndexOutOfBoundsException("index out of range: index=" + index);
+            }
+
+            return CodecUtil.charGet(buffer, this.offset + 17 + (index * 1));
+        }
+
+
+        public static String clientOrderIdCharacterEncoding()
+        {
+            return "UTF-8";
+        }
+
+        public int getClientOrderId(final byte[] dst, final int dstOffset)
+        {
+            final int length = 20;
+            if (dstOffset < 0 || dstOffset > (dst.length - length))
+            {
+                throw new IndexOutOfBoundsException(    "dstOffset out of range for copy: offset=" + dstOffset);
+            }
+
+            CodecUtil.charsGet(buffer, this.offset + 17, dst, dstOffset, length);
+            return length;
         }
 
     }

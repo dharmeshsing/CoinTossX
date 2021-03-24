@@ -1,8 +1,7 @@
 /* Generated SBE (Simple Binary Encoding) message codec */
 package sbe.msg;
 
-import uk.co.real_logic.sbe.codec.java.CodecUtil;
-import uk.co.real_logic.sbe.codec.java.GroupOrder;
+import uk.co.real_logic.sbe.codec.java.*;
 import uk.co.real_logic.agrona.MutableDirectBuffer;
 
 @GroupOrder({LOBEncoder.OrdersEncoder.class})
@@ -126,11 +125,11 @@ public class LOBEncoder
             this.buffer = buffer;
             actingVersion = SCHEMA_VERSION;
             dimensions.wrap(buffer, parentMessage.limit());
-            dimensions.blockLength((int)17);
+            dimensions.blockLength((int)37);
             dimensions.numInGroup((int)count);
             index = -1;
             this.count = count;
-            blockLength = 17;
+            blockLength = 37;
             parentMessage.limit(parentMessage.limit() + HEADER_SIZE);
         }
 
@@ -141,7 +140,7 @@ public class LOBEncoder
 
         public static int sbeBlockLength()
         {
-            return 17;
+            return 37;
         }
 
         public OrdersEncoder next()
@@ -208,6 +207,52 @@ public class LOBEncoder
         public OrdersEncoder side(final SideEnum value)
         {
             CodecUtil.uint8Put(buffer, offset + 16, value.value());
+            return this;
+        }
+
+        public static byte clientOrderIdNullValue()
+        {
+            return (byte)0;
+        }
+
+        public static byte clientOrderIdMinValue()
+        {
+            return (byte)32;
+        }
+
+        public static byte clientOrderIdMaxValue()
+        {
+            return (byte)126;
+        }
+
+        public static int clientOrderIdLength()
+        {
+            return 20;
+        }
+
+        public void clientOrderId(final int index, final byte value)
+        {
+            if (index < 0 || index >= 20)
+            {
+                throw new IndexOutOfBoundsException("index out of range: index=" + index);
+            }
+
+            CodecUtil.charPut(buffer, this.offset + 17 + (index * 1), value);
+        }
+
+        public static String clientOrderIdCharacterEncoding()
+        {
+            return "UTF-8";
+        }
+        public OrdersEncoder putClientOrderId(final byte[] src, final int srcOffset)
+        {
+            final int length = 20;
+            if (srcOffset < 0 || srcOffset > (src.length - length))
+            {
+                throw new IndexOutOfBoundsException(    "srcOffset out of range for copy: offset=" + srcOffset);
+            }
+
+            CodecUtil.charsPut(buffer, this.offset + 17, src, srcOffset, length);
             return this;
         }
     }

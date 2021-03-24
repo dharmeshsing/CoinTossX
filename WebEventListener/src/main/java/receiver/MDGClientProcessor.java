@@ -15,6 +15,7 @@ import uk.co.real_logic.agrona.DirectBuffer;
 import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 import vo.OrderVO;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.Properties;
 
@@ -142,7 +143,11 @@ public class MDGClientProcessor implements FragmentHandler,Runnable {
 
     public void readLOB(LOBReader lobReader) {
         while (lobReader.hasNext()) {
-            lobReader.next(lobFlyweight);
+            try {
+                lobReader.next(lobFlyweight);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             short side = lobFlyweight.getSide().value();
 
             orderFlyweight.setOrderId(lobFlyweight.getOrderId());

@@ -1,9 +1,7 @@
 package sbe.builder;
 
 import com.carrotsearch.hppc.ObjectArrayList;
-import sbe.msg.LOBEncoder;
-import sbe.msg.MessageHeaderEncoder;
-import sbe.msg.SideEnum;
+import sbe.msg.*;
 import uk.co.real_logic.agrona.DirectBuffer;
 import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
@@ -18,6 +16,7 @@ public class LOBBuilder {
 
     private int compID;
     private int securityId;
+    private UnsafeBuffer clientOrderId;
     private ObjectArrayList<Order> orders;
 
     public static int BUFFER_SIZE = 17000;
@@ -27,6 +26,7 @@ public class LOBBuilder {
         messageHeader = new MessageHeaderEncoder();
         encodeBuffer = new UnsafeBuffer(ByteBuffer.allocateDirect(BUFFER_SIZE));
         orders = new ObjectArrayList<>();
+        clientOrderId = new UnsafeBuffer(ByteBuffer.allocateDirect(LOBEncoder.OrdersEncoder.clientOrderIdLength()));
     }
 
     public void reset(){
@@ -47,8 +47,8 @@ public class LOBBuilder {
         return this;
     }
 
-    public LOBBuilder addOrder(int orderId, int orderQuantity, SideEnum side, long price){
-        orders.add(new Order(orderId,orderQuantity,side,price));
+    public LOBBuilder addOrder(long clientOrderId, int orderId, int orderQuantity, SideEnum side, long price){
+        orders.add(new Order(clientOrderId, orderId,orderQuantity,side,price));
         return this;
     }
 
@@ -73,6 +73,8 @@ public class LOBBuilder {
             if(order != null) {
                 LOBEncoder.OrdersEncoder oe = ordersEncoder.next();
 
+                clientOrderId.wrap(order.getClientOrderId().getBytes());
+                oe.putClientOrderId(clientOrderId.byteArray(), 0);
                 oe.orderId(order.getOrderId());
                 oe.orderQuantity(order.getOrderQuantity());
                 oe.side(order.getSide());
@@ -88,6 +90,7 @@ public class LOBBuilder {
         private int orderQuantity;
         private SideEnum side;
         private long price;
+        private String clientOrderId;
 
         public Order(){}
 
@@ -98,6 +101,13 @@ public class LOBBuilder {
             this.price = price;
         }
 
+        public Order(long clientOrderId, int orderId, int orderQuantity, SideEnum side, long price){
+            this.clientOrderId = BuilderUtil.fill(Long.toString(clientOrderId), LOBEncoder.OrdersEncoder.clientOrderIdLength());;
+            this.orderId = orderId;
+            this.orderQuantity = orderQuantity;
+            this.side = side;
+            this.price = price;
+        }
 
         public int getOrderId() {
             return orderId;
@@ -115,6 +125,10 @@ public class LOBBuilder {
             return price;
         }
 
+        public String getClientOrderId() {
+            return clientOrderId;
+        }
+
         public void setOrderId(int orderId) {
             this.orderId = orderId;
         }
@@ -129,6 +143,10 @@ public class LOBBuilder {
 
         public void setPrice(long price) {
             this.price = price;
+        }
+
+        public void setClientOrderId(String clientOrderId) {
+            this.clientOrderId = clientOrderId;
         }
 
         @Override

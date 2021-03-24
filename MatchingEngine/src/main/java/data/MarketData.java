@@ -179,7 +179,7 @@ public enum MarketData {
                 while (iterator.hasNext()) {
                     OrderEntry currentOrder = iterator.next().value;
 
-                    lobBuilder.addOrder((int) currentOrder.getOrderId(),
+                    lobBuilder.addOrder(currentOrder.getClientOrderId(), (int) currentOrder.getOrderId(),
                             currentOrder.getQuantity(),
                             sbe.msg.SideEnum.get(currentOrder.getSide()),
                             currentOrder.getPrice());
@@ -202,7 +202,7 @@ public enum MarketData {
                 while (iterator.hasNext()) {
                     OrderEntry currentOrder = iterator.next().value;
 
-                    lobBuilder.addOrder((int) currentOrder.getOrderId(),
+                    lobBuilder.addOrder(currentOrder.getClientOrderId(), (int) currentOrder.getOrderId(),
                             currentOrder.getQuantity(),
                             sbe.msg.SideEnum.get(currentOrder.getSide()),
                             currentOrder.getPrice());

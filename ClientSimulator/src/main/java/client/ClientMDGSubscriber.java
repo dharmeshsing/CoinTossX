@@ -9,6 +9,7 @@ import sbe.msg.SideEnum;
 import sbe.reader.LOBReader;
 import sbe.reader.VWAPReader;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class ClientMDGSubscriber extends AbstractGatewayListener implements Runnable {
@@ -62,9 +63,13 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
     public void readLOB(LOBReader lobReader) {
         lob.clear();
         if(lobReader.getSecurityId() == securityId) {
-            while(lobReader.hasNext()) {
-                lobReader.next(lobFlyweight);
-                lob.add(lobFlyweight.getOrderId() + "," + lobFlyweight.getSide() + "," + lobFlyweight.getOrderQuantity() + "," + lobFlyweight.getPrice());
+            try {
+                while(lobReader.hasNext()) {
+                    lobReader.next(lobFlyweight);
+                    lob.add(lobFlyweight.getClientOrderId() + "," + lobFlyweight.getSide() + "," + lobFlyweight.getOrderQuantity() + "," + lobFlyweight.getPrice());
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
         }
         semaphore.release();
