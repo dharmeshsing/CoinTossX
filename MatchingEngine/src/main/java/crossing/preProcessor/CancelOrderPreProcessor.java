@@ -69,6 +69,7 @@ public class CancelOrderPreProcessor implements MatchingPreProcessor {
     private void populateExecutionData(OrderEntry orderEntry){
         ExecutionReportData executionReportData = ExecutionReportData.INSTANCE;
         executionReportData.setOrderId((int)orderEntry.getOrderId());
+        //executionReportData.setClientOrderId(String.valueOf(orderEntry.getClientOrderId()).getBytes());
         executionReportData.setExecutionType(ExecutionTypeEnum.Cancelled);
         executionReportData.setOrderStatus(OrderStatusEnum.Cancelled);
     }

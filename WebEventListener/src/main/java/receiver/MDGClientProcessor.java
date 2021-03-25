@@ -104,7 +104,7 @@ public class MDGClientProcessor implements FragmentHandler,Runnable {
     private void readOrderView() throws Exception {
         orderViewReader.read(temp);
 
-        orderVODisruptor.addOrderVO(orderViewReader.getSecurityId(),orderViewReader.getOrderId(),
+        orderVODisruptor.addOrderVO(orderViewReader.getSecurityId(),orderViewReader.getOrderId(),orderViewReader.getClientOrderId(),
                 orderViewReader.getSide(),orderViewReader.getSubmittedTime(),
                 orderViewReader.getOrderQuantity(),orderViewReader.getPrice());
     }

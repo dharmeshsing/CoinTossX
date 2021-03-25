@@ -171,11 +171,11 @@ public class Client {
 
     public void cancelOrder(String originalClientOrderId, String side, long price) {
         String origClientOrderId = BuilderUtil.fill(originalClientOrderId, OrderCancelRequestEncoder.origClientOrderIdLength());
-        String clientOrderId = BuilderUtil.fill("0", OrderCancelRequestEncoder.clientOrderIdLength());
+        //String clientOrderId = BuilderUtil.fill("0", OrderCancelRequestEncoder.clientOrderIdLength());
         String traderMnemonic = BuilderUtil.fill("John", OrderCancelRequestEncoder.traderMnemonicLength());
 
         DirectBuffer directBuffer = orderCancelRequestBuilder.compID(clientData.getCompID())
-                .clientOrderId(clientOrderId.getBytes())
+                .clientOrderId(origClientOrderId.getBytes())
                 .origClientOrderId(origClientOrderId.getBytes())
                 .securityId(securityId)
                 .traderMnemonic(traderMnemonic.getBytes())

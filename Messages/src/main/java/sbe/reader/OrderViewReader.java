@@ -12,11 +12,12 @@ public class OrderViewReader implements Serializable {
     private int bufferIndex;
     private OrderViewDecoder orderView;
     private MessageHeaderDecoder messageHeader;
-    private byte[] clientOrderId;
+    private byte[] clientOrderIdBytes;
 
     private int compID;
     private int securityId;
     private int orderId;
+    private String clientOrderId;
     private long submittedTime;
     private SideEnum side;
     private long price;
@@ -26,7 +27,7 @@ public class OrderViewReader implements Serializable {
         bufferIndex = 0;
         orderView = new OrderViewDecoder();
         messageHeader = new MessageHeaderDecoder();
-        clientOrderId = new byte[OrderViewDecoder.clientOrderIdLength()];
+        clientOrderIdBytes = new byte[OrderViewDecoder.clientOrderIdLength()];
     }
 
     public void read(DirectBuffer buffer) throws UnsupportedEncodingException {
@@ -42,6 +43,7 @@ public class OrderViewReader implements Serializable {
 
         securityId = orderView.securityId();
         orderId = orderView.orderId();
+        clientOrderId = new String(clientOrderIdBytes, 0, orderView.getClientOrderId(clientOrderIdBytes, 0), OrderViewDecoder.clientOrderIdCharacterEncoding());
         submittedTime = orderView.submittedTime();
         side = orderView.side();
         price = orderView.price().mantissa();
@@ -58,6 +60,10 @@ public class OrderViewReader implements Serializable {
 
     public int getOrderId() {
         return orderId;
+    }
+
+    public String getClientOrderId() {
+        return clientOrderId;
     }
 
     public long getSubmittedTime() {

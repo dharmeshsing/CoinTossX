@@ -143,6 +143,7 @@ public enum ExecutionReportData {
     public void buildOrderView(OrderEntry aggOrder, long securityId){
         orderViewBuilder.compID(getCompID())
                         .orderId((int) aggOrder.getOrderId())
+                        .clientOrderId(String.valueOf(aggOrder.getClientOrderId()).getBytes())
                         .orderQuantity(aggOrder.getQuantity())
                         .price(aggOrder.getPrice())
                         .side(aggOrder.getSide() == 1 ? SideEnum.Buy : SideEnum.Sell)

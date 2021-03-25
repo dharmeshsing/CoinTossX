@@ -14,6 +14,7 @@ public class OrderVO implements Serializable {
     private long price;
     private long volume;
     private String side;
+    private String clientOrderId;
 
     public long getOrderId() {
         return orderId;
@@ -22,6 +23,10 @@ public class OrderVO implements Serializable {
     public void setOrderId(long orderId) {
         this.orderId = orderId;
     }
+
+    public String getClientOrderId() { return clientOrderId; }
+
+    public void setClientOrderId(String clientOrderId) { this.clientOrderId = clientOrderId; }
 
     public long getSubmittedTime() {
         return submittedTime;
@@ -88,6 +93,7 @@ public class OrderVO implements Serializable {
     public String toString() {
         return securityId + "," +
                 orderId + "," +
+                clientOrderId + "," +
                 getFormattedTime() + "," +
                 price + "," +
                 volume + "," +
@@ -99,7 +105,7 @@ public class OrderVO implements Serializable {
     }
 
     public static String[] getFileHeader(){
-        return new String[]{"SecurityId","OrderId","DateTime","Price",
+        return new String[]{"SecurityId","OrderId","ClientOrderId","DateTime","Price",
                 "Volume","Side"};
     }
 }
