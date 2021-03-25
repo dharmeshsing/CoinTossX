@@ -90,7 +90,7 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
 
     public long getVwap() { return vwap; }
 
-    public ArrayList<String> getLob() { return lob; }
+    public ArrayList<String> getLob() { return new ArrayList<String>(lob); }
 
     public boolean isStop() {
         return stop;
