@@ -10,6 +10,9 @@ import sbe.builder.ExecutionReportBuilder;
 import sbe.builder.OrderViewBuilder;
 import sbe.msg.*;
 import uk.co.real_logic.agrona.DirectBuffer;
+import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
+
+import java.nio.ByteBuffer;
 
 public enum ExecutionReportData {
     INSTANCE;
@@ -141,9 +144,12 @@ public enum ExecutionReportData {
     }
 
     public void buildOrderView(OrderEntry aggOrder, long securityId){
+        //Long.toString(aggOrder.getClientOrderId()).getBytes().byteArray()
+        UnsafeBuffer clientOrderId = new UnsafeBuffer(ByteBuffer.allocateDirect(OrderViewEncoder.clientOrderIdLength()));
+        clientOrderId.wrap(Long.toString(aggOrder.getClientOrderId()).getBytes());
         orderViewBuilder.compID(getCompID())
                         .orderId((int) aggOrder.getOrderId())
-                        .clientOrderId(String.valueOf(aggOrder.getClientOrderId()).getBytes())
+                        .clientOrderId(clientOrderId.byteArray())
                         .orderQuantity(aggOrder.getQuantity())
                         .price(aggOrder.getPrice())
                         .side(aggOrder.getSide() == 1 ? SideEnum.Buy : SideEnum.Sell)
