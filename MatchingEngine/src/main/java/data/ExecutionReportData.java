@@ -144,17 +144,16 @@ public enum ExecutionReportData {
     }
 
     public void buildOrderView(OrderEntry aggOrder, long securityId){
-        //Long.toString(aggOrder.getClientOrderId()).getBytes().byteArray()
         UnsafeBuffer clientOrderId = new UnsafeBuffer(ByteBuffer.allocateDirect(OrderViewEncoder.clientOrderIdLength()));
-        clientOrderId.wrap(Long.toString(aggOrder.getClientOrderId()).getBytes());
+        clientOrderId.wrap(BuilderUtil.fill(Long.toString(aggOrder.getClientOrderId()), OrderViewEncoder.clientOrderIdLength()).getBytes());
         orderViewBuilder.compID(getCompID())
-                        .orderId((int) aggOrder.getOrderId())
-                        .clientOrderId(clientOrderId.byteArray())
-                        .orderQuantity(aggOrder.getQuantity())
-                        .price(aggOrder.getPrice())
-                        .side(aggOrder.getSide() == 1 ? SideEnum.Buy : SideEnum.Sell)
-                        .submittedTime(java.time.Instant.now().toEpochMilli())
-                        .securityId((int)securityId);
+                .orderId((int) aggOrder.getOrderId())
+                .clientOrderId(clientOrderId.byteArray())
+                .orderQuantity(aggOrder.getQuantity())
+                .price(aggOrder.getPrice())
+                .side(aggOrder.getSide() == 1 ? SideEnum.Buy : SideEnum.Sell)
+                .submittedTime(java.time.Instant.now().toEpochMilli())
+                .securityId((int)securityId);
     }
 
     public DirectBuffer getOrderView(){

@@ -101,7 +101,7 @@ public class OrderVO implements Serializable {
     }
 
     public Object[] getValues(){
-        return new Object[]{securityId,orderId,getFormattedTime(),price,volume,side};
+        return new Object[]{securityId,orderId,clientOrderId,getFormattedTime(),price,volume,side};
     }
 
     public static String[] getFileHeader(){
