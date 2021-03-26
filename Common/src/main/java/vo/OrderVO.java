@@ -26,7 +26,7 @@ public class OrderVO implements Serializable {
 
     public String getClientOrderId() { return clientOrderId; }
 
-    public void setClientOrderId(String clientOrderId) { this.clientOrderId = clientOrderId; }
+    public void setClientOrderId(String clientOrderId) { this.clientOrderId = clientOrderId.trim(); }
 
     public long getSubmittedTime() {
         return submittedTime;
