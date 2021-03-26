@@ -71,7 +71,6 @@ public class CancelOrderPreProcessor implements MatchingPreProcessor {
         //        clientOrderId.wrap(BuilderUtil.fill(Long.toString(aggOrder.getClientOrderId()), OrderViewEncoder.clientOrderIdLength()).getBytes());
         ExecutionReportData executionReportData = ExecutionReportData.INSTANCE;
         executionReportData.setOrderId((int)orderEntry.getOrderId());
-        executionReportData.setClientOrderId(String.valueOf(orderEntry.getClientOrderId()).getBytes());
         executionReportData.setExecutionType(ExecutionTypeEnum.Cancelled);
         executionReportData.setOrderStatus(OrderStatusEnum.Cancelled);
     }
