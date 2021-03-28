@@ -171,11 +171,11 @@ public class Client {
 
     public void cancelOrder(String originalClientOrderId, String side, long price) {
         String origClientOrderId = BuilderUtil.fill(originalClientOrderId, OrderCancelRequestEncoder.origClientOrderIdLength());
-        //String clientOrderId = BuilderUtil.fill("0", OrderCancelRequestEncoder.clientOrderIdLength());
+        String clientOrderId = BuilderUtil.fill("-" + originalClientOrderId, OrderCancelRequestEncoder.clientOrderIdLength());
         String traderMnemonic = BuilderUtil.fill("John", OrderCancelRequestEncoder.traderMnemonicLength());
 
         DirectBuffer directBuffer = orderCancelRequestBuilder.compID(clientData.getCompID())
-                .clientOrderId(origClientOrderId.getBytes())
+                .clientOrderId(clientOrderId.getBytes())
                 .origClientOrderId(origClientOrderId.getBytes())
                 .securityId(securityId)
                 .traderMnemonic(traderMnemonic.getBytes())
@@ -220,6 +220,7 @@ public class Client {
         clientMDGSubscriber.setSideEnum(SideEnum.valueOf(side));
         marketDataGatewayPub.send(buffer);
         while(!snapShotSemaphore.acquire()){}
+        while(!snapShotSemaphore.acquire()){}
         return clientMDGSubscriber.getVwap();
     }
 
@@ -229,6 +230,7 @@ public class Client {
                 .adminMessage(AdminTypeEnum.LOB)
                 .build();
         marketDataGatewayPub.send(buffer);
+        while(!snapShotSemaphore.acquire()){}
         while(!snapShotSemaphore.acquire()){}
         return clientMDGSubscriber.getLob();
     }
