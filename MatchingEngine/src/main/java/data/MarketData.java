@@ -75,7 +75,7 @@ public enum MarketData {
     public void addTrade(long tradeId,long clientOrderId,long price,long quantity){
         mktData.add(orderExecutedBuilder.messageType(MessageTypeEnum.OrderExecutedPriceSize)
                 .tradeId((int) tradeId)
-                .clientOrderId((int) clientOrderId)
+                .clientOrderId(clientOrderId)
                 .price((int) price)
                 .executedQuantity((int) quantity)
                 .printable(PrintableEnum.Printable)

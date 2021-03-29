@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 
 public class TradeVO implements Serializable {
     private int tradeId;
-    private int clientOrderId;
+    private long clientOrderId;
     private int price;
     private int quantity;
     private LocalDateTime creationTime;
 
-    public TradeVO(int tradeId,int clientOrderId,int price,int quantity,LocalDateTime creationTime){
+    public TradeVO(int tradeId,long clientOrderId,int price,int quantity,LocalDateTime creationTime){
         this.tradeId = tradeId;
         this.clientOrderId = clientOrderId;
         this.price = price;
@@ -31,11 +31,11 @@ public class TradeVO implements Serializable {
         this.tradeId = tradeId;
     }
 
-    public int getClientOrderId() {
+    public long getClientOrderId() {
         return clientOrderId;
     }
 
-    public void setClientOrderId(int clientOrderId) {
+    public void setClientOrderId(long clientOrderId) {
         this.clientOrderId = clientOrderId;
     }
 

@@ -340,7 +340,7 @@ public class OrderExecutedWithPriceSizeDecoder
 
     public static int instrumentIdId()
     {
-        return 6;
+        return 9;
     }
 
     public static String instrumentIdMetaAttribute(final MetaAttribute metaAttribute)
@@ -378,7 +378,7 @@ public class OrderExecutedWithPriceSizeDecoder
 
     public static int clientOrderIdId()
     {
-        return 9;
+        return 10;
     }
 
     public static String clientOrderIdMetaAttribute(final MetaAttribute metaAttribute)

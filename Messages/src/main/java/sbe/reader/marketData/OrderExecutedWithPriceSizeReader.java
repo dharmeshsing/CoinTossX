@@ -13,7 +13,7 @@ public class OrderExecutedWithPriceSizeReader {
 
     private int executedQuantity;
     private int tradeId;
-    private int clientOrderId;
+    private long clientOrderId;
     private long price;
     private int instrumentId;
 
@@ -65,7 +65,7 @@ public class OrderExecutedWithPriceSizeReader {
         executedQuantity = (int)orderExecutedWithPriceSize.executedQuantity();
         orderExecutedWithPriceSize.displayQuantity();
         tradeId = (int)orderExecutedWithPriceSize.tradeId();
-        clientOrderId = (int)orderExecutedWithPriceSize.clientOrderId();
+        clientOrderId = orderExecutedWithPriceSize.clientOrderId();
         orderExecutedWithPriceSize.printable();
         price = orderExecutedWithPriceSize.price().mantissa();
         instrumentId = (int)orderExecutedWithPriceSize.instrumentId();
@@ -79,7 +79,7 @@ public class OrderExecutedWithPriceSizeReader {
         return tradeId;
     }
 
-    public int getClientOrderId() {
+    public long getClientOrderId() {
         return clientOrderId;
     }
 

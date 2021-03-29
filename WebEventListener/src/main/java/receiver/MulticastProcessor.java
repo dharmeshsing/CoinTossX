@@ -79,7 +79,7 @@ public class MulticastProcessor implements FragmentHandler,Runnable {
     private void readTrade() throws Exception {
         orderExecutedReader.readBuffer(temp);
 
-        tradeVODisruptor.addTradeVO(orderExecutedReader.getInstrumentId(),orderExecutedReader.getTradeId(),
+        tradeVODisruptor.addTradeVO(orderExecutedReader.getInstrumentId(),orderExecutedReader.getTradeId(),orderExecutedReader.getClientOrderId(),
                 (int)orderExecutedReader.getPrice(),orderExecutedReader.getExecutedQuantity());
     }
 

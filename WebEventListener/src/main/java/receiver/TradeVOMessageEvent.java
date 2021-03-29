@@ -7,7 +7,7 @@ public class TradeVOMessageEvent {
     private int tradeId;
     private int price;
     private int quantity;
-    private int clientOrderId;
+    private long clientOrderId;
 
     private final static EventFactory<TradeVOMessageEvent> EVENT_FACTORY = () -> new TradeVOMessageEvent();
 
@@ -23,11 +23,11 @@ public class TradeVOMessageEvent {
         this.tradeId = tradeId;
     }
 
-    public int getClientOrderId() {
+    public long getClientOrderId() {
         return clientOrderId;
     }
 
-    public void setClientOrderId(int clientOrderId) {
+    public void setClientOrderId(long clientOrderId) {
         this.clientOrderId = clientOrderId;
     }
 

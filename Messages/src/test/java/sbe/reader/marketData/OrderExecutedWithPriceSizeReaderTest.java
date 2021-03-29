@@ -20,6 +20,7 @@ public class OrderExecutedWithPriceSizeReaderTest {
         orderExecutedWithPriceSizeReader.readBuffer(buffer);
         assertEquals(1,orderExecutedWithPriceSizeReader.getInstrumentId());
         assertEquals(1001,orderExecutedWithPriceSizeReader.getTradeId());
+        assertEquals(1,orderExecutedWithPriceSizeReader.getClientOrderId());
         assertEquals(1000,orderExecutedWithPriceSizeReader.getPrice());
         assertEquals(1000,orderExecutedWithPriceSizeReader.getExecutedQuantity());
         //assertEquals("MessageType=OrderExecutedPriceSizeNanosecond=913353552OrderId=1ExecutedQuantity=1000DisplayQuantity=100TradeId=1001Printable=PrintablePrice=1000InstrumentId=1",sb.toString());
@@ -31,6 +32,7 @@ public class OrderExecutedWithPriceSizeReaderTest {
         return orderExecutedWithPriceSizeBuilder.messageType(MessageTypeEnum.OrderExecutedPriceSize)
                 .nanosecond(913353552)
                 .orderId(1)
+                .clientOrderId(1)
                 .executedQuantity(1000)
                 .displayQuantity(100)
                 .tradeId(1001)

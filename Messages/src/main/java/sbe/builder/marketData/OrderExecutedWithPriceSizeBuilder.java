@@ -21,12 +21,12 @@ public class OrderExecutedWithPriceSizeBuilder {
     private int executedQuantity;
     private int displayQuantity;
     private int tradeId;
-    private int clientOrderId;
+    private long clientOrderId;
     private PrintableEnum printable;
     private long price;
     private int instrumentId;
 
-    public static int BUFFER_SIZE = 46;
+    public static int BUFFER_SIZE = 54;
 
     public OrderExecutedWithPriceSizeBuilder(){
         orderExecutedWithPriceSize = new OrderExecutedWithPriceSizeEncoder();
@@ -49,7 +49,7 @@ public class OrderExecutedWithPriceSizeBuilder {
         return this;
     }
 
-    public OrderExecutedWithPriceSizeBuilder clientOrderId(int value){
+    public OrderExecutedWithPriceSizeBuilder clientOrderId(long value){
         this.clientOrderId = value;
         return this;
     }

@@ -32,7 +32,7 @@ public class TradeVODisruptor {
         ringBuffer = disruptor.start();
     }
 
-    public void addTradeVO(int securityId,int tradeId,int clientOrderId,int price,int quantity){
+    public void addTradeVO(int securityId,int tradeId,long clientOrderId,int price,int quantity){
         long sequence = ringBuffer.next();
         TradeVOMessageEvent event = ringBuffer.get(sequence);
 
