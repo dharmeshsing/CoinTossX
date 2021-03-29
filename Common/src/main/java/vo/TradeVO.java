@@ -7,12 +7,14 @@ import java.time.LocalDateTime;
 
 public class TradeVO implements Serializable {
     private int tradeId;
+    private int clientOrderId;
     private int price;
     private int quantity;
     private LocalDateTime creationTime;
 
-    public TradeVO(int tradeId,int price,int quantity,LocalDateTime creationTime){
+    public TradeVO(int tradeId,int clientOrderId,int price,int quantity,LocalDateTime creationTime){
         this.tradeId = tradeId;
+        this.clientOrderId = clientOrderId;
         this.price = price;
         this.quantity = quantity;
         this.creationTime = creationTime;
@@ -27,6 +29,14 @@ public class TradeVO implements Serializable {
 
     public void setTradeId(int tradeId) {
         this.tradeId = tradeId;
+    }
+
+    public int getClientOrderId() {
+        return clientOrderId;
+    }
+
+    public void setClientOrderId(int clientOrderId) {
+        this.clientOrderId = clientOrderId;
     }
 
     public int getPrice() {
@@ -68,17 +78,18 @@ public class TradeVO implements Serializable {
     @Override
     public String toString() {
         return tradeId + "," +
+               clientOrderId + "," +
                price + "," +
                quantity + "," +
                getFormattedTime();
     }
 
     public Object[] getValues(){
-        return new Object[]{tradeId,price,quantity,getFormattedTime()};
+        return new Object[]{tradeId,clientOrderId,price,quantity,getFormattedTime()};
     }
 
     public static String[] getFileHeader(){
-        return new String[]{"OrderId","Price","Volume","DateTime"};
+        return new String[]{"OrderId","ClientOrderId","Price","Volume","DateTime"};
     }
 
     public LocalDateTime getCreationTime() {

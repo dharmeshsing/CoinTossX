@@ -21,6 +21,7 @@ public class OrderExecutedWithPriceSizeBuilder {
     private int executedQuantity;
     private int displayQuantity;
     private int tradeId;
+    private int clientOrderId;
     private PrintableEnum printable;
     private long price;
     private int instrumentId;
@@ -45,6 +46,11 @@ public class OrderExecutedWithPriceSizeBuilder {
 
     public OrderExecutedWithPriceSizeBuilder orderId(long value){
         this.orderId = value;
+        return this;
+    }
+
+    public OrderExecutedWithPriceSizeBuilder clientOrderId(int value){
+        this.clientOrderId = value;
         return this;
     }
 
@@ -93,6 +99,7 @@ public class OrderExecutedWithPriceSizeBuilder {
         orderExecutedWithPriceSize.messageType(messageType)
                 .nanosecond(nanosecond)
                 .orderId(orderId)
+                .clientOrderId(clientOrderId)
                 .executedQuantity(executedQuantity)
                 .displayQuantity(displayQuantity)
                 .tradeId(tradeId)

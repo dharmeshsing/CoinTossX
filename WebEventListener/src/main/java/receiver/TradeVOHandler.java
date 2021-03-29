@@ -17,6 +17,7 @@ public class TradeVOHandler implements EventHandler<TradeVOMessageEvent> {
     @Override
     public void onEvent(TradeVOMessageEvent event, long sequence, boolean endOfBatch) throws Exception {
         tradeVO.setTradeId(event.getTradeId());
+        tradeVO.setClientOrderId(event.getClientOrderId());
         tradeVO.setPrice(event.getPrice());
         tradeVO.setQuantity(event.getQuantity());
         tradeVO.setCreationTime(LocalDateTime.now());

@@ -247,9 +247,9 @@ public class PriceTimePriorityStrategy implements MatchingLogic {
         while (iterator.hasNext()) {
             OrderEntry currentOrder = iterator.next().value;
             int quantity = MatchingUtil.getExecutionQuantity(currentOrder.getQuantity(), aggOrder.getQuantity(), currentOrder.getMinExecutionSize(),aggOrder.getMinExecutionSize());
-            long orderId = currentOrder.getOrderId();
+            long clientOrderId = currentOrder.getClientOrderId();
             if(quantity > 0) {
-                addTrade(price, quantity, orderId);
+                addTrade(price, quantity, clientOrderId);
                 aggOrder.removeQuantity(quantity);
                 currentOrder.removeQuantity(quantity);
 
@@ -303,16 +303,16 @@ public class PriceTimePriorityStrategy implements MatchingLogic {
     }
 
     //TODO: Send the trades out instead of storing it
-    private void addTrade(long price, long quantity, long orderId){
+    private void addTrade(long price, long quantity, long clientOrderId){
         Trade trade = new Trade();
-        trade.setId(orderId);
+        trade.setId(tradeId.incrementAndGet());
         trade.setPrice(price);
         trade.setQuantity(quantity);
         orderBook.setLasTradedPrice(price);
         orderBook.getTrades().add(trade);
         ExecutionReportData.INSTANCE.setExecutionType(ExecutionTypeEnum.Trade);
         ExecutionReportData.INSTANCE.addFillGroup(price,(int)quantity);
-        MarketData.INSTANCE.addTrade(trade.getId(),price,quantity);
+        MarketData.INSTANCE.addTrade(trade.getId(),clientOrderId,price,quantity);
         setReferencePrice(price);
 
     }

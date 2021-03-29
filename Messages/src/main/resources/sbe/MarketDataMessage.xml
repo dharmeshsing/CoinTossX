@@ -153,6 +153,7 @@
         <field name="printable" id="7" type="PrintableEnum"/>
         <field name="price" id="8" type="Price"/>
         <field name="instrumentId" id="6" type="uint32"/>
+        <field name="clientOrderId" id="9" type="uint64"/>
     </me:message>
 
     <me:message name="Trade" id="24" description="Trade Message">

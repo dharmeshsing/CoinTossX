@@ -10,6 +10,7 @@ import leafNode.OrderListCursor;
 import orderBook.OrderBook;
 import org.joda.time.Instant;
 import sbe.builder.AdminBuilder;
+import sbe.builder.BuilderUtil;
 import sbe.builder.LOBBuilder;
 import sbe.builder.VWAPBuilder;
 import sbe.builder.marketData.*;
@@ -71,9 +72,10 @@ public enum MarketData {
     }
 
 
-    public void addTrade(long tradeId,long price,long quantity){
+    public void addTrade(long tradeId,long clientOrderId,long price,long quantity){
         mktData.add(orderExecutedBuilder.messageType(MessageTypeEnum.OrderExecutedPriceSize)
                 .tradeId((int) tradeId)
+                .clientOrderId((int) clientOrderId)
                 .price((int) price)
                 .executedQuantity((int) quantity)
                 .printable(PrintableEnum.Printable)
