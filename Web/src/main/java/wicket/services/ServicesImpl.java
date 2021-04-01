@@ -235,7 +235,7 @@ public class ServicesImpl implements Services,Serializable {
             testResultsDir.mkdir();
 
             ObjectArrayList<StockVO> stocks = stockDataProvider.getStocks();
-            for (int i=0, max=stocks.size(); i < max; i++) {
+            for (int i=0, max=stocks.size(); i < 2; i++) {
                 StockVO stockVO = stocks.get(i);
 
                 if(stockVO == null){

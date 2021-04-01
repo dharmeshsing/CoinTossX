@@ -27,7 +27,6 @@ public class ClientTest {
     @Before
     public void setup() throws Exception {
         isGatewayUp = true;
-        System.out.println();
         IntObjectMap<ClientData> clientData = ClientData.loadClientDataData(Paths.get("").toAbsolutePath().getParent() + "/data");
         client = new Client(clientData.get(1),null,1);
 

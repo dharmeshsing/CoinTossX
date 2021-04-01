@@ -66,7 +66,7 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
             try {
                 while(lobReader.hasNext()) {
                     lobReader.next(lobFlyweight);
-                    lob.add(lobFlyweight.getClientOrderId() + "," + lobFlyweight.getSide() + "," + lobFlyweight.getOrderQuantity() + "," + lobFlyweight.getPrice());
+                    lob.add(lobFlyweight.getClientOrderId().trim() + "," + lobFlyweight.getSide() + "," + lobFlyweight.getOrderQuantity() + "," + lobFlyweight.getPrice());
                 }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();

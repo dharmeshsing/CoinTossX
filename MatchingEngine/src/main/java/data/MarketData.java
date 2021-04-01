@@ -28,7 +28,6 @@ public enum MarketData {
     private AddOrderBuilder addOrderBuilder = new AddOrderBuilder();
     private BestBidOfferBuilder bestBidAskBuilder = new BestBidOfferBuilder();
     private UnitHeaderBuilder unitHeaderBuilder = new UnitHeaderBuilder();
-    private OrderExecutedWithPriceSizeBuilder orderExecutedBuilder = new OrderExecutedWithPriceSizeBuilder();
     private SymbolStatusBuilder symbolStatusBuilder = new SymbolStatusBuilder();
     private LOBBuilder lobBuilder = new LOBBuilder();
     private AdminBuilder adminBuilder = new AdminBuilder();
@@ -73,6 +72,7 @@ public enum MarketData {
 
 
     public void addTrade(long tradeId,long clientOrderId,long price,long quantity){
+        OrderExecutedWithPriceSizeBuilder orderExecutedBuilder = new OrderExecutedWithPriceSizeBuilder();
         mktData.add(orderExecutedBuilder.messageType(MessageTypeEnum.OrderExecutedPriceSize)
                 .tradeId((int) tradeId)
                 .clientOrderId(clientOrderId)

@@ -166,7 +166,7 @@ public class Client {
                 .build();
         tradingGatewayPub.send(directBuffer);
         waitForMarketDataUpdate();
-        System.out.println("Message=OrderAdd|OrderId=" + clientOrderId + "|Type=" + orderType + "|Side=" + side + "|Volume=" + volume + "(" + displayQuantity + ")" + "|Price=" + price + "|StopPrice=" + stopPrice + "|TIF=" + timeInForce + "|MES=" + minQuantity);
+        System.out.println("Message=OrderAdd|OrderId=" + clientOrderId.trim() + "|Type=" + orderType + "|Side=" + side + "|Volume=" + volume + "(" + displayQuantity + ")" + "|Price=" + price + "|StopPrice=" + stopPrice + "|TIF=" + timeInForce + "|MES=" + minQuantity);
     }
 
     public void cancelOrder(String originalClientOrderId, String side, long price) {
@@ -184,7 +184,7 @@ public class Client {
                 .build();
         tradingGatewayPub.send(directBuffer);
         waitForMarketDataUpdate();
-        System.out.println("Message=OrderCancel|OrderId=" + origClientOrderId);
+        System.out.println("Message=OrderCancel|OrderId=" + origClientOrderId.trim());
     }
 
     public void replaceOrder(String originalClientOrderId, long volume, long price, String side, String orderType, String timeInForce, long displayQuantity, long minQuantity, long stopPrice) {
@@ -213,6 +213,7 @@ public class Client {
     }
 
     public long calcVWAP(String side) {
+        snapShotSemaphore.acquire();
         DirectBuffer buffer = adminBuilder.compID(clientData.getCompID())
                     .securityId(securityId)
                     .adminMessage(AdminTypeEnum.VWAP)
@@ -220,18 +221,21 @@ public class Client {
         clientMDGSubscriber.setSideEnum(SideEnum.valueOf(side));
         marketDataGatewayPub.send(buffer);
         while(!snapShotSemaphore.acquire()){}
-        while(!snapShotSemaphore.acquire()){}
+        snapShotSemaphore.acquire();
+        snapShotSemaphore.release();
         return clientMDGSubscriber.getVwap();
     }
 
     public ArrayList<String> lobSnapshot() {
+        snapShotSemaphore.acquire();
         DirectBuffer buffer = adminBuilder.compID(clientData.getCompID())
                 .securityId(securityId)
                 .adminMessage(AdminTypeEnum.LOB)
                 .build();
         marketDataGatewayPub.send(buffer);
         while(!snapShotSemaphore.acquire()){}
-        while(!snapShotSemaphore.acquire()){}
+        snapShotSemaphore.acquire();
+        snapShotSemaphore.release();
         return clientMDGSubscriber.getLob();
     }
 
