@@ -52,9 +52,9 @@ public class PriceTimePriorityStrategy implements MatchingLogic {
             case ADD_AND_AGGRESS: {
                 addOrder(orderEntry);
                 if(getOrderSide(orderEntry.getSide()) == OrderBook.SIDE.BID){
-                    sellSideAgressBuySide();
-                }else{
                     buySideAgressSellSide();
+                }else{
+                    sellSideAgressBuySide();
                 }
                 break;
             }
