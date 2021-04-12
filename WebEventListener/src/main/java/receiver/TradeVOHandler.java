@@ -20,7 +20,7 @@ public class TradeVOHandler implements EventHandler<TradeVOMessageEvent> {
         tradeVO.setClientOrderId(event.getClientOrderId());
         tradeVO.setPrice(event.getPrice());
         tradeVO.setQuantity(event.getQuantity());
-        tradeVO.setCreationTime(LocalDateTime.now());
+        tradeVO.setExecutedTime(event.getExecutedTime());
 
         offHeapStorage.addTrades(event.getSecurityId(), tradeVO);
     }

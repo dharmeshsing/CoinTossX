@@ -80,7 +80,7 @@ public class MulticastProcessor implements FragmentHandler,Runnable {
         orderExecutedReader.readBuffer(temp);
 
         tradeVODisruptor.addTradeVO(orderExecutedReader.getInstrumentId(),orderExecutedReader.getTradeId(),orderExecutedReader.getClientOrderId(),
-                (int)orderExecutedReader.getPrice(),orderExecutedReader.getExecutedQuantity());
+                (int)orderExecutedReader.getPrice(),orderExecutedReader.getExecutedQuantity(),orderExecutedReader.getExecutedTime());
     }
 
     private void readSymbolStatus() throws Exception {

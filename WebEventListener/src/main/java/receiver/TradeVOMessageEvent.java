@@ -8,6 +8,7 @@ public class TradeVOMessageEvent {
     private int price;
     private int quantity;
     private long clientOrderId;
+    private long executedTime;
 
     private final static EventFactory<TradeVOMessageEvent> EVENT_FACTORY = () -> new TradeVOMessageEvent();
 
@@ -53,5 +54,13 @@ public class TradeVOMessageEvent {
 
     public void setSecurityId(int securityId) {
         this.securityId = securityId;
+    }
+
+    public long getExecutedTime() {
+        return securityId;
+    }
+
+    public void setExecutedTime(long executedTime) {
+        this.executedTime = executedTime;
     }
 }

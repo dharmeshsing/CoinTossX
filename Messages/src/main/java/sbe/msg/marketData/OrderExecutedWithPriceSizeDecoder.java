@@ -7,7 +7,7 @@ import uk.co.real_logic.agrona.DirectBuffer;
 @SuppressWarnings("all")
 public class OrderExecutedWithPriceSizeDecoder
 {
-    public static final int BLOCK_LENGTH = 46;
+    public static final int BLOCK_LENGTH = 54;
     public static final int TEMPLATE_ID = 23;
     public static final int SCHEMA_ID = 1;
     public static final int SCHEMA_VERSION = 0;
@@ -411,6 +411,44 @@ public class OrderExecutedWithPriceSizeDecoder
     public long clientOrderId()
     {
         return CodecUtil.uint64Get(buffer, offset + 38, java.nio.ByteOrder.LITTLE_ENDIAN);
+    }
+
+
+    public static int executedTimeId()
+    {
+        return 11;
+    }
+
+    public static String executedTimeMetaAttribute(final MetaAttribute metaAttribute)
+    {
+        switch (metaAttribute)
+        {
+            case EPOCH: return "unix";
+            case TIME_UNIT: return "nanosecond";
+            case SEMANTIC_TYPE: return "";
+        }
+
+        return "";
+    }
+
+    public static long executedTimeNullValue()
+    {
+        return 0xffffffffffffffffL;
+    }
+
+    public static long executedTimeMinValue()
+    {
+        return 0x0L;
+    }
+
+    public static long executedTimeMaxValue()
+    {
+        return 0xfffffffffffffffeL;
+    }
+
+    public long executedTime()
+    {
+        return CodecUtil.uint64Get(buffer, offset + 46, java.nio.ByteOrder.LITTLE_ENDIAN);
     }
 
 }

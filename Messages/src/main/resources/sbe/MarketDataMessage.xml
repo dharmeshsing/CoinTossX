@@ -154,6 +154,7 @@
         <field name="price" id="8" type="Price"/>
         <field name="instrumentId" id="9" type="uint32"/>
         <field name="clientOrderId" id="10" type="uint64"/>
+        <field name="executedTime" id="11" type="uint64"/>
     </me:message>
 
     <me:message name="Trade" id="24" description="Trade Message">

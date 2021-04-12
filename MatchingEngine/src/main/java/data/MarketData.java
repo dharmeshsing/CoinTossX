@@ -71,7 +71,7 @@ public enum MarketData {
     }
 
 
-    public void addTrade(long tradeId,long clientOrderId,long price,long quantity){
+    public void addTrade(long tradeId,long clientOrderId,long price,long quantity,long executedTime){
         OrderExecutedWithPriceSizeBuilder orderExecutedBuilder = new OrderExecutedWithPriceSizeBuilder();
         mktData.add(orderExecutedBuilder.messageType(MessageTypeEnum.OrderExecutedPriceSize)
                 .tradeId((int) tradeId)
@@ -80,6 +80,7 @@ public enum MarketData {
                 .executedQuantity((int) quantity)
                 .printable(PrintableEnum.Printable)
                 .instrumentId((int)securityId)
+                .executedTime(executedTime)
                 .build());
     }
 
@@ -159,16 +160,16 @@ public enum MarketData {
         }
         resetLOBBuilder(orderBook.getSecurityId());
 
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(100);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void lobSnapShot(AeronPublisher marketDataPublisher) {
         marketDataPublisher.send(getAdminMessage(AdminTypeEnum.StartLOB, orderBook.getSecurityId(), compID));
-        System.out.println("Publihed start snapshot");
+        //System.out.println("Publihed start snapshot");
 
         int count = 0;
         resetLOBBuilder(orderBook.getSecurityId());
@@ -190,7 +191,7 @@ public enum MarketData {
                     if(count == 100){
                         publishLOBSnapShot(marketDataPublisher);
                         count = 0;
-                        System.out.println("Published orders");
+                        System.out.println("Published large LOB");
                     }
                 }
             }
@@ -226,7 +227,7 @@ public enum MarketData {
         setSnapShotRequest(false);
         setOrderBook(null);
         reset();
-        System.out.println("Publish end orders");
+        //System.out.println("Publish end orders");
     }
 
 

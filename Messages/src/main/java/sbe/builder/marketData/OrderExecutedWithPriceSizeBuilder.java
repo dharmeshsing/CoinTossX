@@ -25,6 +25,7 @@ public class OrderExecutedWithPriceSizeBuilder {
     private PrintableEnum printable;
     private long price;
     private int instrumentId;
+    private long executedTime;
 
     public static int BUFFER_SIZE = 54;
 
@@ -83,6 +84,10 @@ public class OrderExecutedWithPriceSizeBuilder {
         return this;
     }
 
+    public OrderExecutedWithPriceSizeBuilder executedTime(long value){
+        this.executedTime = value;
+        return this;
+    }
 
     public DirectBuffer build(){
         bufferIndex = 0;
@@ -104,7 +109,8 @@ public class OrderExecutedWithPriceSizeBuilder {
                 .displayQuantity(displayQuantity)
                 .tradeId(tradeId)
                 .printable(printable)
-                .instrumentId(instrumentId);
+                .instrumentId(instrumentId)
+                .executedTime(executedTime);
 
         orderExecutedWithPriceSize.price().mantissa(price);
 

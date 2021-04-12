@@ -3,21 +3,23 @@ package vo;
 import util.CommonUtil;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class TradeVO implements Serializable {
     private int tradeId;
     private long clientOrderId;
     private int price;
     private int quantity;
-    private LocalDateTime creationTime;
+    private long executedTime;
 
-    public TradeVO(int tradeId,long clientOrderId,int price,int quantity,LocalDateTime creationTime){
+    public TradeVO(int tradeId,long clientOrderId,int price,int quantity,long executedTime){
         this.tradeId = tradeId;
         this.clientOrderId = clientOrderId;
         this.price = price;
         this.quantity = quantity;
-        this.creationTime = creationTime;
+        this.executedTime = executedTime;
     }
 
     public TradeVO(){}
@@ -56,7 +58,7 @@ public class TradeVO implements Serializable {
     }
 
     public String getFormattedTime(){
-        return CommonUtil.creationTimeFormatter.format(creationTime);
+        return CommonUtil.creationTimeFormatter.format(LocalDateTime.ofInstant(Instant.ofEpochMilli(executedTime), ZoneId.systemDefault()));
     }
 
     @Override
@@ -92,11 +94,11 @@ public class TradeVO implements Serializable {
         return new String[]{"OrderId","ClientOrderId","Price","Volume","DateTime"};
     }
 
-    public LocalDateTime getCreationTime() {
-        return creationTime;
+    public long getCreationTime() {
+        return executedTime;
     }
 
-    public void setCreationTime(LocalDateTime creationTime) {
-        this.creationTime = creationTime;
+    public void setExecutedTime(long executedTime) {
+        this.executedTime = executedTime;
     }
 }

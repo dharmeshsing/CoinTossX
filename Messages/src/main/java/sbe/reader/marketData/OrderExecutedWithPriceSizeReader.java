@@ -16,6 +16,7 @@ public class OrderExecutedWithPriceSizeReader {
     private long clientOrderId;
     private long price;
     private int instrumentId;
+    private long executedTime;
 
     public OrderExecutedWithPriceSizeReader(){
         sb = new StringBuilder();
@@ -45,6 +46,7 @@ public class OrderExecutedWithPriceSizeReader {
         sb.append("Printable=" + orderExecutedWithPriceSize.printable());
         sb.append("Price=" + orderExecutedWithPriceSize.price().mantissa());
         sb.append("InstrumentId=" + orderExecutedWithPriceSize.instrumentId());
+        sb.append("ExecutedTime=" + orderExecutedWithPriceSize.executedTime());
 
         return sb;
     }
@@ -69,6 +71,7 @@ public class OrderExecutedWithPriceSizeReader {
         orderExecutedWithPriceSize.printable();
         price = orderExecutedWithPriceSize.price().mantissa();
         instrumentId = (int)orderExecutedWithPriceSize.instrumentId();
+        executedTime = orderExecutedWithPriceSize.executedTime();
     }
 
     public int getExecutedQuantity() {
@@ -89,5 +92,9 @@ public class OrderExecutedWithPriceSizeReader {
 
     public int getInstrumentId() {
         return instrumentId;
+    }
+
+    public long getExecutedTime() {
+        return executedTime;
     }
 }
