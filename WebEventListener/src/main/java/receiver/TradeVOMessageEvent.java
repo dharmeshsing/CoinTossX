@@ -57,7 +57,7 @@ public class TradeVOMessageEvent {
     }
 
     public long getExecutedTime() {
-        return securityId;
+        return executedTime;
     }
 
     public void setExecutedTime(long executedTime) {
