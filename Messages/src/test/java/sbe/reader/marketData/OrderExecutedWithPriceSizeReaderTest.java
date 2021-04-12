@@ -39,6 +39,7 @@ public class OrderExecutedWithPriceSizeReaderTest {
                 .printable(PrintableEnum.Printable)
                 .price(1000)
                 .instrumentId(1)
+                .executedTime(java.time.Instant.now().toEpochMilli())
                 .build();
 
     }

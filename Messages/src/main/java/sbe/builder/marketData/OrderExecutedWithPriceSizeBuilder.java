@@ -27,7 +27,7 @@ public class OrderExecutedWithPriceSizeBuilder {
     private int instrumentId;
     private long executedTime;
 
-    public static int BUFFER_SIZE = 54;
+    public static int BUFFER_SIZE = 62;
 
     public OrderExecutedWithPriceSizeBuilder(){
         orderExecutedWithPriceSize = new OrderExecutedWithPriceSizeEncoder();
