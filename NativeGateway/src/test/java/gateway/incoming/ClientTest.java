@@ -14,7 +14,8 @@ public class ClientTest {
 
     @Test
     public void testLoadClientData() throws Exception {
+        System.out.println(Paths.get("").toAbsolutePath().getParent() + "/data");
         IntObjectMap<Client> clients = new Client().loadClientData(Paths.get("").toAbsolutePath().getParent() + "/data");
-        assertEquals(3,clients.size());
+        assertEquals(11,clients.size());
     }
 }

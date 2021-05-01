@@ -301,7 +301,6 @@ public class PriceTimePriorityStrategy implements MatchingLogic {
         return false;
     }
 
-    //TODO: Send the trades out instead of storing it
     private void addTrade(long price, long quantity, long clientOrderId, long executedTime){
         Trade trade = new Trade();
         trade.setId(tradeId.incrementAndGet());
@@ -313,7 +312,6 @@ public class PriceTimePriorityStrategy implements MatchingLogic {
         ExecutionReportData.INSTANCE.addFillGroup(price,(int)quantity);
         MarketData.INSTANCE.addTrade(trade.getId(),clientOrderId,price,quantity,executedTime);
         setReferencePrice(price);
-
     }
 
     private void setReferencePrice(long price){

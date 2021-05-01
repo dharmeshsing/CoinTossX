@@ -1,7 +1,9 @@
 package sbe.reader;
 
 import org.junit.Test;
+import sbe.builder.BuilderUtil;
 import sbe.builder.OrderViewBuilder;
+import sbe.msg.OrderViewEncoder;
 import sbe.msg.SideEnum;
 import uk.co.real_logic.agrona.DirectBuffer;
 
@@ -24,8 +26,7 @@ public class OrderViewReaderTest {
         assertEquals(1000,orderViewReader.getOrderQuantity());
         assertEquals(100,orderViewReader.getPrice());
         assertEquals(SideEnum.Buy,orderViewReader.getSide());
-
-
+        assertEquals("1                   ",orderViewReader.getClientOrderId());
     }
 
     private DirectBuffer build(){
@@ -37,6 +38,7 @@ public class OrderViewReaderTest {
                 .orderQuantity(1000)
                 .price(100)
                 .side(SideEnum.Buy)
+                .clientOrderId(BuilderUtil.fill("1", OrderViewEncoder.clientOrderIdLength()).getBytes())
                 .build();
     }
 

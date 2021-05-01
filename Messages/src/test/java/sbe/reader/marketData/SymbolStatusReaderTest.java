@@ -24,6 +24,8 @@ public class SymbolStatusReaderTest {
         assertEquals(TradingSessionEnum.VolatilityAuctionCall,symbolStatusReader.getTradingSession());
         assertEquals(1,symbolStatusReader.getSecurityId());
         assertEquals(SessionChangedReasonEnum.CircuitBreakerTripped,symbolStatusReader.getSessionChangedReason());
+        assertEquals(100,symbolStatusReader.getStaticPriceReference());
+        assertEquals(100,symbolStatusReader.getDynamicPriceReference());
     }
 
     private DirectBuffer build(){
@@ -32,11 +34,12 @@ public class SymbolStatusReaderTest {
                            .nanosecond(0)
                            .sessionChangedReason(SessionChangedReasonEnum.CircuitBreakerTripped)
                            .haltReason(HaltReasonEnum.ReasonNotAvailable)
-                            .instrumentId(1)
-                           .tradingSession(TradingSessionEnum.VolatilityAuctionCall);
+                           .instrumentId(1)
+                           .tradingSession(TradingSessionEnum.VolatilityAuctionCall)
+                           .staticPriceReference(100)
+                           .dynamicPriceReference(100);
 
         return symbolStatusBuilder.build();
-
     }
 
 }

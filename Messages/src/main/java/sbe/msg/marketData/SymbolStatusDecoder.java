@@ -1,13 +1,13 @@
 /* Generated SBE (Simple Binary Encoding) message codec */
 package sbe.msg.marketData;
 
-import uk.co.real_logic.sbe.codec.java.CodecUtil;
+import uk.co.real_logic.sbe.codec.java.*;
 import uk.co.real_logic.agrona.DirectBuffer;
 
 @SuppressWarnings("all")
 public class SymbolStatusDecoder
 {
-    public static final int BLOCK_LENGTH = 15;
+    public static final int BLOCK_LENGTH = 31;
     public static final int TEMPLATE_ID = 27;
     public static final int SCHEMA_ID = 1;
     public static final int SCHEMA_VERSION = 0;
@@ -244,4 +244,54 @@ public class SymbolStatusDecoder
         return SessionChangedReasonEnum.get(CodecUtil.uint8Get(buffer, offset + 14));
     }
 
+
+    public static int staticPriceReferenceId()
+    {
+        return 7;
+    }
+
+    public static String staticPriceReferenceMetaAttribute(final MetaAttribute metaAttribute)
+    {
+        switch (metaAttribute)
+        {
+            case EPOCH: return "unix";
+            case TIME_UNIT: return "nanosecond";
+            case SEMANTIC_TYPE: return "";
+        }
+
+        return "";
+    }
+
+    private final PriceDecoder staticPriceReference = new PriceDecoder();
+
+    public PriceDecoder staticPriceReference()
+    {
+        staticPriceReference.wrap(buffer, offset + 15);
+        return staticPriceReference;
+    }
+
+    public static int dynamicPriceReferenceId()
+    {
+        return 8;
+    }
+
+    public static String dynamicPriceReferenceMetaAttribute(final MetaAttribute metaAttribute)
+    {
+        switch (metaAttribute)
+        {
+            case EPOCH: return "unix";
+            case TIME_UNIT: return "nanosecond";
+            case SEMANTIC_TYPE: return "";
+        }
+
+        return "";
+    }
+
+    private final PriceDecoder dynamicPriceReference = new PriceDecoder();
+
+    public PriceDecoder dynamicPriceReference()
+    {
+        dynamicPriceReference.wrap(buffer, offset + 23);
+        return dynamicPriceReference;
+    }
 }

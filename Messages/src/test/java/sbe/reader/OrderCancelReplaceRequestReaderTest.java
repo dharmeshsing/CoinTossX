@@ -1,10 +1,12 @@
 package sbe.reader;
 
-import org.junit.Test;
 import sbe.builder.BuilderUtil;
 import sbe.builder.OrderCancelReplaceRequestBuilder;
 import sbe.msg.*;
 import uk.co.real_logic.agrona.DirectBuffer;
+
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by dharmeshsing on 23/08/15.
@@ -16,12 +18,11 @@ public class OrderCancelReplaceRequestReaderTest {
         DirectBuffer buffer = build();
 
         StringBuilder sb = orderCancelReplaceRequestReader.read(buffer);
-        //TODO: Fix test
-//        assertEquals("ClientOrderId=2                   OrigClientOrderId=1                   " +
-//                     "OrderId=0SecurityId=1TraderMnemonic=John             Account=test      " +
-//                     "ExpireTime=20150823-10:00:00Side=BuyOrderQuantity=1000DisplayQuantity=1000MinQuantity=0" +
-//                     "LimitPrice=sbe.msg.PriceDecoder@606d8acfStopPrice=sbe.msg.PriceDecoder@782830eOrderBook=Regular",
-//                      sb.toString());
+        assertEquals("ClientOrderId=2                   OrigClientOrderId=1                   " +
+                     "OrderId=0SecurityId=1TraderMnemonic=John             Account=test      " +
+                     "ExpireTime=20150823-10:00:00Side=BuyOrderQuantity=1000DisplayQuantity=1000MinQuantity=0" +
+                     "LimitPrice=10000StopPrice=0OrderBook=Regular",
+                      sb.toString());
     }
 
     private DirectBuffer build(){

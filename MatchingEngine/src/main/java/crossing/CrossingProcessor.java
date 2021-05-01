@@ -90,7 +90,7 @@ public class   CrossingProcessor implements LOBManager {
         tradingSessionProcessor = TradingSessionFactory.getTradingSessionProcessor(newTradingSession);
 
         MatchingContext.INSTANCE.setOrderBookTradingSession(securityId,newTradingSession);
-        MarketData.INSTANCE.addSymbolStatus(securityId, sessionChangedReason,newTradingSession);
+        MarketData.INSTANCE.addSymbolStatus(securityId, sessionChangedReason,newTradingSession, orderBook.getStaticPriceReference(), orderBook.getDynamicPriceReference());
 
         tradingSessionProcessor.startSession(orderBook);
     }

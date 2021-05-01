@@ -119,7 +119,7 @@ public class GatewayClientImpl implements GatewayClient,FragmentHandler {
     private void readSymbolStatus() throws Exception {
         symbolStatusReader.read(temp);
         for (int i = 0; i < listenerSize; i++) {
-            listeners.get(i).symbolStatus(symbolStatusReader.getSecurityId(), symbolStatusReader.getSessionChangedReason(), symbolStatusReader.getTradingSession());
+            listeners.get(i).symbolStatus(symbolStatusReader.getSecurityId(), symbolStatusReader.getSessionChangedReason(), symbolStatusReader.getTradingSession(), symbolStatusReader.getStaticPriceReference(), symbolStatusReader.getDynamicPriceReference());
         }
     }
 

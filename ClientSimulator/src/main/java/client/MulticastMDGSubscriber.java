@@ -48,7 +48,7 @@ public class MulticastMDGSubscriber extends AbstractGatewayListener implements R
     }
 
     @Override
-    public void symbolStatus(long securityId, SessionChangedReasonEnum sessionChangedReason, TradingSessionEnum newTradingSession) {
+    public void symbolStatus(long securityId, SessionChangedReasonEnum sessionChangedReason, TradingSessionEnum newTradingSession, long staticPriceReference, long dynamicPriceReference) {
         if(client.getSecurityId() == securityId) {
             System.out.println("New session is " + newTradingSession.name());
             if (newTradingSession.equals(TradingSessionEnum.VolatilityAuctionCall) || newTradingSession.equals(TradingSessionEnum.IntraDayAuctionCall)) {
@@ -58,6 +58,8 @@ public class MulticastMDGSubscriber extends AbstractGatewayListener implements R
                 client.setAuction(false);
                 System.out.println("Auction ended at " + LocalDateTime.now());
             }
+            client.setStaticPriceReference(staticPriceReference);
+            client.setDynamicPriceReference(dynamicPriceReference);
         }
     }
 

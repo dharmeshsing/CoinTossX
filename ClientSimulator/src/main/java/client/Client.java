@@ -41,6 +41,8 @@ public class Client {
     private long offerQuantity;
     private int securityId;
     private boolean auction = false;
+    private long staticPriceReference;
+    private long dynamicPriceReference;
 
     private NonBlockingSemaphore mktDataUpdateSemaphore = new NonBlockingSemaphore(1);
     private NonBlockingSemaphore snapShotSemaphore = new NonBlockingSemaphore(1);
@@ -225,8 +227,6 @@ public class Client {
         clientMDGSubscriber.setSideEnum(SideEnum.valueOf(side));
         marketDataGatewayPub.send(buffer);
         while(!snapShotSemaphore.acquire()){}
-        snapShotSemaphore.acquire();
-        snapShotSemaphore.release();
         return clientMDGSubscriber.getVwap();
     }
 
@@ -238,8 +238,6 @@ public class Client {
                 .build();
         marketDataGatewayPub.send(buffer);
         while(!snapShotSemaphore.acquire()){}
-        snapShotSemaphore.acquire();
-        snapShotSemaphore.release();
         return clientMDGSubscriber.getLob();
     }
 
@@ -295,5 +293,21 @@ public class Client {
 
     public int getClientId(){
         return clientData.getCompID();
+    }
+
+    public void setStaticPriceReference(long staticPriceReference) {
+        this.staticPriceReference = staticPriceReference;
+    }
+
+    public long getStaticPriceReference() {
+        return staticPriceReference;
+    }
+
+    public void setDynamicPriceReference(long dynamicPriceReference) {
+        this.dynamicPriceReference = dynamicPriceReference;
+    }
+
+    public long getDynamicPriceReference() {
+        return dynamicPriceReference;
     }
 }

@@ -18,7 +18,7 @@ public class AbstractGatewayListener implements GatewayListener {
     }
 
     @Override
-    public void symbolStatus(long securityId, SessionChangedReasonEnum sessionChangedReason, TradingSessionEnum newTradingSession) {
+    public void symbolStatus(long securityId, SessionChangedReasonEnum sessionChangedReason, TradingSessionEnum newTradingSession, long staticPriceReference, long dynamicPriceReference) {
 
     }
 

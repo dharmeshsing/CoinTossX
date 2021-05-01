@@ -57,7 +57,7 @@ public class MulticastMDGSubscriber extends AbstractGatewayListener implements R
     }
 
     @Override
-    public void symbolStatus(long securityId, SessionChangedReasonEnum sessionChangedReason, TradingSessionEnum newTradingSession) {
+    public void symbolStatus(long securityId, SessionChangedReasonEnum sessionChangedReason, TradingSessionEnum newTradingSession, long staticPriceReference, long dynamicPriceReference) {
         if(client.getSecurityId() == securityId) {
             System.out.println("New session is " + newTradingSession.name());
 

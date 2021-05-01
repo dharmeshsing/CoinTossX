@@ -191,6 +191,8 @@
         <field name="tradingSession" id="4" type="TradingSessionEnum"/>
         <field name="haltReason" id="5" type="HaltReasonEnum"/>
         <field name="sessionChangedReason" id="6" type="SessionChangedReasonEnum"/>
+        <field name="staticPriceReference" id="7" type="Price"/>
+        <field name="dynamicPriceReference" id="8" type="Price"/>
     </me:message>
 
     <me:message name="TradingSession" id="90" description="Trading Session Message">

@@ -97,12 +97,14 @@ public enum MarketData {
 
     }
 
-    public void addSymbolStatus(int securityId, SessionChangedReasonEnum sessionChangedReason, TradingSessionEnum tradingSession) {
+    public void addSymbolStatus(int securityId, SessionChangedReasonEnum sessionChangedReason, TradingSessionEnum tradingSession, long staticPriceReference, long dynamicPriceReference) {
         symbolStatusBuilder.messageType(MessageTypeEnum.SymbolStatus)
                 .sessionChangedReason(sessionChangedReason)
                 .haltReason(HaltReasonEnum.ReasonNotAvailable)
                 .instrumentId(securityId)
-                .tradingSession(tradingSession);
+                .tradingSession(tradingSession)
+                .staticPriceReference(staticPriceReference)
+                .dynamicPriceReference(dynamicPriceReference);
 
         mktData.add(symbolStatusBuilder.build());
     }

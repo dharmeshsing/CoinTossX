@@ -1,13 +1,13 @@
 /* Generated SBE (Simple Binary Encoding) message codec */
 package sbe.msg.marketData;
 
-import uk.co.real_logic.sbe.codec.java.CodecUtil;
+import uk.co.real_logic.sbe.codec.java.*;
 import uk.co.real_logic.agrona.MutableDirectBuffer;
 
 @SuppressWarnings("all")
 public class SymbolStatusEncoder
 {
-    public static final int BLOCK_LENGTH = 15;
+    public static final int BLOCK_LENGTH = 31;
     public static final int TEMPLATE_ID = 27;
     public static final int SCHEMA_ID = 1;
     public static final int SCHEMA_VERSION = 0;
@@ -131,5 +131,21 @@ public class SymbolStatusEncoder
     {
         CodecUtil.uint8Put(buffer, offset + 14, value.value());
         return this;
+    }
+
+    private final PriceEncoder staticPriceReference = new PriceEncoder();
+
+    public PriceEncoder staticPriceReference()
+    {
+        staticPriceReference.wrap(buffer, offset + 15);
+        return staticPriceReference;
+    }
+
+    private final PriceEncoder dynamicPriceReference = new PriceEncoder();
+
+    public PriceEncoder dynamicPriceReference()
+    {
+        dynamicPriceReference.wrap(buffer, offset + 23);
+        return dynamicPriceReference;
     }
 }

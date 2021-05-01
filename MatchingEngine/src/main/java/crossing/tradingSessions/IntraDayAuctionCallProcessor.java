@@ -55,7 +55,7 @@ public class IntraDayAuctionCallProcessor implements TradingSessionProcessor {
         timeInForceList.add(TimeInForce.GFA);
         timeInForceList.add(TimeInForce.GFX);
 
-        initPreProcessors();
+        //initPreProcessors();
     }
 
     private void initPreProcessors(){
@@ -95,7 +95,7 @@ public class IntraDayAuctionCallProcessor implements TradingSessionProcessor {
         MarketData.INSTANCE.setSecurityId(orderBook.getSecurityId());
         matchingContext.setOrderBook(orderBook);
 
-        preProcess();
+        //preProcess();
 
         if(matchingContext.getAction() != MatchingPreProcessor.MATCHING_ACTION.NO_ACTION) {
             priceTimePriorityStrategy.process(MatchingPreProcessor.MATCHING_ACTION.ADD_ORDER, orderBook, orderEntry);

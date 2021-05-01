@@ -51,8 +51,8 @@ public class OrderCancelReplaceRequestReader {
         sb.append("OrderQuantity=" + orderCancelReplaceRequest.orderQuantity());
         sb.append("DisplayQuantity=" + orderCancelReplaceRequest.displayQuantity());
         sb.append("MinQuantity=" + orderCancelReplaceRequest.minQuantity());
-        sb.append("LimitPrice=" + orderCancelReplaceRequest.limitPrice());
-        sb.append("StopPrice=" + orderCancelReplaceRequest.stopPrice());
+        sb.append("LimitPrice=" + orderCancelReplaceRequest.limitPrice().mantissa());
+        sb.append("StopPrice=" + orderCancelReplaceRequest.stopPrice().mantissa());
         sb.append("OrderBook=" + orderCancelReplaceRequest.orderBook());
 
         return sb;

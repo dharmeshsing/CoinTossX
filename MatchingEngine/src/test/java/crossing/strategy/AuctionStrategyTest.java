@@ -89,7 +89,7 @@ public class AuctionStrategyTest {
 
             assertEquals("Test Order Book " + orderData.getTestNumber() + " failed", expectedOrderBook, orderBook);
             assertEquals("Test Trades" + orderData.getTestNumber() + " failed", orderData.getTrades(), orderBook.getTrades());
-
+            System.out.println("Static Price Reference: " + orderBook.getStaticPriceReference() + "     " + "Dynamic Price Reference: " + orderBook.getDynamicPriceReference());
         }finally{
             UnsafeUtil.freeOrderEntryMemory(initStateList);
             UnsafeUtil.freeOrderEntryMemory(aggOrderList);
