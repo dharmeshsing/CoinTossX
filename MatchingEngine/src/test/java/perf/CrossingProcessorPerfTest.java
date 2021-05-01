@@ -12,6 +12,7 @@ import uk.co.real_logic.agrona.DirectBuffer;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 /**
@@ -23,7 +24,7 @@ public class CrossingProcessorPerfTest {
 
     public  void loadProperties(String propertiesFile) throws IOException {
         //try(InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFile)) {
-        try(InputStream inputStream = new FileInputStream(System.getProperty("user.dir") + "/MatchingEngine/build/install/MatchingEngine/resources/" + propertiesFile)) {
+        try(InputStream inputStream = new FileInputStream(Paths.get("").toAbsolutePath().getParent() + "/MatchingEngine/build/install/MatchingEngine/resources/" + propertiesFile)) {
 
             if (inputStream != null) {
                 properties = new Properties();
