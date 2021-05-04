@@ -138,7 +138,6 @@ public class Client {
         try {
             boolean sent = false;
             for(int i=0; i<hawkesTimes.size(); i++){
-
                 waitForMarketDataUpdate();
 
                 HawkesData hd = hawkesTimes.get(i);
@@ -212,7 +211,7 @@ public class Client {
     }
 
     public DirectBuffer createNewOrder(long volume, long price,SideEnum side,OrdTypeEnum orderType){
-        String clientOrderId = LocalDateTime.now().format(formatter) + "_" + uniqueOrderId++;
+        String clientOrderId = clientData.getCompID() + "" + uniqueOrderId++;
         clientOrderId = BuilderUtil.fill(clientOrderId, NewOrderEncoder.clientOrderIdLength());
 
         DirectBuffer directBuffer = newOrderBuilder.compID(clientData.getCompID())
