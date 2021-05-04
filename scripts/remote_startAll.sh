@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_271
+export JAVA_HOME=[...]/jdk1.8.0_45
 MAIN_DIR=@SOFTWARE_PATH@
 
 #Start Socket
