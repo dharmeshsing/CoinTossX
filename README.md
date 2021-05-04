@@ -142,7 +142,8 @@ The subsections below demonstrate the submission of orders to the trading gatewa
     * VWAP of buy/sell side of LOB.
     * Current best bid/ask price/quantity.
     * Active trading session.
-    * Whether or not the LOB has updated.
+    * LOB snapshot
+    * Static price reference
 
 ### Java
 As opposed to the other implementations below, the Java implementation is shown in full without reference to the [Utilities](ClientSimulator/src/main/java/example/Utilities.java) class to provide more detail for how the other implementations function.
@@ -205,16 +206,15 @@ private static Properties properties = new Properties();
         client.init(properties);
         // Start trading session by Logging in client to the gateways and connecting to ports
         client.sendStartMessage();
-        System.out.println("Start at " + LocalDateTime.now());
 
         //----- Submit orders -----//
-        // Arguments for "submitOrder": volume, price, side, order type, time in force, display quantity, min execution size, stop price
-        client.submitOrder(1000, 99, "Buy", "Limit", "Day", 1000, 0, 0); // Buy limit order
-        client.submitOrder(1000, 101, "Sell", "Limit", "Day", 1000, 0, 0); // Sell limit order
-        client.submitOrder(1000, 0, "Buy", "Market", "Day", 1000, 0, 0); // Buy market order
-        client.submitOrder(1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0); // Stop buy limit order
-        client.submitOrder(1000, 0, "Buy", "Stop", "Day", 1000, 0, 0); // Stop buy market order
-        client.cancelOrder("1", "Buy"); // Cancel limit order
+        // Arguments for "submitOrder": order ID, volume, price, side, order type, time in force, display quantity, min execution size, stop price
+        client.submitOrder("1", 1000, 99, "Buy", "Limit", "Day", 1000, 0, 0); // Buy limit order
+        client.submitOrder("2", 1000, 101, "Sell", "Limit", "Day", 1000, 0, 0); // Sell limit order
+        client.submitOrder("3", 1000, 0, "Buy", "Market", "Day", 1000, 0, 0); // Buy market order
+        client.submitOrder("4", 1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0); // Stop buy limit order
+        client.submitOrder("5", 1000, 0, "Buy", "Stop", "Day", 1000, 0, 0); // Stop buy market order
+        client.cancelOrder("1", "Buy", 99); // Cancel limit order
 
         //----- Market data updates -----//
         client.calcVWAP("Buy"); // VWAP of buy side of LOB
@@ -222,13 +222,13 @@ private static Properties properties = new Properties();
         client.getBidQuantity(); // Best bid volume
         client.getOffer(); // Best ask price
         client.getOfferQuantity(); // Best ask volume
-        client.waitForMarketDataUpdate(); // Pauses the client until a new event occurs
         client.isAuction(); // Current trading session
+        client.lobSnapshot(); // Snapshot of the entire LOB
+        client.getStaticPriceReference(); // Static price reference at the end of a trading session
 
         //----- End trading session by logging out client and closing connections -----//
         client.sendEndMessage();
         client.close();
-        System.out.println("Complete at " + LocalDateTime.now());
 
         System.exit(0);
     }
@@ -259,8 +259,7 @@ Example:
 using JavaCall
 cd(@__DIR__); clearconsole() # pwd()
 # Add the path to java classes as well as the path to the ".jar" files containing the required java dependencies
-JavaCall.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/classes/main") # JavaCall.getClassPath()
-JavaCall.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar")
+JavaCall.addClassPath("[...]/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar") # JavaCall.getClassPath()
 # Initialize JVM
 JavaCall.init()
 # Import the class containing the reqired methods
@@ -279,14 +278,14 @@ jcall(client, "sendStartMessage", Nothing, ())
 
 
 #----- Submit orders -----#
-# Arguments for "submitOrder": volume, price, side, order type, time in force, display quantity, min execution size, stop price
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 99, "Buy", "Limit", "Day", 1000, 0, 0) # Buy limit order
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 101, "Sell", "Limit", "Day", 1000, 0, 0) # Sell limit order
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 0, "Buy", "Market", "Day", 1000, 0, 0) # Buy market order
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0) # Stop buy limit order
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 0, "Buy", "Stop", "Day", 1000, 0, 0) # Stop buy market order
-# Arguments for "cancelOrder": order id, side
-jcall(client, "cancelOrder", Nothing, (jlong, jlong), "1", "Buy") # Cancel limit order
+# Arguments for "submitOrder": order ID, volume, price, side, order type, time in force, display quantity, min execution size, stop price
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), "1", 1000, 99, "Buy", "Limit", "Day", 1000, 0, 0) # Buy limit order
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), "2", 1000, 101, "Sell", "Limit", "Day", 1000, 0, 0) # Sell limit order
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), "3", 1000, 0, "Buy", "Market", "Day", 1000, 0, 0) # Buy market order
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), "4", 1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0) # Stop buy limit order
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), "5", 1000, 0, "Buy", "Stop", "Day", 1000, 0, 0) # Stop buy market order
+# Arguments for "cancelOrder": order id, side, price
+jcall(client, "cancelOrder", Nothing, (jlong, jlong), "1", "Buy", 99) # Cancel limit order
 #---------------------------------------------------------------------------------------------------
 
 
@@ -296,8 +295,9 @@ jcall(client, "getBid", jlong, ()) # Best bid price
 jcall(client, "getBidQuantity", jlong, ()) # Best bid volume
 jcall(client, "getOffer", jlong, ()) # Best ask price
 jcall(client, "getOfferQuantity", jlong, ()) # Best ask volume
-jcall(client, "waitForMarketDataUpdate", Nothing, ()) # Pauses the client until a new event occurs
 jcall(client, "isAuction", jboolean, ()) # Current trading session
+jcall(client, "lobSnapshot", JavaObject{Symbol("java.util.ArrayList")}, ()) # Snapshot of the entire LOB
+jcall(client, "getStaticPriceReference", jlong, ()) # Static price reference at the end of a trading session
 #---------------------------------------------------------------------------------------------------
 
 
@@ -328,10 +328,8 @@ Example:
 #----- Preliminaries -----#
 # Import the Java-Python interface module
 import jpype as jp
-# Initialize/start the JVM
-jp.startJVM(jp.getDefaultJVMPath(), "-ea", classpath = "/home/ivanjericevich/CoinTossX/ClientSimulator/build/classes/main") # Start JVM
-# Add the path to the ".jar" files containing the required java dependencies
-jpype.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar")
+# Initialize/start the JVM and add the path to the ".jar" files containing the required java dependencies
+jp.startJVM(jp.getDefaultJVMPath(), "-ea", classpath = "[...]/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar") # Start JVM
 # Import the class containing the reqired methods
 utilities = jp.JClass("example.Utilities")
 #---------------------------------------------------------------------------------------------------
@@ -349,14 +347,14 @@ client.sendStartMessage()
 
 
 #----- Submit orders -----#
-# Arguments for "submitOrder": volume, price, side, order type, time in force, display quantity, min execution size, stop price
-client.submitOrder(1000, 99, "Buy", "Limit", "Day", 1000, 0, 0) # Buy limit order
-client.submitOrder(1000, 101, "Sell", "Limit", "Day", 1000, 0, 0) # Sell limit order
-client.submitOrder(1000, 0, "Buy", "Market", "Day", 1000, 0, 0) # Buy market order
-client.submitOrder(1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0) # Stop buy limit order
-client.submitOrder(1000, 0, "Buy", "Stop", "Day", 1000, 0, 0) # Stop buy market order
-# Arguments for "cancelOrder": order id, side
-client.cancelOrder("1", "Buy") # Cancel limit order
+# Arguments for "submitOrder": order ID, volume, price, side, order type, time in force, display quantity, min execution size, stop price
+client.submitOrder("1", 1000, 99, "Buy", "Limit", "Day", 1000, 0, 0) # Buy limit order
+client.submitOrder("2", 1000, 101, "Sell", "Limit", "Day", 1000, 0, 0) # Sell limit order
+client.submitOrder("3", 1000, 0, "Buy", "Market", "Day", 1000, 0, 0) # Buy market order
+client.submitOrder("4", 1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0) # Stop buy limit order
+client.submitOrder("5", 1000, 0, "Buy", "Stop", "Day", 1000, 0, 0) # Stop buy market order
+# Arguments for "cancelOrder": order id, side, price
+client.cancelOrder("1", "Buy", 99) # Cancel limit order
 #---------------------------------------------------------------------------------------------------
 
 
@@ -366,8 +364,9 @@ client.getBid() # Best bid price
 client.getBidQuantity() # Best bid volume
 client.getOffer() # Best ask price
 client.getOfferQuantity() # Best ask volume
-client.waitForMarketDataUpdate() # Pauses the client until a new event occurs
 client.isAuction() # Current trading session
+client.lobSnapshot() # Snapshot of the entire LOB
+client.getStaticPriceReference() # Static price reference at the end of a trading session
 #---------------------------------------------------------------------------------------------------
 
 
@@ -379,3 +378,9 @@ client.close()
 jp.shutdownJVM()
 #---------------------------------------------------------------------------------------------------
 ```
+
+## Required updates
+* Deatiled web-interface
+* Improve user-friendliness
+* Data output detail
+* Use the latest JDK

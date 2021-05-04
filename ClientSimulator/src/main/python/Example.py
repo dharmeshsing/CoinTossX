@@ -16,11 +16,9 @@ Example:
 #----- Preliminaries -----#
 # Import the Java-Python interface module
 import jpype as jp
-# Initialize/start the JVM
-jp.startJVM(jp.getDefaultJVMPath(), "-ea", classpath = "/home/ivanjericevich/CoinTossX/ClientSimulator/build/classes/main") # Start JVM
-# Add the path to the ".jar" files containing the required java dependencies
-jpype.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar")
-# Import the class containing the reqired methods
+# Initialize/start the JVM and add the path to the ".jar" files containing the required java dependencies
+jp.startJVM(jp.getDefaultJVMPath(), "-ea", classpath = "/home/ivanjericevich/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar") # Start JVM
+# Import the class containing the required methods
 utilities = jp.JClass("example.Utilities")
 #---------------------------------------------------------------------------------------------------
 
@@ -37,14 +35,14 @@ client.sendStartMessage()
 
 
 #----- Submit orders -----#
-# Arguments for "submitOrder": volume, price, side, order type, time in force, display quantity, min execution size, stop price
-client.submitOrder(1000, 99, "Buy", "Limit", "Day", 1000, 0, 0) # Buy limit order
-client.submitOrder(1000, 101, "Sell", "Limit", "Day", 1000, 0, 0) # Sell limit order
-client.submitOrder(1000, 0, "Buy", "Market", "Day", 1000, 0, 0) # Buy market order
-client.submitOrder(1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0) # Stop buy limit order
-client.submitOrder(1000, 0, "Buy", "Stop", "Day", 1000, 0, 0) # Stop buy market order
-# Arguments for "cancelOrder": order id, side
-client.cancelOrder("1", "Buy") # Cancel limit order
+# Arguments for "submitOrder": order ID, volume, price, side, order type, time in force, display quantity, min execution size, stop price
+client.submitOrder("1", 1000, 99, "Buy", "Limit", "Day", 1000, 0, 0) # Buy limit order
+client.submitOrder("2", 1000, 101, "Sell", "Limit", "Day", 1000, 0, 0) # Sell limit order
+client.submitOrder("3", 1000, 0, "Buy", "Market", "Day", 1000, 0, 0) # Buy market order
+client.submitOrder("4", 1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0) # Stop buy limit order
+client.submitOrder("5", 1000, 0, "Buy", "Stop", "Day", 1000, 0, 0) # Stop buy market order
+# Arguments for "cancelOrder": order id, side, price
+client.cancelOrder("1", "Buy", 99) # Cancel limit order
 #---------------------------------------------------------------------------------------------------
 
 
@@ -54,8 +52,9 @@ client.getBid() # Best bid price
 client.getBidQuantity() # Best bid volume
 client.getOffer() # Best ask price
 client.getOfferQuantity() # Best ask volume
-client.waitForMarketDataUpdate() # Pauses the client until a new event occurs
 client.isAuction() # Current trading session
+client.lobSnapshot() # Snapshot of the entire LOB
+client.getStaticPriceReference() # Static price reference at the end of a trading session
 #---------------------------------------------------------------------------------------------------
 
 

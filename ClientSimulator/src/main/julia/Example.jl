@@ -18,8 +18,7 @@ Example:
 using JavaCall
 cd(@__DIR__); clearconsole() # pwd()
 # Add the path to java classes as well as the path to the ".jar" files containing the required java dependencies
-JavaCall.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/classes/main") # JavaCall.getClassPath()
-JavaCall.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar")
+JavaCall.addClassPath("/home/ivanjericevich/CoinTossX/ClientSimulator/build/install/ClientSimulator/lib/*.jar") # JavaCall.getClassPath()
 # Initialize JVM
 JavaCall.init()
 # Import the class containing the reqired methods
@@ -38,14 +37,14 @@ jcall(client, "sendStartMessage", Nothing, ())
 
 
 #----- Submit orders -----#
-# Arguments for "submitOrder": volume, price, side, order type, time in force, display quantity, min execution size, stop price
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 99, "Buy", "Limit", "Day", 1000, 0, 0) # Buy limit order
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 101, "Sell", "Limit", "Day", 1000, 0, 0) # Sell limit order
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 0, "Buy", "Market", "Day", 1000, 0, 0) # Buy market order
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0) # Stop buy limit order
-jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), 1000, 0, "Buy", "Stop", "Day", 1000, 0, 0) # Stop buy market order
-# Arguments for "cancelOrder": order id, side
-jcall(client, "cancelOrder", Nothing, (jlong, jlong), "1", "Buy") # Cancel limit order
+# Arguments for "submitOrder": order ID, volume, price, side, order type, time in force, display quantity, min execution size, stop price
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), "1", 1000, 99, "Buy", "Limit", "Day", 1000, 0, 0) # Buy limit order
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), "2", 1000, 101, "Sell", "Limit", "Day", 1000, 0, 0) # Sell limit order
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), "3", 1000, 0, "Buy", "Market", "Day", 1000, 0, 0) # Buy market order
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), "4", 1000, 0, "Buy", "StopLimit", "Day", 1000, 0, 0) # Stop buy limit order
+jcall(client, "submitOrder", Nothing, (jlong, jlong, JString, JString, JString, jlong, jlong, jlong), "5", 1000, 0, "Buy", "Stop", "Day", 1000, 0, 0) # Stop buy market order
+# Arguments for "cancelOrder": order id, side, price
+jcall(client, "cancelOrder", Nothing, (jlong, jlong), "1", "Buy", 99) # Cancel limit order
 #---------------------------------------------------------------------------------------------------
 
 
@@ -55,8 +54,9 @@ jcall(client, "getBid", jlong, ()) # Best bid price
 jcall(client, "getBidQuantity", jlong, ()) # Best bid volume
 jcall(client, "getOffer", jlong, ()) # Best ask price
 jcall(client, "getOfferQuantity", jlong, ()) # Best ask volume
-jcall(client, "waitForMarketDataUpdate", Nothing, ()) # Pauses the client until a new event occurs
 jcall(client, "isAuction", jboolean, ()) # Current trading session
+jcall(client, "lobSnapshot", JavaObject{Symbol("java.util.ArrayList")}, ()) # Snapshot of the entire LOB
+jcall(client, "getStaticPriceReference", jlong, ()) # Static price reference at the end of a trading session
 #---------------------------------------------------------------------------------------------------
 
 
