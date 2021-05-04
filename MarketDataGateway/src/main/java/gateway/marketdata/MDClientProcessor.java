@@ -12,9 +12,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 10/08/15.
- */
 public class MDClientProcessor implements Runnable,FragmentHandler{
     private String mediaDriverConextDir;
     private IntObjectMap<Client> clients;

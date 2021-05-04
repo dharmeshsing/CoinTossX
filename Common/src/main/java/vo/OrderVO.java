@@ -7,9 +7,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-/**
- * Created by dharmeshsing on 16/04/16.
- */
 public class OrderVO implements Serializable {
     private int securityId;
     private long orderId;
@@ -17,6 +14,7 @@ public class OrderVO implements Serializable {
     private long price;
     private long volume;
     private String side;
+    private String clientOrderId;
 
     public long getOrderId() {
         return orderId;
@@ -25,6 +23,10 @@ public class OrderVO implements Serializable {
     public void setOrderId(long orderId) {
         this.orderId = orderId;
     }
+
+    public String getClientOrderId() { return clientOrderId; }
+
+    public void setClientOrderId(String clientOrderId) { this.clientOrderId = clientOrderId.trim(); }
 
     public long getSubmittedTime() {
         return submittedTime;
@@ -91,19 +93,19 @@ public class OrderVO implements Serializable {
     public String toString() {
         return securityId + "," +
                 orderId + "," +
+                clientOrderId + "," +
                 getFormattedTime() + "," +
-
                 price + "," +
                 volume + "," +
                 side;
     }
 
     public Object[] getValues(){
-        return new Object[]{securityId,orderId,getFormattedTime(),price,volume,side};
+        return new Object[]{securityId,orderId,clientOrderId,getFormattedTime(),price,volume,side};
     }
 
     public static String[] getFileHeader(){
-        return new String[]{"SecurityId","OrderId","SubmittedTime","Price",
+        return new String[]{"SecurityId","OrderId","ClientOrderId","DateTime","Price",
                 "Volume","Side"};
     }
 }

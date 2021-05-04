@@ -6,9 +6,6 @@ import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
-/**
- * Created by dharmeshsing on 26/12/16.
- */
 public class TradeVODisruptor {
     private Disruptor<TradeVOMessageEvent> disruptor;
     private RingBuffer<TradeVOMessageEvent> ringBuffer;
@@ -35,14 +32,16 @@ public class TradeVODisruptor {
         ringBuffer = disruptor.start();
     }
 
-    public void addTradeVO(int securityId,int tradeId,int price,int quantity){
+    public void addTradeVO(int securityId,int tradeId,long clientOrderId,int price,int quantity,long executedTime){
         long sequence = ringBuffer.next();
         TradeVOMessageEvent event = ringBuffer.get(sequence);
 
         event.setSecurityId(securityId);
         event.setTradeId(tradeId);
+        event.setClientOrderId(clientOrderId);
         event.setPrice(price);
         event.setQuantity(quantity);
+        event.setExecutedTime(executedTime);
 
         ringBuffer.publish(sequence);
     }

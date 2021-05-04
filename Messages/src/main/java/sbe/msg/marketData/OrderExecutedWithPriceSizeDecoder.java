@@ -1,13 +1,13 @@
 /* Generated SBE (Simple Binary Encoding) message codec */
 package sbe.msg.marketData;
 
-import uk.co.real_logic.agrona.DirectBuffer;
 import uk.co.real_logic.sbe.codec.java.CodecUtil;
+import uk.co.real_logic.agrona.DirectBuffer;
 
 @SuppressWarnings("all")
 public class OrderExecutedWithPriceSizeDecoder
 {
-    public static final int BLOCK_LENGTH = 38;
+    public static final int BLOCK_LENGTH = 54;
     public static final int TEMPLATE_ID = 23;
     public static final int SCHEMA_ID = 1;
     public static final int SCHEMA_VERSION = 0;
@@ -340,7 +340,7 @@ public class OrderExecutedWithPriceSizeDecoder
 
     public static int instrumentIdId()
     {
-        return 6;
+        return 9;
     }
 
     public static String instrumentIdMetaAttribute(final MetaAttribute metaAttribute)
@@ -373,6 +373,82 @@ public class OrderExecutedWithPriceSizeDecoder
     public long instrumentId()
     {
         return CodecUtil.uint32Get(buffer, offset + 34, java.nio.ByteOrder.LITTLE_ENDIAN);
+    }
+
+
+    public static int clientOrderIdId()
+    {
+        return 10;
+    }
+
+    public static String clientOrderIdMetaAttribute(final MetaAttribute metaAttribute)
+    {
+        switch (metaAttribute)
+        {
+            case EPOCH: return "unix";
+            case TIME_UNIT: return "nanosecond";
+            case SEMANTIC_TYPE: return "";
+        }
+
+        return "";
+    }
+
+    public static long clientOrderIdNullValue()
+    {
+        return 0xffffffffffffffffL;
+    }
+
+    public static long clientOrderIdMinValue()
+    {
+        return 0x0L;
+    }
+
+    public static long clientOrderIdMaxValue()
+    {
+        return 0xfffffffffffffffeL;
+    }
+
+    public long clientOrderId()
+    {
+        return CodecUtil.uint64Get(buffer, offset + 38, java.nio.ByteOrder.LITTLE_ENDIAN);
+    }
+
+
+    public static int executedTimeId()
+    {
+        return 11;
+    }
+
+    public static String executedTimeMetaAttribute(final MetaAttribute metaAttribute)
+    {
+        switch (metaAttribute)
+        {
+            case EPOCH: return "unix";
+            case TIME_UNIT: return "nanosecond";
+            case SEMANTIC_TYPE: return "";
+        }
+
+        return "";
+    }
+
+    public static long executedTimeNullValue()
+    {
+        return 0xffffffffffffffffL;
+    }
+
+    public static long executedTimeMinValue()
+    {
+        return 0x0L;
+    }
+
+    public static long executedTimeMaxValue()
+    {
+        return 0xfffffffffffffffeL;
+    }
+
+    public long executedTime()
+    {
+        return CodecUtil.uint64Get(buffer, offset + 46, java.nio.ByteOrder.LITTLE_ENDIAN);
     }
 
 }

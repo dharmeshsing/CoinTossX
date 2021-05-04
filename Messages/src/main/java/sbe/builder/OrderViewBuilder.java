@@ -1,6 +1,7 @@
 package sbe.builder;
 
 import sbe.msg.MessageHeaderEncoder;
+import sbe.msg.OrderCancelRequestEncoder;
 import sbe.msg.OrderViewEncoder;
 import sbe.msg.SideEnum;
 import uk.co.real_logic.agrona.DirectBuffer;
@@ -8,9 +9,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 12/08/15.
- */
 public class OrderViewBuilder {
     private int bufferIndex;
     private OrderViewEncoder orderView;
@@ -20,6 +18,7 @@ public class OrderViewBuilder {
     private int compID;
     private int securityId;
     private int orderId;
+    private UnsafeBuffer clientOrderId;
     private long submittedTime;
     private SideEnum side;
     private long price;
@@ -31,6 +30,7 @@ public class OrderViewBuilder {
         orderView = new OrderViewEncoder();
         messageHeader = new MessageHeaderEncoder();
         encodeBuffer = new UnsafeBuffer(ByteBuffer.allocateDirect(BUFFER_SIZE));
+        clientOrderId = new UnsafeBuffer(ByteBuffer.allocateDirect(OrderCancelRequestEncoder.clientOrderIdLength()));
     }
 
     public void reset(){
@@ -50,6 +50,11 @@ public class OrderViewBuilder {
 
     public OrderViewBuilder orderId(int value){
         this.orderId = value;
+        return this;
+    }
+
+    public OrderViewBuilder clientOrderId(byte[] value){
+        this.clientOrderId.wrap(value);
         return this;
     }
 
@@ -92,6 +97,7 @@ public class OrderViewBuilder {
 
         orderView.securityId(securityId);
         orderView.orderId(orderId);
+        orderView.putClientOrderId(clientOrderId.byteArray(), 0);
 
         orderView.submittedTime(submittedTime);
         orderView.side(side);

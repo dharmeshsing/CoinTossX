@@ -4,9 +4,6 @@ import common.OrderType;
 import crossing.MatchingContext;
 import orderBook.OrderBook;
 
-/**
- * Created by dharmeshsing on 7/07/15.
- */
 public class AddOrderPreProcessor implements MatchingPreProcessor  {
 
     @Override

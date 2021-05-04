@@ -13,9 +13,6 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
 
-/**
- * Created by dharmeshsing on 20/12/16.
- */
 public class OffHeapStorage {
 
     private static final Integer HAWKES_STATUS = 1;

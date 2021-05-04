@@ -15,9 +15,6 @@ import sbe.msg.OrderCancelReplaceRequestEncoder;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * Created by dharmeshsing on 22/08/15.
- */
 public class ReplaceOrderPreProcessor implements MatchingPreProcessor  {
 
 
@@ -162,6 +159,7 @@ public class ReplaceOrderPreProcessor implements MatchingPreProcessor  {
     private void populateExecutionData(OrderEntry orderEntry){
         ExecutionReportData executionReportData = ExecutionReportData.INSTANCE;
         executionReportData.setOrderId((int) orderEntry.getOrderId());
+        //executionReportData.setClientOrderId(String.valueOf(orderEntry.getClientOrderId()).getBytes());
         executionReportData.setExecutionType(ExecutionTypeEnum.Amended);
     }
 }

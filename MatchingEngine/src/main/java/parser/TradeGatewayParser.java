@@ -14,9 +14,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by dharmeshsing on 13/08/15.
- */
 public class TradeGatewayParser {
     private MessageHeaderDecoder messageHeader = new MessageHeaderDecoder();
     private OrderEntry orderEntry;

@@ -20,9 +20,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * Created by dharmeshsing on 7/07/15.
- */
 public class PriceTimePriorityStrategy implements MatchingLogic {
     private long targetPrice;
 
@@ -55,9 +52,9 @@ public class PriceTimePriorityStrategy implements MatchingLogic {
             case ADD_AND_AGGRESS: {
                 addOrder(orderEntry);
                 if(getOrderSide(orderEntry.getSide()) == OrderBook.SIDE.BID){
-                    sellSideAgressBuySide();
-                }else{
                     buySideAgressSellSide();
+                }else{
+                    sellSideAgressBuySide();
                 }
                 break;
             }
@@ -250,9 +247,8 @@ public class PriceTimePriorityStrategy implements MatchingLogic {
         while (iterator.hasNext()) {
             OrderEntry currentOrder = iterator.next().value;
             int quantity = MatchingUtil.getExecutionQuantity(currentOrder.getQuantity(), aggOrder.getQuantity(), currentOrder.getMinExecutionSize(),aggOrder.getMinExecutionSize());
-            long orderId = currentOrder.getOrderId();
             if(quantity > 0) {
-                addTrade(price, quantity, orderId);
+                addTrade(price, quantity, currentOrder.getClientOrderId(), java.time.Instant.now().toEpochMilli());
                 aggOrder.removeQuantity(quantity);
                 currentOrder.removeQuantity(quantity);
 
@@ -305,19 +301,17 @@ public class PriceTimePriorityStrategy implements MatchingLogic {
         return false;
     }
 
-    //TODO: Send the trades out instead of storing it
-    private void addTrade(long price, long quantity, long orderId){
+    private void addTrade(long price, long quantity, long clientOrderId, long executedTime){
         Trade trade = new Trade();
-        trade.setId(orderId);
+        trade.setId(tradeId.incrementAndGet());
         trade.setPrice(price);
         trade.setQuantity(quantity);
         orderBook.setLasTradedPrice(price);
         orderBook.getTrades().add(trade);
         ExecutionReportData.INSTANCE.setExecutionType(ExecutionTypeEnum.Trade);
         ExecutionReportData.INSTANCE.addFillGroup(price,(int)quantity);
-        MarketData.INSTANCE.addTrade(trade.getId(),price,quantity);
+        MarketData.INSTANCE.addTrade(trade.getId(),clientOrderId,price,quantity,executedTime);
         setReferencePrice(price);
-
     }
 
     private void setReferencePrice(long price){

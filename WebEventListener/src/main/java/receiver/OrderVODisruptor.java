@@ -7,9 +7,6 @@ import com.lmax.disruptor.dsl.ProducerType;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import sbe.msg.SideEnum;
 
-/**
- * Created by dharmeshsing on 19/12/16.
- */
 public class OrderVODisruptor {
     private Disruptor<OrderVOMessageEvent> disruptor;
     private RingBuffer<OrderVOMessageEvent> ringBuffer;
@@ -35,12 +32,13 @@ public class OrderVODisruptor {
         ringBuffer = disruptor.start();
     }
 
-    public void addOrderVO(int securityId,long orderId,SideEnum side,long submittedTime,long volume,long price){
+    public void addOrderVO(int securityId, long orderId, String clientOrderId, SideEnum side, long submittedTime, long volume, long price){
         long sequence = ringBuffer.next();
         OrderVOMessageEvent event = ringBuffer.get(sequence);
 
         event.setSecurityId(securityId);
         event.setOrderId(orderId);
+        event.setClientOrderId(clientOrderId);
         event.setSide(side);
         event.setSubmittedTime(submittedTime);
         event.setVolume(volume);

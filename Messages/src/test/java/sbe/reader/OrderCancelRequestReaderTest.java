@@ -24,7 +24,8 @@ public class OrderCancelRequestReaderTest {
         assertEquals("ClientOrderId=2                   " +
                      "OrigClientOrderId=1                   " +
                      "OrderId=0SecurityId=1TraderMnemonic=test             " +
-                     "Side=BuyOrderBook=Regular",sb.toString());
+                     "Side=BuyOrderBook=Regular" +
+                     "LimitPrice=1000",sb.toString());
     }
 
     private DirectBuffer build(){
@@ -42,7 +43,8 @@ public class OrderCancelRequestReaderTest {
 
         orderCancelRequestBuilder.traderMnemonic(trader.getBytes())
                                  .side(SideEnum.Buy)
-                                 .orderBook(OrderBookEnum.Regular);
+                                 .orderBook(OrderBookEnum.Regular)
+                                 .limitPrice(1000);
 
         return orderCancelRequestBuilder.build();
 

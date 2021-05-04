@@ -1,8 +1,5 @@
 package common;
 
-/**
- * Created by dharmeshsing on 18/08/15.
- */
 public enum TradingSession {
     START_OF_TRADING,
     OPENING_AUCTION_CALL,

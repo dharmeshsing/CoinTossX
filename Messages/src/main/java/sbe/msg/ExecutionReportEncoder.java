@@ -1,9 +1,9 @@
 /* Generated SBE (Simple Binary Encoding) message codec */
 package sbe.msg;
 
-import uk.co.real_logic.agrona.MutableDirectBuffer;
 import uk.co.real_logic.sbe.codec.java.CodecUtil;
 import uk.co.real_logic.sbe.codec.java.GroupOrder;
+import uk.co.real_logic.agrona.MutableDirectBuffer;
 
 @GroupOrder({ExecutionReportEncoder.FillsGroupEncoder.class})
 @SuppressWarnings("all")

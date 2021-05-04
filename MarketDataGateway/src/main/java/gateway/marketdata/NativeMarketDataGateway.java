@@ -22,9 +22,6 @@ import java.nio.ByteBuffer;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * Created by dharmeshsing on 2015/01/17.
- */
 public class NativeMarketDataGateway implements MarketDataGateway,FragmentHandler{
 
     protected Properties properties;

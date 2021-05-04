@@ -2,9 +2,6 @@ package vo;
 
 import java.io.Serializable;
 
-/**
- * Created by dharmeshsing on 6/05/16.
- */
 public class StockVO implements Serializable {
     private int securityId;
     private String stockCode;

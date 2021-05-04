@@ -7,9 +7,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import vo.StockVO;
 
-/**
- * Created by dharmeshsing on 1/05/16.
- */
 public class AllStocksActionPanel extends Panel
 {
     public AllStocksActionPanel(String id, final IModel model, final Item item)

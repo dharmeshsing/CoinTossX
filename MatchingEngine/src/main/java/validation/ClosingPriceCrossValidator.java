@@ -5,9 +5,6 @@ import crossing.MatchingUtil;
 import leafNode.OrderEntry;
 import sbe.msg.NewOrderEncoder;
 
-/**
- * Created by dharmeshsing on 4/11/15.
- */
 public class ClosingPriceCrossValidator implements SessionValidator {
 
     @Override

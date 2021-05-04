@@ -12,9 +12,6 @@ import leafNode.OrderEntry;
 import orderBook.OrderBook;
 import validation.OpeningAuctionCallValidator;
 
-/**
- * Created by dharmeshsing on 14/11/15.
- */
 public class FutureClosingAuctionCallProcessor implements TradingSessionProcessor {
     private OpeningAuctionCallValidator validator;
     private PriceTimePriorityStrategy priceTimePriorityStrategy;

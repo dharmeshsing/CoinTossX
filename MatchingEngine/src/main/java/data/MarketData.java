@@ -10,6 +10,7 @@ import leafNode.OrderListCursor;
 import orderBook.OrderBook;
 import org.joda.time.Instant;
 import sbe.builder.AdminBuilder;
+import sbe.builder.BuilderUtil;
 import sbe.builder.LOBBuilder;
 import sbe.builder.VWAPBuilder;
 import sbe.builder.marketData.*;
@@ -20,9 +21,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * Created by dharmeshsing on 16/08/15.
- */
 public enum MarketData {
     INSTANCE;
 
@@ -30,7 +28,6 @@ public enum MarketData {
     private AddOrderBuilder addOrderBuilder = new AddOrderBuilder();
     private BestBidOfferBuilder bestBidAskBuilder = new BestBidOfferBuilder();
     private UnitHeaderBuilder unitHeaderBuilder = new UnitHeaderBuilder();
-    private OrderExecutedWithPriceSizeBuilder orderExecutedBuilder = new OrderExecutedWithPriceSizeBuilder();
     private SymbolStatusBuilder symbolStatusBuilder = new SymbolStatusBuilder();
     private LOBBuilder lobBuilder = new LOBBuilder();
     private AdminBuilder adminBuilder = new AdminBuilder();
@@ -74,13 +71,16 @@ public enum MarketData {
     }
 
 
-    public void addTrade(long tradeId,long price,long quantity){
+    public void addTrade(long tradeId,long clientOrderId,long price,long quantity,long executedTime){
+        OrderExecutedWithPriceSizeBuilder orderExecutedBuilder = new OrderExecutedWithPriceSizeBuilder();
         mktData.add(orderExecutedBuilder.messageType(MessageTypeEnum.OrderExecutedPriceSize)
                 .tradeId((int) tradeId)
+                .clientOrderId(clientOrderId)
                 .price((int) price)
                 .executedQuantity((int) quantity)
                 .printable(PrintableEnum.Printable)
                 .instrumentId((int)securityId)
+                .executedTime(executedTime)
                 .build());
     }
 
@@ -97,12 +97,14 @@ public enum MarketData {
 
     }
 
-    public void addSymbolStatus(int securityId, SessionChangedReasonEnum sessionChangedReason, TradingSessionEnum tradingSession) {
+    public void addSymbolStatus(int securityId, SessionChangedReasonEnum sessionChangedReason, TradingSessionEnum tradingSession, long staticPriceReference, long dynamicPriceReference) {
         symbolStatusBuilder.messageType(MessageTypeEnum.SymbolStatus)
                 .sessionChangedReason(sessionChangedReason)
                 .haltReason(HaltReasonEnum.ReasonNotAvailable)
                 .instrumentId(securityId)
-                .tradingSession(tradingSession);
+                .tradingSession(tradingSession)
+                .staticPriceReference(staticPriceReference)
+                .dynamicPriceReference(dynamicPriceReference);
 
         mktData.add(symbolStatusBuilder.build());
     }
@@ -160,16 +162,16 @@ public enum MarketData {
         }
         resetLOBBuilder(orderBook.getSecurityId());
 
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(100);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void lobSnapShot(AeronPublisher marketDataPublisher) {
         marketDataPublisher.send(getAdminMessage(AdminTypeEnum.StartLOB, orderBook.getSecurityId(), compID));
-        System.out.println("Publihed start snapshot");
+        //System.out.println("Publihed start snapshot");
 
         int count = 0;
         resetLOBBuilder(orderBook.getSecurityId());
@@ -182,7 +184,7 @@ public enum MarketData {
                 while (iterator.hasNext()) {
                     OrderEntry currentOrder = iterator.next().value;
 
-                    lobBuilder.addOrder((int) currentOrder.getOrderId(),
+                    lobBuilder.addOrder(currentOrder.getClientOrderId(), (int) currentOrder.getOrderId(),
                             currentOrder.getQuantity(),
                             sbe.msg.SideEnum.get(currentOrder.getSide()),
                             currentOrder.getPrice());
@@ -191,7 +193,7 @@ public enum MarketData {
                     if(count == 100){
                         publishLOBSnapShot(marketDataPublisher);
                         count = 0;
-                        System.out.println("Published orders");
+                        System.out.println("Published large LOB");
                     }
                 }
             }
@@ -205,7 +207,7 @@ public enum MarketData {
                 while (iterator.hasNext()) {
                     OrderEntry currentOrder = iterator.next().value;
 
-                    lobBuilder.addOrder((int) currentOrder.getOrderId(),
+                    lobBuilder.addOrder(currentOrder.getClientOrderId(), (int) currentOrder.getOrderId(),
                             currentOrder.getQuantity(),
                             sbe.msg.SideEnum.get(currentOrder.getSide()),
                             currentOrder.getPrice());
@@ -227,7 +229,7 @@ public enum MarketData {
         setSnapShotRequest(false);
         setOrderBook(null);
         reset();
-        System.out.println("Publish end orders");
+        //System.out.println("Publish end orders");
     }
 
 

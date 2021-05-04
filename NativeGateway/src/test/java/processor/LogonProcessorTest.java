@@ -27,10 +27,13 @@ public class LogonProcessorTest {
 
     @Test
     public void testProcessClientAlreadyLoggedIn() throws Exception {
+        Client client = new Client();
+        client.setLoggedIn(true);
+        client.setCompID(1);
         DirectBuffer response = logonProcessor.process(any(LogonDecoder.class),
                                any(MessageHeaderDecoder.class),
                                any(DirectBuffer.class),
-                               any(Client.class),
+                               client,
                                true);
 
         LogonResponseReader logonResponseReader = new LogonResponseReader();

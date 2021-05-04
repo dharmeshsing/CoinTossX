@@ -220,6 +220,7 @@
         <field name="traderMnemonic" id="5" type="idString17"/>
         <field name="side" id="6" type="SideEnum"/>
         <field name="orderBook" id="7" type="OrderBookEnum"/>
+        <field name="limitPrice" id="8" type="Price"/>
     </me:message>
 
     <me:message name="OrderMassCancelRequest" id="11" description="Order Mass Cancel Request Message">

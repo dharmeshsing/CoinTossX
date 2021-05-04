@@ -7,9 +7,6 @@ import util.CommonUtil;
 import java.io.File;
 import java.util.Properties;
 
-/**
- * Created by dharmeshsing on 23/12/16.
- */
 public class WebEventListener {
 
     private OffHeapStorage offHeapStorage;

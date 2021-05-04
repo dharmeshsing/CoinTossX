@@ -12,9 +12,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
-/**
- * Created by dharmeshsing on 29/04/16.
- */
 public class ClientDataProvider extends SortableDataProvider<ClientVO, String> {
 
 

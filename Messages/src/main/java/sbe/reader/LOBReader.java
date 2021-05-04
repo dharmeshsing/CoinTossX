@@ -10,21 +10,20 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 12/08/15.
- */
 public class LOBReader implements Serializable {
     private int bufferIndex;
     private LOBDecoder lob;
     private MessageHeaderDecoder messageHeader;
     private int compID;
     private int securityId;
+    private byte[] clientOrderId;
     private LOBDecoder.OrdersDecoder ordersDecoder;
     private UnsafeBuffer temp = new UnsafeBuffer(ByteBuffer.allocateDirect(LOBBuilder.BUFFER_SIZE));
 
     public LOBReader(){
         lob = new LOBDecoder();
         messageHeader = new MessageHeaderDecoder();
+        clientOrderId = new byte[LOBDecoder.OrdersDecoder.clientOrderIdLength()];
     }
 
     public void read(DirectBuffer buffer) throws UnsupportedEncodingException {
@@ -39,7 +38,6 @@ public class LOBReader implements Serializable {
 
         lob.wrap(temp, bufferIndex, actingBlockLength, actingVersion);
         securityId = lob.securityId();
-       // ordersDecoder = lob.orders();
         ordersDecoder = new LOBDecoder.OrdersDecoder();
         ordersDecoder.wrap(lob,buffer);
     }
@@ -48,9 +46,10 @@ public class LOBReader implements Serializable {
         return ordersDecoder.hasNext();
     }
 
-    public void next(LOBBuilder.Order order){
+    public void next(LOBBuilder.Order order) throws UnsupportedEncodingException {
         LOBDecoder.OrdersDecoder od = ordersDecoder.next();
         if(od != null) {
+            order.setClientOrderId(new String(clientOrderId, 0, od.getClientOrderId(clientOrderId, 0), LOBDecoder.OrdersDecoder.clientOrderIdCharacterEncoding()));
             order.setOrderId(od.orderId());
             order.setOrderQuantity(od.orderQuantity());
             order.setPrice(od.price().mantissa());

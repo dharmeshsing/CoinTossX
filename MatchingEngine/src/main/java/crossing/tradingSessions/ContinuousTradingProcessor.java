@@ -19,9 +19,6 @@ import sbe.msg.ExecutionTypeEnum;
 import sbe.msg.OrderStatusEnum;
 import validation.ContinuousTradingValidator;
 
-/**
- * Created by dharmeshsing on 21/11/15.
- */
 public class ContinuousTradingProcessor implements TradingSessionProcessor {
     private ContinuousTradingValidator validator;
     private PriceTimePriorityStrategy priceTimePriorityStrategy;
@@ -55,12 +52,12 @@ public class ContinuousTradingProcessor implements TradingSessionProcessor {
     }
 
     private void initPreProcessors(){
-        preProcessors = new ObjectArrayList<>(4);
+        preProcessors = new ObjectArrayList<>(3);
         preProcessors.add(new CancelOrderPreProcessor());
-        preProcessors.add(new ReplaceOrderPreProcessor());
+        //preProcessors.add(new ReplaceOrderPreProcessor());
         preProcessors.add(new OrderTypePreProcessor());
         preProcessors.add(new AddOrderPreProcessor());
-        preProcessors.add(new HawkesSimulationPreProcessor());
+        //preProcessors.add(new HawkesSimulationPreProcessor());
     }
 
     private void initPostProcessors(){

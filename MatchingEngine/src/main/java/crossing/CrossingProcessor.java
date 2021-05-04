@@ -22,9 +22,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Created by dharmeshsing on 2014/12/30.
- */
 public class   CrossingProcessor implements LOBManager {
 
     public static AtomicInteger sequenceNumber = new AtomicInteger();
@@ -93,7 +90,7 @@ public class   CrossingProcessor implements LOBManager {
         tradingSessionProcessor = TradingSessionFactory.getTradingSessionProcessor(newTradingSession);
 
         MatchingContext.INSTANCE.setOrderBookTradingSession(securityId,newTradingSession);
-        MarketData.INSTANCE.addSymbolStatus(securityId, sessionChangedReason,newTradingSession);
+        MarketData.INSTANCE.addSymbolStatus(securityId, sessionChangedReason,newTradingSession, orderBook.getStaticPriceReference(), orderBook.getDynamicPriceReference());
 
         tradingSessionProcessor.startSession(orderBook);
     }

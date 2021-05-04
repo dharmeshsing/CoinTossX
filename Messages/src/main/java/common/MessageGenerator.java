@@ -4,9 +4,6 @@ import sbe.builder.*;
 import sbe.msg.*;
 import uk.co.real_logic.agrona.DirectBuffer;
 
-/**
- * Created by dharmeshsing on 22/08/15.
- */
 public class MessageGenerator {
 
     public static DirectBuffer buildLogonRequest(){

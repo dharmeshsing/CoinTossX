@@ -6,9 +6,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by dharmeshsing on 14/11/15.
- */
 public class AdminMessageParser {
     private AdminDecoder adminDecoder = new AdminDecoder();
     private int securityId;

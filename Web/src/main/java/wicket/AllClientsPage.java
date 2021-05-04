@@ -20,9 +20,6 @@ import wicket.services.Services;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dharmeshsing on 29/04/16.
- */
 public class AllClientsPage extends WebPage {
 
     private ClientDataProvider clientDataProvider;

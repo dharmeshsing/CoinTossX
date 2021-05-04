@@ -18,9 +18,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Properties;
 
-/**
- * Created by dharmeshsing on 2/04/16.
- */
 public class HawkesDataPage extends WebPage {
 
     private String lambda;

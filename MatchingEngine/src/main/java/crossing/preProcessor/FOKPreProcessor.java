@@ -5,9 +5,6 @@ import crossing.strategy.MatchingLogic;
 import crossing.strategy.TimeInForceStrategy;
 import orderBook.OrderBook;
 
-/**
- * Created by dharmeshsing on 7/07/15.
- */
 public class FOKPreProcessor {
 
     public static MATCHING_ACTION preProcess(OrderBook orderBook,int aggOrderQuantity,long aggOrderPrice,int aggOrderMES,OrderBook.SIDE side) {

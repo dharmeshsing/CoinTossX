@@ -152,7 +152,9 @@
         <field name="tradeId" id="6" type="uint32"/>
         <field name="printable" id="7" type="PrintableEnum"/>
         <field name="price" id="8" type="Price"/>
-        <field name="instrumentId" id="6" type="uint32"/>
+        <field name="instrumentId" id="9" type="uint32"/>
+        <field name="clientOrderId" id="10" type="uint64"/>
+        <field name="executedTime" id="11" type="uint64"/>
     </me:message>
 
     <me:message name="Trade" id="24" description="Trade Message">
@@ -189,6 +191,8 @@
         <field name="tradingSession" id="4" type="TradingSessionEnum"/>
         <field name="haltReason" id="5" type="HaltReasonEnum"/>
         <field name="sessionChangedReason" id="6" type="SessionChangedReasonEnum"/>
+        <field name="staticPriceReference" id="7" type="Price"/>
+        <field name="dynamicPriceReference" id="8" type="Price"/>
     </me:message>
 
     <me:message name="TradingSession" id="90" description="Trading Session Message">

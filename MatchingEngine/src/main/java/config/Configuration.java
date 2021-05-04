@@ -1,8 +1,5 @@
 package config;
 
-/**
- * Created by dharmeshsing on 15/04/04.
- */
 public class Configuration {
     public static int MRS = 1;
     public static long PASSIVE_PRICE_IMPROVEMENT = 50L;

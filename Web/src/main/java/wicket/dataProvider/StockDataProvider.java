@@ -12,9 +12,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
-/**
- * Created by dharmeshsing on 29/04/16.
- */
 public class StockDataProvider extends SortableDataProvider<StockVO, String> {
 
     private transient ObjectArrayList<StockVO> stockVOList = new ObjectArrayList<>(100);

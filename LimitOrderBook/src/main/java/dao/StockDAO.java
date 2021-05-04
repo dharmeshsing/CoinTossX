@@ -10,9 +10,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-/**
- * Created by dharmeshsing on 15/04/11.
- */
 public class StockDAO {
     private static final String [] STOCK_HEADER_MAPPING = {"StockCode","MRS","TickSize"};
     private static LongObjectHashMap<Stock> stocks;

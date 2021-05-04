@@ -71,6 +71,7 @@
             <field name="price" id="4" type="Price"/>
             <field name="orderQuantity" id="5" type="int32"/>
             <field name="side" id="6" type="SideEnum"/>
+            <field name="clientOrderId" id="7" type="idString20"/>
         </group>
     </me:message>
 

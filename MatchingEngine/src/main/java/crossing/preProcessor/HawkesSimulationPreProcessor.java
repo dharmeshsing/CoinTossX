@@ -8,9 +8,6 @@ import orderBook.OrderBook;
 
 import java.util.Map;
 
-/**
- * Created by dharmeshsing on 7/07/15.
- */
 public class HawkesSimulationPreProcessor implements MatchingPreProcessor  {
 
     private static int ORDER_BOOK_DEPTH = 10;

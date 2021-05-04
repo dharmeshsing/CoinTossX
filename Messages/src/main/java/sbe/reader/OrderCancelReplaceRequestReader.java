@@ -6,9 +6,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by dharmeshsing on 12/08/15.
- */
 public class OrderCancelReplaceRequestReader {
     private StringBuilder sb;
     private int bufferIndex;
@@ -54,8 +51,8 @@ public class OrderCancelReplaceRequestReader {
         sb.append("OrderQuantity=" + orderCancelReplaceRequest.orderQuantity());
         sb.append("DisplayQuantity=" + orderCancelReplaceRequest.displayQuantity());
         sb.append("MinQuantity=" + orderCancelReplaceRequest.minQuantity());
-        sb.append("LimitPrice=" + orderCancelReplaceRequest.limitPrice());
-        sb.append("StopPrice=" + orderCancelReplaceRequest.stopPrice());
+        sb.append("LimitPrice=" + orderCancelReplaceRequest.limitPrice().mantissa());
+        sb.append("StopPrice=" + orderCancelReplaceRequest.stopPrice().mantissa());
         sb.append("OrderBook=" + orderCancelReplaceRequest.orderBook());
 
         return sb;

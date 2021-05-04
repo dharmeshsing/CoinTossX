@@ -6,9 +6,6 @@ import crossing.strategy.MatchingLogic;
 import leafNode.OrderEntry;
 import orderBook.OrderBook;
 
-/**
- * Created by dharmeshsing on 7/07/15.
- */
 public class StopOrderPreProcessor {
 
     public static MATCHING_ACTION preProcess(long lastTradedPrice, OrderBook.SIDE side, OrderEntry orderEntry) {

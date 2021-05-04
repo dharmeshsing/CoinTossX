@@ -10,10 +10,10 @@ import sbe.builder.ExecutionReportBuilder;
 import sbe.builder.OrderViewBuilder;
 import sbe.msg.*;
 import uk.co.real_logic.agrona.DirectBuffer;
+import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
-/**
- * Created by dharmeshsing on 15/08/15.
- */
+import java.nio.ByteBuffer;
+
 public enum ExecutionReportData {
     INSTANCE;
 
@@ -60,7 +60,6 @@ public enum ExecutionReportData {
     public void setClientOrderId(byte[] clientOrderId) {
         this.clientOrderId = clientOrderId;
     }
-
 
     public int getOrderId() {
         return orderId;
@@ -145,13 +144,16 @@ public enum ExecutionReportData {
     }
 
     public void buildOrderView(OrderEntry aggOrder, long securityId){
+        UnsafeBuffer clientOrderId = new UnsafeBuffer(ByteBuffer.allocateDirect(OrderViewEncoder.clientOrderIdLength()));
+        clientOrderId.wrap(BuilderUtil.fill(Long.toString(aggOrder.getClientOrderId()), OrderViewEncoder.clientOrderIdLength()).getBytes());
         orderViewBuilder.compID(getCompID())
-                        .orderId((int) aggOrder.getOrderId())
-                        .orderQuantity(aggOrder.getQuantity())
-                        .price(aggOrder.getPrice())
-                        .side(aggOrder.getSide() == 1 ? SideEnum.Buy : SideEnum.Sell)
-                        .submittedTime(java.time.Instant.now().toEpochMilli())
-                        .securityId((int)securityId);
+                .orderId((int) aggOrder.getOrderId())
+                .clientOrderId(clientOrderId.byteArray())
+                .orderQuantity(aggOrder.getQuantity())
+                .price(aggOrder.getPrice())
+                .side(aggOrder.getSide() == 1 ? SideEnum.Buy : SideEnum.Sell)
+                .submittedTime(java.time.Instant.now().toEpochMilli())
+                .securityId((int)securityId);
     }
 
     public DirectBuffer getOrderView(){

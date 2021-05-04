@@ -9,9 +9,6 @@ import crossing.strategy.PriceTimePriorityStrategy;
 import orderBook.OrderBook;
 import sbe.msg.marketData.TradingSessionEnum;
 
-/**
- * Created by dharmeshsing on 28/11/15.
- */
 public class TradingSessionFactory {
 
     private static PriceTimePriorityStrategy priceTimePriorityStrategy  = new PriceTimePriorityStrategy();

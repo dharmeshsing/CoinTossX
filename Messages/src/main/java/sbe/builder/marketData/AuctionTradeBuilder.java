@@ -8,9 +8,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 12/08/15.
- */
 public class AuctionTradeBuilder {
     private int bufferIndex;
     private AuctionTradeEncoder auctionTrade;

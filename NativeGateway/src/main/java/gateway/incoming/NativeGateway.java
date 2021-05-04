@@ -19,9 +19,6 @@ import java.nio.ByteBuffer;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * Created by dharmeshsing on 2014/12/15.
- */
 public class NativeGateway implements TradingGateway,FragmentHandler{
 
     protected Properties properties;

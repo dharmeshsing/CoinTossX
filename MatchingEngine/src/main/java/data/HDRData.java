@@ -7,9 +7,6 @@ import java.io.File;
 import java.io.PrintStream;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by dharmeshsing on 25/04/16.
- */
 public enum HDRData {
     INSTANCE;
     //private static Histogram histogram = new Histogram(3600000000000L, 3); //1 hour

@@ -2,9 +2,6 @@ package crossing.preProcessor;
 
 import crossing.MatchingContext;
 
-/**
- * Created by dharmeshsing on 25/08/15.
- */
 public class OrderTypePreProcessor implements MatchingPreProcessor {
 
     @Override

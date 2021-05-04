@@ -8,9 +8,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by dharmeshsing on 12/08/15.
- */
 public class SymbolStatusReader {
     private StringBuilder sb;
     private int bufferIndex;
@@ -20,6 +17,8 @@ public class SymbolStatusReader {
     private long securityId;
     private SessionChangedReasonEnum sessionChangedReason;
     private TradingSessionEnum tradingSessionEnum;
+    private long staticPriceReference;
+    private long dynamicPriceReference;
 
     public SymbolStatusReader(){
         sb = new StringBuilder();
@@ -42,6 +41,8 @@ public class SymbolStatusReader {
         securityId = symbolStatus.instrumentId();
         tradingSessionEnum = symbolStatus.tradingSession();
         sessionChangedReason = symbolStatus.sessionChangedReason();
+        staticPriceReference = symbolStatus.staticPriceReference().mantissa();
+        dynamicPriceReference = symbolStatus.dynamicPriceReference().mantissa();
 
 //        sb.append("MessageTypeEnum=" + symbolStatus.messageType());
 //        sb.append("Nanosecond=" + symbolStatus.nanosecond());
@@ -62,5 +63,13 @@ public class SymbolStatusReader {
 
     public TradingSessionEnum getTradingSession() {
         return tradingSessionEnum;
+    }
+
+    public long getStaticPriceReference() {
+        return staticPriceReference;
+    }
+
+    public long getDynamicPriceReference() {
+        return dynamicPriceReference;
     }
 }

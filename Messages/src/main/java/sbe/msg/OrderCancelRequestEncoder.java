@@ -1,13 +1,13 @@
 /* Generated SBE (Simple Binary Encoding) message codec */
 package sbe.msg;
 
-import uk.co.real_logic.agrona.MutableDirectBuffer;
 import uk.co.real_logic.sbe.codec.java.CodecUtil;
+import uk.co.real_logic.agrona.MutableDirectBuffer;
 
 @SuppressWarnings("all")
 public class OrderCancelRequestEncoder
 {
-    public static final int BLOCK_LENGTH = 67;
+    public static final int BLOCK_LENGTH = 75;
     public static final int TEMPLATE_ID = 10;
     public static final int SCHEMA_ID = 1;
     public static final int SCHEMA_VERSION = 0;
@@ -259,5 +259,13 @@ public class OrderCancelRequestEncoder
     {
         CodecUtil.uint8Put(buffer, offset + 66, value.value());
         return this;
+    }
+
+    private final PriceEncoder limitPrice = new PriceEncoder();
+
+    public PriceEncoder limitPrice()
+    {
+        limitPrice.wrap(buffer, offset + 67);
+        return limitPrice;
     }
 }

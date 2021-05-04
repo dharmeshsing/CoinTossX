@@ -3,9 +3,14 @@ package client;
 import gateway.client.AbstractGatewayListener;
 import gateway.client.GatewayClient;
 import gateway.client.GatewayClientImpl;
+import sbe.builder.LOBBuilder;
 import sbe.msg.AdminTypeEnum;
 import sbe.msg.SideEnum;
+import sbe.reader.LOBReader;
 import sbe.reader.VWAPReader;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 public class ClientMDGSubscriber extends AbstractGatewayListener implements Runnable {
 
@@ -17,6 +22,8 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
     private long vwap;
     private int securityId;
     private boolean stop;
+    ArrayList<String> lob = new ArrayList<String>();
+    LOBBuilder.Order lobFlyweight = new LOBBuilder.Order();
 
     public ClientMDGSubscriber(String url, int streamId, NonBlockingSemaphore semaphore, int securityId) {
         this.url = url;
@@ -53,6 +60,22 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
     }
 
     @Override
+    public void readLOB(LOBReader lobReader) {
+        lob.clear();
+        if(lobReader.getSecurityId() == securityId) {
+            try {
+                while(lobReader.hasNext()) {
+                    lobReader.next(lobFlyweight);
+                    lob.add(lobFlyweight.getClientOrderId().trim() + "," + lobFlyweight.getSide() + "," + lobFlyweight.getOrderQuantity() + "," + lobFlyweight.getPrice());
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        semaphore.release();
+    }
+
+    @Override
     public void processAdminMessage(int clientId,long securityid,AdminTypeEnum adminTypeEnum) {
         System.out.println(adminTypeEnum + " - " + clientId);
         if(adminTypeEnum.equals(AdminTypeEnum.EndMessage)) {
@@ -65,9 +88,9 @@ public class ClientMDGSubscriber extends AbstractGatewayListener implements Runn
         this.sideEnum = sideEnum;
     }
 
-    public long getVwap() {
-        return vwap;
-    }
+    public long getVwap() { return vwap; }
+
+    public ArrayList<String> getLob() { return new ArrayList<String>(lob); }
 
     public boolean isStop() {
         return stop;

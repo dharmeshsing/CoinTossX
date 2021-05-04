@@ -8,9 +8,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 23/03/16.
- */
 public class BestBidOfferBuilder {
     private int bufferIndex;
     private BestBidOfferEncoder bestBidOffer;

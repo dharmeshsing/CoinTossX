@@ -3,9 +3,6 @@ package validation;
 import common.TimeInForce;
 import leafNode.OrderEntry;
 
-/**
- * Created by dharmeshsing on 4/11/15.
- */
 public class ClosingPricePublicationValidator implements SessionValidator {
 
     @Override

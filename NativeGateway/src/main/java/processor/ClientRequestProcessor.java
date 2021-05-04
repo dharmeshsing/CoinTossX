@@ -10,9 +10,6 @@ import uk.co.real_logic.agrona.DirectBuffer;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by dharmeshsing on 6/08/15.
- */
 public class ClientRequestProcessor {
     private MessageHeaderDecoder messageHeaderDecoder = new MessageHeaderDecoder();
     private LogonDecoder logonDecoder = new LogonDecoder();

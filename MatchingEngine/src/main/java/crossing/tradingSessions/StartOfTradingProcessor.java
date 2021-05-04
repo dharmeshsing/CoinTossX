@@ -4,9 +4,6 @@ import leafNode.OrderEntry;
 import orderBook.OrderBook;
 import validation.StartOfTradingValidator;
 
-/**
- * Created by dharmeshsing on 14/11/15.
- */
 public class StartOfTradingProcessor implements TradingSessionProcessor {
     private StartOfTradingValidator validator;
 

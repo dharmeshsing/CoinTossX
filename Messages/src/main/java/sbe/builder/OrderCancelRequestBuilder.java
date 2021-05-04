@@ -9,9 +9,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 12/08/15.
- */
 public class OrderCancelRequestBuilder {
     private int bufferIndex;
     private OrderCancelRequestEncoder orderCancelRequest;
@@ -25,6 +22,7 @@ public class OrderCancelRequestBuilder {
     private int orderId;
     private UnsafeBuffer traderMnemonic;
     private SideEnum side;
+    private long limitPrice;
     private OrderBookEnum orderBook;
 
     public static int BUFFER_SIZE = 256;
@@ -74,6 +72,11 @@ public class OrderCancelRequestBuilder {
         return this;
     }
 
+    public OrderCancelRequestBuilder limitPrice(long value){
+        this.limitPrice = value;
+        return this;
+    }
+
     public OrderCancelRequestBuilder orderBook(OrderBookEnum value){
         this.orderBook = value;
         return this;
@@ -97,6 +100,7 @@ public class OrderCancelRequestBuilder {
                 .putTraderMnemonic(traderMnemonic.byteArray(),0)
                 .side(side)
                 .orderBook(orderBook);
+        orderCancelRequest.limitPrice().mantissa(limitPrice);
 
         return encodeBuffer;
     }

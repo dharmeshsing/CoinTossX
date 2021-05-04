@@ -1,13 +1,13 @@
 /* Generated SBE (Simple Binary Encoding) message codec */
 package sbe.msg.marketData;
 
-import uk.co.real_logic.agrona.MutableDirectBuffer;
 import uk.co.real_logic.sbe.codec.java.CodecUtil;
+import uk.co.real_logic.agrona.MutableDirectBuffer;
 
 @SuppressWarnings("all")
 public class OrderExecutedWithPriceSizeEncoder
 {
-    public static final int BLOCK_LENGTH = 38;
+    public static final int BLOCK_LENGTH = 54;
     public static final int TEMPLATE_ID = 23;
     public static final int SCHEMA_ID = 1;
     public static final int SCHEMA_VERSION = 0;
@@ -208,6 +208,46 @@ public class OrderExecutedWithPriceSizeEncoder
     public OrderExecutedWithPriceSizeEncoder instrumentId(final long value)
     {
         CodecUtil.uint32Put(buffer, offset + 34, value, java.nio.ByteOrder.LITTLE_ENDIAN);
+        return this;
+    }
+
+    public static long clientOrderIdNullValue()
+    {
+        return 0xffffffffffffffffL;
+    }
+
+    public static long clientOrderIdMinValue()
+    {
+        return 0x0L;
+    }
+
+    public static long clientOrderIdMaxValue()
+    {
+        return 0xfffffffffffffffeL;
+    }
+    public OrderExecutedWithPriceSizeEncoder clientOrderId(final long value)
+    {
+        CodecUtil.uint64Put(buffer, offset + 38, value, java.nio.ByteOrder.LITTLE_ENDIAN);
+        return this;
+    }
+
+    public static long executedTimeNullValue()
+    {
+        return 0xffffffffffffffffL;
+    }
+
+    public static long executedTimeMinValue()
+    {
+        return 0x0L;
+    }
+
+    public static long executedTimeMaxValue()
+    {
+        return 0xfffffffffffffffeL;
+    }
+    public OrderExecutedWithPriceSizeEncoder executedTime(final long value)
+    {
+        CodecUtil.uint64Put(buffer, offset + 46, value, java.nio.ByteOrder.LITTLE_ENDIAN);
         return this;
     }
 }

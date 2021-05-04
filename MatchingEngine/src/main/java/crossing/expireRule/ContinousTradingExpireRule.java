@@ -4,9 +4,6 @@ import common.TimeInForce;
 import crossing.MatchingUtil;
 import leafNode.OrderEntry;
 
-/**
- * Created by dharmeshsing on 21/11/15.
- */
 public class ContinousTradingExpireRule implements ExpireRule {
     @Override
     public boolean isOrderExpired(OrderEntry orderEntry) {

@@ -2,14 +2,13 @@ package receiver;
 
 import com.lmax.disruptor.EventFactory;
 
-/**
- * Created by dharmeshsing on 19/12/16.
- */
 public class TradeVOMessageEvent {
     private int securityId;
     private int tradeId;
     private int price;
     private int quantity;
+    private long clientOrderId;
+    private long executedTime;
 
     private final static EventFactory<TradeVOMessageEvent> EVENT_FACTORY = () -> new TradeVOMessageEvent();
 
@@ -23,6 +22,14 @@ public class TradeVOMessageEvent {
 
     public void setTradeId(int tradeId) {
         this.tradeId = tradeId;
+    }
+
+    public long getClientOrderId() {
+        return clientOrderId;
+    }
+
+    public void setClientOrderId(long clientOrderId) {
+        this.clientOrderId = clientOrderId;
     }
 
     public int getPrice() {
@@ -47,5 +54,13 @@ public class TradeVOMessageEvent {
 
     public void setSecurityId(int securityId) {
         this.securityId = securityId;
+    }
+
+    public long getExecutedTime() {
+        return executedTime;
+    }
+
+    public void setExecutedTime(long executedTime) {
+        this.executedTime = executedTime;
     }
 }

@@ -7,9 +7,6 @@ import leafNode.OrderEntry;
 import orderBook.OrderBook;
 import sbe.msg.marketData.TradingSessionEnum;
 
-/**
- * Created by dharmeshsing on 25/08/15.
- */
 public enum MatchingContext {
     INSTANCE;
 

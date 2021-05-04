@@ -9,9 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-/**
- * Created by dharmeshsing on 19/03/16.
- */
 @SpringBootApplication
 @EnableAsync
 @EnableScheduling

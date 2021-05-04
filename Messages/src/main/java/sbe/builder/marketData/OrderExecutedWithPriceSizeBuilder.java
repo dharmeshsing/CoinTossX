@@ -9,9 +9,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 12/08/15.
- */
 public class OrderExecutedWithPriceSizeBuilder {
     private int bufferIndex;
     private OrderExecutedWithPriceSizeEncoder orderExecutedWithPriceSize;
@@ -24,11 +21,13 @@ public class OrderExecutedWithPriceSizeBuilder {
     private int executedQuantity;
     private int displayQuantity;
     private int tradeId;
+    private long clientOrderId;
     private PrintableEnum printable;
     private long price;
     private int instrumentId;
+    private long executedTime;
 
-    public static int BUFFER_SIZE = 46;
+    public static int BUFFER_SIZE = 62;
 
     public OrderExecutedWithPriceSizeBuilder(){
         orderExecutedWithPriceSize = new OrderExecutedWithPriceSizeEncoder();
@@ -48,6 +47,11 @@ public class OrderExecutedWithPriceSizeBuilder {
 
     public OrderExecutedWithPriceSizeBuilder orderId(long value){
         this.orderId = value;
+        return this;
+    }
+
+    public OrderExecutedWithPriceSizeBuilder clientOrderId(long value){
+        this.clientOrderId = value;
         return this;
     }
 
@@ -80,6 +84,10 @@ public class OrderExecutedWithPriceSizeBuilder {
         return this;
     }
 
+    public OrderExecutedWithPriceSizeBuilder executedTime(long value){
+        this.executedTime = value;
+        return this;
+    }
 
     public DirectBuffer build(){
         bufferIndex = 0;
@@ -96,11 +104,13 @@ public class OrderExecutedWithPriceSizeBuilder {
         orderExecutedWithPriceSize.messageType(messageType)
                 .nanosecond(nanosecond)
                 .orderId(orderId)
+                .clientOrderId(clientOrderId)
                 .executedQuantity(executedQuantity)
                 .displayQuantity(displayQuantity)
                 .tradeId(tradeId)
                 .printable(printable)
-                .instrumentId(instrumentId);
+                .instrumentId(instrumentId)
+                .executedTime(executedTime);
 
         orderExecutedWithPriceSize.price().mantissa(price);
 

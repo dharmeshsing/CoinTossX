@@ -22,9 +22,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dharmeshsing on 6/05/16.
- */
 public class HawkesSimulation extends WebPage {
 
     private ClientDataProvider clientDataProvider;

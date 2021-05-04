@@ -4,14 +4,15 @@ import orderBook.Stock;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.nio.file.Paths;
+
 import static org.junit.Assert.*;
 
 public class StockDAOTest {
 
     @Before
     public void setup(){
-
-        StockDAO.loadStocks("/home/ivanjericevich/CoinTossX/data");
+        StockDAO.loadStocks(Paths.get("").toAbsolutePath().getParent() + "/data");
     }
 
     @Test

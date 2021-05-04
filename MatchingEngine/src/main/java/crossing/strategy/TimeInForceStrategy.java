@@ -14,9 +14,6 @@ import org.joda.time.Instant;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * Created by dharmeshsing on 29/07/15.
- */
 public class TimeInForceStrategy {
 
     public static boolean removeOrder(int quantity,byte timeInForce){

@@ -11,6 +11,8 @@ import sbe.msg.OrdTypeEnum;
 import sbe.msg.SideEnum;
 import uk.co.real_logic.agrona.DirectBuffer;
 
+import java.nio.file.Paths;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -25,7 +27,7 @@ public class ClientTest {
     @Before
     public void setup() throws Exception {
         isGatewayUp = true;
-        IntObjectMap<ClientData> clientData = ClientData.loadClientDataData("/Users/dharmeshsing/Documents/Masters/Software/data");
+        IntObjectMap<ClientData> clientData = ClientData.loadClientDataData(Paths.get("").toAbsolutePath().getParent() + "/data");
         client = new Client(clientData.get(1),null,1);
 
         //client.initMulticastMarketDataGatewaySub();

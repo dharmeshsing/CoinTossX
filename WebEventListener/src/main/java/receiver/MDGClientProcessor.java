@@ -15,12 +15,10 @@ import uk.co.real_logic.agrona.DirectBuffer;
 import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 import vo.OrderVO;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.Properties;
 
-/**
- * Created by dharmeshsing on 29/12/16.
- */
 public class MDGClientProcessor implements FragmentHandler,Runnable {
 
     private MessageHeaderDecoder messageHeaderDecoder = new MessageHeaderDecoder();
@@ -99,14 +97,14 @@ public class MDGClientProcessor implements FragmentHandler,Runnable {
     private void readTrade() throws Exception {
         orderExecutedReader.readBuffer(temp);
 
-        tradeVODisruptor.addTradeVO(orderExecutedReader.getInstrumentId(),orderExecutedReader.getTradeId(),
-                (int)orderExecutedReader.getPrice(),orderExecutedReader.getExecutedQuantity());
+        tradeVODisruptor.addTradeVO(orderExecutedReader.getInstrumentId(),orderExecutedReader.getTradeId(),orderExecutedReader.getClientOrderId(),
+                (int)orderExecutedReader.getPrice(),orderExecutedReader.getExecutedQuantity(),orderExecutedReader.getExecutedTime());
     }
 
     private void readOrderView() throws Exception {
         orderViewReader.read(temp);
 
-        orderVODisruptor.addOrderVO(orderViewReader.getSecurityId(),orderViewReader.getOrderId(),
+        orderVODisruptor.addOrderVO(orderViewReader.getSecurityId(),orderViewReader.getOrderId(),orderViewReader.getClientOrderId(),
                 orderViewReader.getSide(),orderViewReader.getSubmittedTime(),
                 orderViewReader.getOrderQuantity(),orderViewReader.getPrice());
     }
@@ -145,7 +143,11 @@ public class MDGClientProcessor implements FragmentHandler,Runnable {
 
     public void readLOB(LOBReader lobReader) {
         while (lobReader.hasNext()) {
-            lobReader.next(lobFlyweight);
+            try {
+                lobReader.next(lobFlyweight);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             short side = lobFlyweight.getSide().value();
 
             orderFlyweight.setOrderId(lobFlyweight.getOrderId());

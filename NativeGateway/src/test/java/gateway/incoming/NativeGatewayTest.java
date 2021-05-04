@@ -21,7 +21,7 @@ public class NativeGatewayTest {
     @Before
     public void setup() {
         MediaDriver.Context mdctx = new MediaDriver.Context();
-        mdctx = (MediaDriver.Context)mdctx.aeronDirectoryName("/tmp/aeronTest");
+        mdctx = (MediaDriver.Context)mdctx.aeronDirectoryName("/dev/shm/aeron");
         driver = MediaDriver.launch(mdctx);
 
         tradingGateway = new NativeGateway();

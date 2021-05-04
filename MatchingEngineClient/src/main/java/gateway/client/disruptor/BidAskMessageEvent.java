@@ -2,9 +2,6 @@ package gateway.client.disruptor;
 
 import com.lmax.disruptor.EventFactory;
 
-/**
- * Created by dharmeshsing on 19/12/16.
- */
 public class BidAskMessageEvent {
     private long bid;
     private long offer;

@@ -6,9 +6,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 12/08/15.
- */
 public class AddOrderBuilder {
     private int bufferIndex;
     private AddOrderEncoder addOrder;

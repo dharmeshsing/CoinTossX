@@ -11,9 +11,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Reader;
 
-/**
- * Created by dharmeshsing on 29/04/16.
- */
 public class ClientDAO {
     private static final String[] FILE_HEADER = {"CompID","Password","NGInputURL","NGInputStreamId","NGOutputURL",
                                                    "NGOutputStreamId","MDGInputURL","MDGInputStreamId",

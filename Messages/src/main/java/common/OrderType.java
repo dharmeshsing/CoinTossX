@@ -1,8 +1,5 @@
 package common;
 
-/**
- * Created by dharmeshsing on 15/04/04.
- */
 public enum OrderType {
     MARKET((byte)1),
     LIMIT((byte)2),

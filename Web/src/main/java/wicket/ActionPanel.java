@@ -6,9 +6,6 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import vo.ClientVO;
 
-/**
- * Created by dharmeshsing on 1/05/16.
- */
 public class ActionPanel extends Panel
 {
     public ActionPanel(String id, final IModel model, final Item item)

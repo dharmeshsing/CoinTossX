@@ -8,6 +8,7 @@ import gateway.client.disruptor.BidAskDisruptor;
 import gateway.client.disruptor.BidAskHandler;
 import sbe.msg.MessageHeaderDecoder;
 import sbe.reader.AdminReader;
+import sbe.reader.LOBReader;
 import sbe.reader.VWAPReader;
 import sbe.reader.marketData.BestBidAskReader;
 import sbe.reader.marketData.SymbolStatusReader;
@@ -19,9 +20,6 @@ import uk.co.real_logic.agrona.concurrent.UnsafeBuffer;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by dharmeshsing on 2015/01/18.
- */
 public class GatewayClientImpl implements GatewayClient,FragmentHandler {
 
     private MessageHeaderDecoder messageHeaderDecoder = new MessageHeaderDecoder();
@@ -37,6 +35,7 @@ public class GatewayClientImpl implements GatewayClient,FragmentHandler {
     private AdminReader adminReader = new AdminReader();
     private SymbolStatusReader symbolStatusReader = new SymbolStatusReader();
     private VWAPReader vwapReader = new VWAPReader();
+    private LOBReader lobReader = new LOBReader();
 
     private BidAskDisruptor bidAskDisruptor;
     private BidAskHandler bidAskHandler;
@@ -95,6 +94,7 @@ public class GatewayClientImpl implements GatewayClient,FragmentHandler {
                 case 27: readSymbolStatus();break;
                 case 95: readVWAP();break;
                 case 91: readAdminMessage(); break;
+                case 94: readLOB(); break;
             }
 
         }catch(Exception e){
@@ -119,7 +119,7 @@ public class GatewayClientImpl implements GatewayClient,FragmentHandler {
     private void readSymbolStatus() throws Exception {
         symbolStatusReader.read(temp);
         for (int i = 0; i < listenerSize; i++) {
-            listeners.get(i).symbolStatus(symbolStatusReader.getSecurityId(), symbolStatusReader.getSessionChangedReason(), symbolStatusReader.getTradingSession());
+            listeners.get(i).symbolStatus(symbolStatusReader.getSecurityId(), symbolStatusReader.getSessionChangedReason(), symbolStatusReader.getTradingSession(), symbolStatusReader.getStaticPriceReference(), symbolStatusReader.getDynamicPriceReference());
         }
     }
 
@@ -127,6 +127,13 @@ public class GatewayClientImpl implements GatewayClient,FragmentHandler {
         vwapReader.read(temp);
         for (int i = 0; i < listenerSize; i++) {
             listeners.get(i).readVWAP(vwapReader);
+        }
+    }
+
+    private void readLOB() throws Exception {
+        lobReader.read(temp);
+        for (int i = 0; i < listenerSize; i++) {
+            listeners.get(i).readLOB(lobReader);
         }
     }
 }

@@ -9,9 +9,6 @@ import orderBook.OrderBook;
 
 import java.util.Arrays;
 
-/**
- * Created by dharmeshsing on 8/07/15.
- */
 public class AuctionStrategy {
 
     private ObjectObjectMap<Long, AuctionData> auctionMap;

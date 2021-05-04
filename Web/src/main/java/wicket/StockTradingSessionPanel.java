@@ -11,9 +11,6 @@ import vo.ClientVO;
 import vo.StockVO;
 import wicket.services.Services;
 
-/**
- * Created by dharmeshsing on 1/05/16.
- */
 public class StockTradingSessionPanel extends Panel {
     @SpringBean
     private Services services;

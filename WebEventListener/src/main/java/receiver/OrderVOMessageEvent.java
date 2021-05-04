@@ -3,9 +3,6 @@ package receiver;
 import com.lmax.disruptor.EventFactory;
 import sbe.msg.SideEnum;
 
-/**
- * Created by dharmeshsing on 19/12/16.
- */
 public class OrderVOMessageEvent {
     private int securityId;
     private long orderId;
@@ -13,6 +10,7 @@ public class OrderVOMessageEvent {
     private long price;
     private long volume;
     private SideEnum side;
+    private String clientOrderId;
 
     private final static EventFactory<OrderVOMessageEvent> EVENT_FACTORY = () -> new OrderVOMessageEvent();
 
@@ -35,6 +33,12 @@ public class OrderVOMessageEvent {
     public void setOrderId(long orderId) {
         this.orderId = orderId;
     }
+
+    public String getClientOrderId() {
+        return clientOrderId;
+    }
+
+    public void setClientOrderId(String clientOrderId) { this.clientOrderId = clientOrderId; }
 
     public long getSubmittedTime() {
         return submittedTime;

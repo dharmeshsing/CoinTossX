@@ -9,8 +9,10 @@ import sbe.builder.NewOrderBuilder;
 import sbe.msg.*;
 import uk.co.real_logic.agrona.DirectBuffer;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 /**
@@ -21,7 +23,8 @@ public class CrossingProcessorPerfTest {
     public NewOrderBuilder newOrderBuilder = new NewOrderBuilder();
 
     public  void loadProperties(String propertiesFile) throws IOException {
-        try(InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFile)) {
+        //try(InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFile)) {
+        try(InputStream inputStream = new FileInputStream(Paths.get("").toAbsolutePath().getParent() + "/MatchingEngine/build/install/MatchingEngine/resources/" + propertiesFile)) {
 
             if (inputStream != null) {
                 properties = new Properties();
@@ -34,7 +37,7 @@ public class CrossingProcessorPerfTest {
 
     public DirectBuffer createNewOrder(){
         return newOrderBuilder.compID(1)
-                .clientOrderId("12345678912345678901".getBytes())
+                .clientOrderId("1                   ".getBytes())
                 .account("account123".getBytes())
                 .capacity(CapacityEnum.Agency)
                 .cancelOnDisconnect(CancelOnDisconnectEnum.DoNotCancel)

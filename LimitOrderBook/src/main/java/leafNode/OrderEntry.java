@@ -5,14 +5,13 @@ import sbe.msg.OrderStatusEnum;
 import sun.misc.Unsafe;
 import unsafe.UnsafeUtil;
 
-/**
- * Created by dharmeshsing on 15/03/09.
- */
 public class OrderEntry {
     private static final Unsafe unsafe = UnsafeUtil.getUnsafe();
     private static int offset = 0;
 
     private static long orderIdOffset = offset += 0;
+    private static long clientOrderIdOffset = offset += Long.BYTES;
+    private static long origClientOrderIdOffset = offset += Long.BYTES;
     private static long typeOffset = offset += Long.BYTES;
     private static long sideOffSet = offset += Byte.BYTES;
     private static long timeInForceOffSet = offset += Byte.BYTES;
@@ -52,6 +51,16 @@ public class OrderEntry {
     public void setOrderId(long orderId) {
         unsafe.putLong(objectOffset + orderIdOffset, orderId);
     }
+
+    public long getClientOrderId() { return unsafe.getLong(objectOffset + clientOrderIdOffset); }
+
+    public void setClientOrderId(long clientOrderId) { unsafe.putLong(objectOffset + clientOrderIdOffset, clientOrderId); }
+
+    public long getOrigClientOrderId() {
+        return unsafe.getLong(objectOffset + origClientOrderIdOffset);
+    }
+
+    public void setOrigClientOrderId(long origClientOrderId) { unsafe.putLong(objectOffset + origClientOrderIdOffset, origClientOrderId); }
 
     public byte getType() {
         return unsafe.getByte(objectOffset + typeOffset);
@@ -183,6 +192,8 @@ public class OrderEntry {
     public void clear(){
         if(objectOffset != 0) {
             setOrderId(0);
+            setClientOrderId(0);
+            setOrigClientOrderId(0);
             setPrice(0);
             setStopPrice(0);
             setQuantity(0);
@@ -200,6 +211,8 @@ public class OrderEntry {
 
     public void set(OrderEntry oe){
         setOrderId(oe.getOrderId());
+        setClientOrderId(oe.getClientOrderId());
+        setOrigClientOrderId(oe.getOrigClientOrderId());
         setPrice(oe.getPrice());
         setStopPrice(oe.getStopPrice());
         setQuantity(oe.getQuantity());
@@ -223,6 +236,8 @@ public class OrderEntry {
         if(objectOffset != 0) {
             return "OrderEntry{" +
                     "OrderId=" + getOrderId() + "," +
+                    "ClientOrderId=" + getClientOrderId() + "," +
+                    "OrigClientOrderId=" + getOrigClientOrderId() + "," +
                     "Price=" + getPrice() + "," +
                     "StopPrice=" + getStopPrice() + "," +
                     "Quantity=" + getQuantity() + "," +
@@ -251,6 +266,8 @@ public class OrderEntry {
         OrderEntry that = (OrderEntry) o;
 
         if (getOrderId() != that.getOrderId()) return false;
+        if (getClientOrderId() != that.getClientOrderId()) return false;
+        if (getOrigClientOrderId() != that.getOrigClientOrderId()) return false;
         if (Long.compare(that.getPrice(), getPrice()) != 0) return false;
         if (getQuantity() != that.getQuantity()) return false;
         if (getMinExecutionSize() != that.getMinExecutionSize()) return false;
