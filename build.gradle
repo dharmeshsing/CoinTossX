@@ -12,15 +12,20 @@ def environment = hasProperty('env') ? env : 'local'
 if(environment == 'local'){
     apply from: 'deploy_local.gradle'
     ext.envProp = 'local.properties'
-    ext.softwarePath = '/home/ivanjericevich/run'
 } else if(environment == 'windows'){
     apply from: 'deploy_local.gradle'
     ext.envProp = 'windows.properties'
-    ext.softwarePath = '/home/ivanjericevich/run'
 } else if(environment == 'remote') {
     apply from: 'deploy_remote.gradle'
     ext.envProp = 'remote.properties'
-    ext.softwarePath = '/home/ivanjericevich/run'
+}
+
+loadConfiguration()
+
+def loadConfiguration() {
+    def props = new Properties()
+    file(ext.envProp).withInputStream { props.load(it) }
+    ext.softwarePath = props.getProperty("SOFTWARE_PATH")
 }
 
 allprojects {
