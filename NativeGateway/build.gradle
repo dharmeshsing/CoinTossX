@@ -1,26 +1,26 @@
 plugins {
-    id 'me.champeau.gradle.jmh' version '0.2.0'
+    id 'me.champeau.gradle.jmh' version '0.5.3'
 }
 
 apply plugin: 'me.champeau.gradle.jmh'
 apply from: rootProject.projectDir.absolutePath + '/install.gradle'
 mainClassName = 'gateway.incoming.NativeGateway'
 
-applicationDefaultJvmArgs = ["-Xmx1G",
-                             "-Xms1G",
-                             "-d64",
-                             "-server",
+applicationDefaultJvmArgs = ["-Xmx512m",
+                             "-Xms512m",
                              "-XX:+UseStringDeduplication",
                              "-Dagrona.disable.bounds.checks=true",
                              "-XX:+UnlockDiagnosticVMOptions",
                              "-XX:GuaranteedSafepointInterval=300000",
                              "-XX:+UseG1GC",
-                             "-XX:+UseLargePages",
                              "-XX:+OptimizeStringConcat",
                              "-XX:+UseCondCardMark"]
 
 dependencies {
-    compile 'org.apache.commons:commons-lang3:3.0',
+    implementation 'org.apache.commons:commons-lang3:3.0',
+            'com.carrotsearch:hppc:0.7.1',
+            'uk.co.real-logic:Agrona:0.4.12',
+            'uk.co.real-logic:aeron-driver:0.9.4',
             'commons-configuration:commons-configuration:1.7',
             'org.apache.commons:commons-csv:1.1',
             'org.hdrhistogram:HdrHistogram:2.1.6',
@@ -37,7 +37,7 @@ jmh {
     verbosity = 'EXTRA'
     timeUnit = 's'
     resultFormat = 'TEXT'
-    benchmarkMode = 'thrpt,avgt'
+    benchmarkMode = ['thrpt', 'avgt']
     failOnError = true
     includeTests = true
     profilers = ['STACK']

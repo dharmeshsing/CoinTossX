@@ -11,22 +11,25 @@ repositories {
 }
 
 dependencies {
-    compile project(':MatchingEngineClient')
-    compile group: 'org.mapdb', name: 'mapdb', version: '3.0.8'
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile group: 'com.lmax', name: 'disruptor', version: '3.3.6'
+    implementation project(':MatchingEngineClient')
+    implementation project(':Common')
+    implementation project(':Socket')
+    implementation project(':Messages')
+    implementation 'uk.co.real-logic:aeron-driver:0.9.4'
+    implementation 'uk.co.real-logic:Agrona:0.4.12'
+    implementation 'org.apache.commons:commons-lang3:3.0'
+    implementation group: 'org.mapdb', name: 'mapdb', version: '3.0.8'
+    testImplementation group: 'junit', name: 'junit', version: '4.11'
+    implementation group: 'com.lmax', name: 'disruptor', version: '3.3.6'
 }
 
-applicationDefaultJvmArgs = ["-Xmx1G",
-                             "-Xms1G",
-                             "-d64",
-                             "-server",
+applicationDefaultJvmArgs = ["-Xmx512m",
+                             "-Xms512m",
                              "-XX:+UseStringDeduplication",
                              "-Dagrona.disable.bounds.checks=true",
                              "-XX:+UnlockDiagnosticVMOptions",
                              "-XX:GuaranteedSafepointInterval=300000",
                              "-XX:+UseG1GC",
-                             "-XX:+UseLargePages",
                              "-XX:+OptimizeStringConcat",
                              "-XX:+UseCondCardMark"]
 
@@ -34,7 +37,7 @@ task webEventListener(type: CreateStartScripts) {
     mainClassName = "receiver.WebEventListener"
     applicationName = "WebEventListener"
     outputDir = new File(project.buildDir, 'scripts')
-    classpath = jar.outputs.files + project.configurations.runtime +
+    classpath = jar.outputs.files + project.configurations.runtimeClasspath +
             files('build/install/' + project.name + '/resources')
     doLast {
         def windowsScriptFile = file getWindowsScript()
@@ -46,6 +49,7 @@ task webEventListener(type: CreateStartScripts) {
 }
 
 applicationDistribution.into("bin") {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from(webEventListener)
     fileMode = 0755
 }

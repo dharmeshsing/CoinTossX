@@ -1,5 +1,5 @@
 plugins {
-    id 'me.champeau.gradle.jmh' version '0.2.0'
+    id 'me.champeau.gradle.jmh' version '0.5.3'
     id 'java'
     id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
@@ -11,35 +11,32 @@ apply plugin: 'com.github.johnrengelman.shadow'
 
 mainClassName = 'engine.MatchingEngine'
 
-applicationDefaultJvmArgs = ["-Xmx1G",
-                             "-Xms1G",
-                             "-d64",
-                             "-server",
+applicationDefaultJvmArgs = ["-Xmx512m",
+                             "-Xms512m",
                              "-XX:+UseStringDeduplication",
                              "-Dagrona.disable.bounds.checks=true",
                              "-XX:+UnlockDiagnosticVMOptions",
                              "-XX:GuaranteedSafepointInterval=300000",
                              "-XX:+UseG1GC",
-                             "-XX:+UseLargePages",
                              "-XX:+OptimizeStringConcat",
                              "-XX:+UseCondCardMark"]
 
 dependencies {
-    compile 'com.carrotsearch:hppc:0.7.1',
+    implementation 'com.carrotsearch:hppc:0.7.1',
+            'uk.co.real-logic:Agrona:0.4.12',
+            'uk.co.real-logic:aeron-driver:0.9.4',
             project(':Socket'),
             project(':LimitOrderBook'),
+            project(':Messages'),
             files('lib/ObjectLayout-1.0.5-SNAPSHOT.jar'),
             'joda-time:joda-time:2.3',
             'org.hdrhistogram:HdrHistogram:2.1.6'
 
-    testCompile 'pl.pragmatists:JUnitParams:1.0.4',
+    testImplementation 'pl.pragmatists:JUnitParams:1.0.4',
                 'com.itextpdf:itextpdf:5.0.6',
                  project(':LimitOrderBook'),
                 'org.apache.commons:commons-lang3:3.0',
                 'commons-io:commons-io:2.4'
-
-
-
 
     jmh 'commons-io:commons-io:2.4'
 }
@@ -54,7 +51,7 @@ jmh {
     verbosity = 'EXTRA'
     timeUnit = 's'
     resultFormat = 'TEXT'
-    benchmarkMode = 'thrpt,avgt'
+    benchmarkMode = ['thrpt', 'avgt']
     failOnError = true
     includeTests = true
     //profilers = ['STACK']

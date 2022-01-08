@@ -1,8 +1,11 @@
 dependencies {
-    compile project(':Socket'),
-            project(':Common')
-
-    compile 'org.apache.commons:commons-lang3:3.0'
-    compile group: 'com.lmax', name: 'disruptor', version: '3.3.6'
+    implementation project(':Socket'),
+            project(':Common'),
+            project(':Messages')
+    implementation 'com.carrotsearch:hppc:0.7.1'
+    implementation 'uk.co.real-logic:Agrona:0.4.12'
+    implementation 'uk.co.real-logic:aeron-driver:0.9.4'
+    implementation 'org.apache.commons:commons-lang3:3.0'
+    implementation group: 'com.lmax', name: 'disruptor', version: '3.3.6'
 
 }

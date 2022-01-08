@@ -1,4 +1,4 @@
-rootProject.name = 'JSEMatchingEngine'
+rootProject.name = 'MatchingEngine'
 
 include 'NativeGateway'
 

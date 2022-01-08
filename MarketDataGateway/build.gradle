@@ -1,22 +1,22 @@
 apply from: rootProject.projectDir.absolutePath + '/install.gradle'
 mainClassName = 'gateway.marketdata.NativeMarketDataGateway'
 
-applicationDefaultJvmArgs = ["-Xmx1G",
-                             "-Xms1G",
-                             "-d64",
-                             "-server",
+applicationDefaultJvmArgs = ["-Xmx512m",
+                             "-Xms512m",
                              "-XX:+UseStringDeduplication",
                              "-Dagrona.disable.bounds.checks=true",
                              "-XX:+UnlockDiagnosticVMOptions",
                              "-XX:GuaranteedSafepointInterval=300000",
                              "-XX:+UseG1GC",
-                             "-XX:+UseLargePages",
                              "-XX:+OptimizeStringConcat",
                              "-XX:+UseCondCardMark"]
 
 dependencies {
-    compile project(':Messages'),
+    implementation 'com.carrotsearch:hppc:0.7.1'
+    implementation 'uk.co.real-logic:aeron-driver:0.9.4'
+    implementation 'uk.co.real-logic:Agrona:0.4.12'
+    implementation project(':Messages'),
             project(':Socket'),
             'org.apache.commons:commons-csv:1.1'
-    testCompile 'commons-io:commons-io:2.4'
+    testImplementation 'commons-io:commons-io:2.4'
 }
