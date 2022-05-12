@@ -153,7 +153,15 @@ public class Client {
         System.out.println("Logged out.");
     }
 
-    public void waitForMarketDataUpdate() { while(!mktDataUpdateSemaphore.acquire()){} }
+    public void waitForMarketDataUpdate() {
+        long startTime = System.currentTimeMillis();
+        while(!mktDataUpdateSemaphore.acquire()){
+            if(System.currentTimeMillis() - startTime > 100_000){
+                System.out.println("Market Data Time out");
+                break;
+            }
+        }
+    }
 
     public void submitOrder(String clientOrderId, long volume, long price, String side, String orderType, String timeInForce, long displayQuantity, long minQuantity, long stopPrice) {
         mktDataUpdateSemaphore.acquire();
